@@ -93,4 +93,3 @@ class Produk extends Model {
     }
 
 }
-?>

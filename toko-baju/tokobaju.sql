@@ -1,11 +1,5 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
-
 CREATE TABLE IF NOT EXISTS `agen` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode` varchar(50) NOT NULL,
@@ -43,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `produk` (
   `harga_jual` decimal(12,4) NOT NULL,
   `keterangan` tinytext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `record_stok` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `record_stok` (
   `stok_akhir` int(11) NOT NULL,
   `jenis` enum('konsumen','agen','tambah','retur_agen','retur_konsumen','retur_pabrik','reject_agen','reject_konsumen','reject_pabrik','kehilangan') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `setting` (
   `item` varchar(255) NOT NULL,
@@ -69,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_agen` (
   `harga` decimal(12,4) NOT NULL,
   `keuntungan` decimal(12,4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `transaksi_kehilangan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -89,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_konsumen` (
   `harga` decimal(12,4) NOT NULL,
   `keuntungan` decimal(12,4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `transaksi_reject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -98,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_reject` (
   `jumlah` int(11) NOT NULL,
   `harga` decimal(12,4) NOT NULL,
   `agen` int(11) NOT NULL,
+  `refund` decimal(12,4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen' AUTO_INCREMENT=1 ;
 
@@ -108,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `transaksi_retur` (
   `jumlah` int(11) NOT NULL,
   `harga` decimal(12,4) NOT NULL,
   `agen` int(11) NOT NULL,
+  `refund` decimal(12,4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen' AUTO_INCREMENT=1 ;
 

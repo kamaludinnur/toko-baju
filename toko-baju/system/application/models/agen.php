@@ -45,4 +45,3 @@ class Agen extends Model {
         return $this->db->update('agen', $data);
     }
 }
-?>

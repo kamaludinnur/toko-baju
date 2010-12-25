@@ -26,4 +26,3 @@ class Transaksi_konsumen extends Model{
     }
 
 }
-?>
