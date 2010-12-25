@@ -24,7 +24,7 @@
 - Nggak bisa dihapus, cuma bisa diedit
 - Insert tabel: warna
 
-Produk + Stok
+√ Produk + Stok
 
 - User milih (urutan):
   1. Merek
@@ -36,7 +36,7 @@ Produk + Stok
 - Back end: masuk ke penambahan produk dan juga nanti masuk ke record stok.
 - Insert tabel: produk + record_stok
 
-Tambah stok (produk yang sama)
+√ Tambah stok (produk yang sama)
 
 - User melihat *daftar produk*
 - Ada tombol "tambah stok"
@@ -57,7 +57,7 @@ Record stok
 - merekam retur ke pabrik
 - merekam reject ke pabrik
 
-Agen
+√ Agen
 ---------------
 1. User bisa membuat agen
 2. User bisa mengedit Agen
