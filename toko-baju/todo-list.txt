@@ -1,0 +1,148 @@
+√ Merek
+
+- User memasukkan merek dan keterangan + keterangan
+- Nggak bisa dihapus, cuma bisa diedit
+- Insert tabel: merek
+
+√ Model
+
+- User milih merek dan masukin nama model + keterangan
+- Nggak bisa dihapus, cuma bisa diedit
+- Insert tabel: model
+
+√ Ukuran
+
+- Udah ada yang predefined : SS, S, M, L, XL, XXL, XXXL, XXXXL, XXXXXL, All Size
+- Tambah baru: masukin nama ukuran + keterangan
+- Nggak bisa dihapus, cuma bisa diedit
+- Insert tabel: ukuran
+
+√ Warna
+
+- Udah ada yang predefined : merah, biru, hitam, putih
+- Tambah baru: masukin nama warna + keterangan
+- Nggak bisa dihapus, cuma bisa diedit
+- Insert tabel: warna
+
+Produk + Stok
+
+- User milih (urutan):
+  1. Merek
+  2. Model
+  3. Warna
+  4. Ukuran
+- Masukin stok, harga beli, harga jual, keterangan
+- Nggak bisa dihapus kalo produknya ada di transaksi
+- Back end: masuk ke penambahan produk dan juga nanti masuk ke record stok.
+- Insert tabel: produk + record_stok
+
+Tambah stok (produk yang sama)
+
+- User melihat *daftar produk*
+- Ada tombol "tambah stok"
+
+
+---
+
+Record stok
+
+- merekam semua penambahan stok
+- merekam transaksi konsumen
+- merekam transaksi agen
+- merekam transaksi retur konsumen
+- merekam transaksi retur agen
+- merekam transaksi reject konsumen
+- merekam transaksi reject age
+- merekam kehilangan
+- merekam retur ke pabrik
+- merekam reject ke pabrik
+
+Agen
+---------------
+1. User bisa membuat agen
+2. User bisa mengedit Agen
+setiap agen punya diskon masing-masing
+diskonnya tetap namun bisa diubah nantinya
+
+
+Transaksi
+------------------
+
+Transaksi konsumen
+
+1. User Piilh merek
+2. Model
+3. Warna
+4. Ukuran
+5. Jumlah
+
+- Kalo yang dia pilih ga konsisten, misal jumlah stok kurang ntar muncul error.
+
+Transaksi Agen
+
+1. User pilih agen
+2. Selanjutnya seperti transaksi konsumen
+
+Transaksi retur konsumen
+1. User Piilh merek
+2. Model
+3. Warna
+4. Ukuran
+5. Jumlah
+6. Harga
+
+Transaksi retur agen
+0. user pilih agen
+1. User Piilh merek
+2. Model
+3. Warna
+4. Ukuran
+5. Jumlah
+6. Harga
+
+Transaksi reject konsumen
+1. User Piilh merek
+2. Model
+3. Warna
+4. Ukuran
+5. Jumlah
+6. Harga
+
+Transaksi reject agen
+0. user pilih agen
+1. User Piilh merek
+2. Model
+3. Warna
+4. Ukuran
+5. Jumlah
+6. Harga
+
+
+Rekap
+----------------------
+
+Rekap transaksi *
+
+Rekap untuk agen
+
+- Dari tabel transaksi_agen
+
+Rekap untuk konsumen
+
+- Dari tabel transaksi_konsumen
+
+Rekap per produk
+
+- Filter: merek, model, ukuran, warna
+- Pilih rentang tanggalnya
+- Dari tabel record_stok
+
+Ekspor XLS
+
+Graphik
+
+
+ETC
+------------------
+
+Tabel user
