@@ -19,7 +19,9 @@ class Welcome extends Controller {
 //            echo $this->trans_agen->tambah_transaksi(2,5,1);
 //            echo $this->trans_agen->tambah_transaksi(3,5,1);
             $this->load->model('Reject_model', 'reject');
-            echo $this->reject->reject_konsumen(11,1,160000);
+            echo $this->reject->reject_agen(3,2,18200,1);
+//            $this->load->model('Kehilangan_model', 'kehilangan');
+//            echo $this->kehilangan->insert_kehilangan(11,2);
 //            $this->load->model('Retur', 'retur');
 //            echo $this->retur->retur_konsumen(2,2,26000);
             /*$this->load->model('Produk', 'produk');

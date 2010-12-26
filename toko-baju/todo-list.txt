@@ -68,7 +68,7 @@ diskonnya tetap namun bisa diubah nantinya
 Transaksi
 ------------------
 
-Transaksi konsumen
+√ Transaksi konsumen
 
 1. User Piilh merek
 2. Model
@@ -78,12 +78,12 @@ Transaksi konsumen
 
 - Kalo yang dia pilih ga konsisten, misal jumlah stok kurang ntar muncul error.
 
-Transaksi Agen
+√ Transaksi Agen
 
 1. User pilih agen
 2. Selanjutnya seperti transaksi konsumen
 
-Transaksi retur konsumen
+√ Transaksi retur konsumen
 1. User Piilh merek
 2. Model
 3. Warna
@@ -91,7 +91,7 @@ Transaksi retur konsumen
 5. Jumlah
 6. Harga
 
-Transaksi retur agen
+√ Transaksi retur agen
 0. user pilih agen
 1. User Piilh merek
 2. Model
@@ -100,7 +100,7 @@ Transaksi retur agen
 5. Jumlah
 6. Harga
 
-Transaksi reject konsumen
+√ Transaksi reject konsumen
 1. User Piilh merek
 2. Model
 3. Warna
@@ -108,7 +108,7 @@ Transaksi reject konsumen
 5. Jumlah
 6. Harga
 
-Transaksi reject agen
+√ Transaksi reject agen
 0. user pilih agen
 1. User Piilh merek
 2. Model
@@ -116,6 +116,8 @@ Transaksi reject agen
 4. Ukuran
 5. Jumlah
 6. Harga
+
+ Transaksi kehilangan
 
 
 Rekap

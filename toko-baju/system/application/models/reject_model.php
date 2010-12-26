@@ -12,7 +12,7 @@ class Reject_model extends Model {
         $x = $this->produk->get_produk_by_id($id_produk);
         #produk,tanggal,jumlah,harga,agen,refund
         $tanggal = date("Y-m-d H:i:s");
-        $refund = $harga;
+        $refund = $harga * $jumlah;
         $data = array(
             "tanggal" => $tanggal,
             "agen" => 0,
@@ -22,9 +22,7 @@ class Reject_model extends Model {
             "refund" => $refund
         );
         $q = $this->db->insert('transaksi_reject',$data);
-        if($q){
-            return $this->produk->tambah_stok_produk($id_produk,$jumlah,$x->harga_beli, "reject_konsumen");
-        }
+        return $q;
     }
 
     function reject_agen($id_produk, $jumlah, $harga, $agen)
@@ -32,7 +30,7 @@ class Reject_model extends Model {
         $x = $this->produk->get_produk_by_id($id_produk);
         #produk,tanggal,jumlah,harga,agen,refund
         $tanggal = date("Y-m-d H:i:s");
-        $refund = $harga;
+        $refund = $harga * $jumlah;
         $data = array(
             "tanggal" => $tanggal,
             "agen" => $agen,
@@ -42,9 +40,7 @@ class Reject_model extends Model {
             "refund" => $refund
         );
         $q = $this->db->insert('transaksi_reject',$data);
-        if($q){
-            return $this->produk->tambah_stok_produk($id_produk,$jumlah,$x->harga_beli, "reject_agen");
-        }
+        return $q;
     }
 
 
