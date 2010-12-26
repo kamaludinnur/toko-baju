@@ -9,33 +9,39 @@ class Welcome extends Controller {
 	
 	function index()
 	{
-            $this->load->model('Transaksi_konsumen', 'trans_konsumen');
-            echo $this->trans_konsumen->tambah_transaksi(146,2);
+            #$this->load->model('Transaksi_konsumen', 'trans_konsumen');
+            #echo $this->trans_konsumen->tambah_transaksi(1,2);
+            #echo $this->trans_konsumen->tambah_transaksi(2,2);
+            #echo $this->trans_konsumen->tambah_transaksi(3,1);
+            #echo $this->trans_konsumen->tambah_transaksi(11,2);
+            $this->load->model('Retur', 'retur');
+            echo $this->retur->retur_konsumen(2,2,26000);
             /*$this->load->model('Produk', 'produk');
-            $data = array("model"=>35,
+            $data = array("model"=>2,
                     "ukuran"=>2,
-                    "warna"=>1,
+                    "warna"=>4,
                     "stok"=>20,
-                    "harga_beli"=>12000,
-                    "harga_jual"=>26000
+                    "harga_beli"=>63000,
+                    "harga_jual"=>160000
                     );
             $s=array("stok"=>10,"harga_beli"=>8000);
-            $this->produk->tambah_stok_produk(146, 20, 10000); /*
-            $this->load->model('Agen', 'agen');
-            $data = array("kode"=>"X0097",
+            echo $this->produk->insert_produk($data);*/
+            /*$this->load->model('Agen', 'agen');
+            $data = array("kode"=>"X007",
                     "nama"=>"Arief",
                     "hp"=>"0856890004",
                     "alamat"=>"Kp geledug RT sekian RW sekian",
-                    "diskon"=>0.3,
+                    "diskon"=>30,
                     "keterangan"=>"Ini sangat rajin belanja"
                     );
-            echo $this->agen->update_agen(1,$data);
+            echo $this->agen->update_agen(1,$data);*/
+
 
             //echo $this->produk->get_produk(35,2,1)->nama;
 
 //		$this->load->view('welcome_message');
-             *
-             */
+             
+             
 	}
         
 }

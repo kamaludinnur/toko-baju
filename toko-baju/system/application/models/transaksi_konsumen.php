@@ -6,7 +6,8 @@ class Transaksi_konsumen extends Model{
         $this->load->model('Produk', 'produk');
     }
 
-    function tambah_transaksi($id_produk, $jumlah){
+    function tambah_transaksi($id_produk, $jumlah)
+    {
         $x = $this->produk->get_produk_by_id($id_produk);
         //tanggal,produk,jumlah,harga,keuntungan
         $tanggal = date("Y-m-d H:i:s");
