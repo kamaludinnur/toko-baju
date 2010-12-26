@@ -1,9 +1,9 @@
 <?php
-class Transaksi_konsumen extends Model{
+class Transaksi_konsumen_model extends Model{
 
-    function Transaksi_konsumen(){
+    function Transaksi_konsumen_model(){
         parent::Model();
-        $this->load->model('Produk', 'produk');
+        $this->load->model('Produk_model', 'produk');
     }
 
     function tambah_transaksi($id_produk, $jumlah)

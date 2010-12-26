@@ -1,8 +1,8 @@
 <?php
 
-class Merek extends Model {
+class Merek_model extends Model {
 
-    function Merek() {
+    function Merek_model() {
         parent::Model();
     }
 

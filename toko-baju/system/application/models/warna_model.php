@@ -1,8 +1,9 @@
 <?php
 
-class Warna extends Model {
+class Warna_model extends Model {
 
-    function Warna() {
+    function Warna_model()
+    {
         parent::Model();
     }
 

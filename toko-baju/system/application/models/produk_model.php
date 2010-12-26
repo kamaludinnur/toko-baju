@@ -1,7 +1,8 @@
 <?php
-class Produk extends Model {
+class Produk_model extends Model {
 
-    function Produk(){
+    function Produk_model()
+    {
         parent::Model();
     }
 

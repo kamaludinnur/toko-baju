@@ -1,8 +1,8 @@
 <?php
 
-class Model_baju extends Model {
+class Model_baju_model extends Model {
 
-    function Model_baju()
+    function Model_baju_model()
     {
         parent::Model();
     }

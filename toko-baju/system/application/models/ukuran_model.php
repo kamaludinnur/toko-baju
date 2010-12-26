@@ -1,8 +1,9 @@
 <?php
 
-class Ukuran extends Model {
+class Ukuran_model extends Model {
 
-    function Ukuran() {
+    function Ukuran_model()
+    {
         parent::Model();
     }
 

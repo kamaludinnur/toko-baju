@@ -1,8 +1,11 @@
 <?php
-class Agen extends Model {
-    function Agen(){
+class Agen_model extends Model {
+
+    function Agen_model()
+    {
         parent::Model();
     }
+
     function get_semua_agen($order = 'nama')
     {
         $data = array();

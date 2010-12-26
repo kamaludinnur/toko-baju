@@ -1,12 +1,12 @@
 <?php
 
-class Transaksi_agen extends Model {
+class Transaksi_agen_model extends Model {
 
-    function Transaksi_agen()
+    function Transaksi_agen_model()
     {
         parent::Model();
-        $this->load->model('Produk', 'produk');
-        $this->load->model('Agen', 'agen');
+        $this->load->model('Produk_model', 'produk');
+        $this->load->model('Agen_model', 'agen');
     }
 
     function tambah_transaksi($id_produk, $jumlah, $id_agen)
