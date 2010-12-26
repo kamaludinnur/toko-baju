@@ -14,8 +14,14 @@ class Welcome extends Controller {
             #echo $this->trans_konsumen->tambah_transaksi(2,2);
             #echo $this->trans_konsumen->tambah_transaksi(3,1);
             #echo $this->trans_konsumen->tambah_transaksi(11,2);
-            $this->load->model('Retur', 'retur');
-            echo $this->retur->retur_konsumen(2,2,26000);
+            //$this->load->model('Transaksi_agen', 'trans_agen');
+//            echo $this->trans_agen->tambah_transaksi(1,5,1);
+//            echo $this->trans_agen->tambah_transaksi(2,5,1);
+//            echo $this->trans_agen->tambah_transaksi(3,5,1);
+            $this->load->model('Reject_model', 'reject');
+            echo $this->reject->reject_konsumen(11,1,160000);
+//            $this->load->model('Retur', 'retur');
+//            echo $this->retur->retur_konsumen(2,2,26000);
             /*$this->load->model('Produk', 'produk');
             $data = array("model"=>2,
                     "ukuran"=>2,
