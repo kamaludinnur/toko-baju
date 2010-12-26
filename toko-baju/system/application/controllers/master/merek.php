@@ -13,12 +13,29 @@ class Merek extends Controller {
         redirect('master/merek/manage');
     }
 
-    function manage()
+    function manage($sort_by = 'id')
     {
         $data = new stdClass();
 
-        $data->daftar_merek = $this->merek->get_semua_merek('id');
+        $data->id_merek_baru = 0;
+
+        echo $this->input->get('search');
+
+        // kalo ada bau-bau submit
+        if($this->input->post('submit'))
+        {
+            $data->id_merek_baru = $this->insert();
+        }
+
+        if($this->input->post('edit_submit'))
+        {
+            $data->id_merek_baru = $this->update();
+        }
+
+        $data->daftar_merek = $this->merek->get_semua_merek($sort_by);
         $data->title = "Manajemen Merek";
+
+        $data->sort_by = $sort_by;
 
         // view yang memuat isi halamannya
         $data->view_konten = "merek";
@@ -38,8 +55,7 @@ class Merek extends Controller {
 
         if ($this->merek->insert_merek($merek))
         {
-            $this->session->set_flashdata('id_merek_baru', $this->db->insert_id());
-            redirect('master/merek/manage');
+            return $this->db->insert_id();
         }
     }
 
@@ -56,9 +72,13 @@ class Merek extends Controller {
 
         if ($this->merek->update_merek($id_merek, $merek))
         {
-            $this->session->set_flashdata('id_merek_baru', $id_merek);
-            redirect('master/merek/manage');
+            return $id_merek;
         }
+    }
+
+    function search($term)
+    {
+        
     }
 
 }

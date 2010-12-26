@@ -4,6 +4,7 @@
         <base href="<?php echo base_url(); ?>"/>
         <title><?php echo $title; ?></title>
         <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.uitablefilter.js"></script>
 
     </head>
 
