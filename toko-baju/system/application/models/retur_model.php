@@ -26,6 +26,12 @@ class Retur_model extends Model {
             return $this->produk->tambah_stok_produk($id_produk,$jumlah,$x->harga_beli, "retur_konsumen");
         }
     }
+
+    function tambah_cookie_retur_konsumen()
+    {
+        
+    }
+
     function retur_agen($id_produk, $jumlah, $harga, $agen)
     {
         $x = $this->produk->get_produk_by_id($id_produk);

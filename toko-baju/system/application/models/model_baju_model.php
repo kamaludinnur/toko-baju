@@ -24,6 +24,23 @@ class Model_baju_model extends Model {
         return $data;
     }
 
+    function get_semua_model_by_merek($merek, $order="nama")
+    {
+        $data = array();
+        $q = $this->db->query("SELECT * FROM model WHERE merek = $merek ORDER BY $order");
+
+        if($q->num_rows() > 0)
+        {
+            foreach ($q->result_array() as $row)
+            {
+                $data[] = $row;
+            }
+        }
+
+        $q->free_result();
+        return $data;
+    }
+
     function get_model($val, $col = 'id')
     {
         $data = "";

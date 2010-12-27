@@ -18,22 +18,22 @@ class Welcome extends Controller {
 //            echo $this->trans_agen->tambah_transaksi(1,5,1);
 //            echo $this->trans_agen->tambah_transaksi(2,5,1);
 //            echo $this->trans_agen->tambah_transaksi(3,5,1);
-            $this->load->model('Reject_model', 'reject');
-            echo $this->reject->reject_agen(3,2,18200,1);
+//            $this->load->model('Reject_model', 'reject');
+//            echo $this->reject->reject_agen(3,2,18200,1);
 //            $this->load->model('Kehilangan_model', 'kehilangan');
 //            echo $this->kehilangan->insert_kehilangan(11,2);
 //            $this->load->model('Retur', 'retur');
 //            echo $this->retur->retur_konsumen(2,2,26000);
-            /*$this->load->model('Produk', 'produk');
-            $data = array("model"=>2,
-                    "ukuran"=>2,
+            $this->load->model('Produk_model', 'produk');
+            $data = array("model"=>3,
+                    "ukuran"=>1,
                     "warna"=>4,
                     "stok"=>20,
-                    "harga_beli"=>63000,
-                    "harga_jual"=>160000
+                    "harga_beli"=>26000,
+                    "harga_jual"=>56000
                     );
-            $s=array("stok"=>10,"harga_beli"=>8000);
-            echo $this->produk->insert_produk($data);*/
+            //$s=array("stok"=>10,"harga_beli"=>8000);
+            echo $this->produk->insert_produk($data);
             /*$this->load->model('Agen', 'agen');
             $data = array("kode"=>"X007",
                     "nama"=>"Arief",
