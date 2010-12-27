@@ -6,6 +6,39 @@ class Produk_model extends Model {
         parent::Model();
     }
 
+    function get_semua_produk($order1 = 'model', $order2 = 'warna', $order3 = 'id_ukuran')
+    {
+        $data = array();
+        $q = $this->db->query("SELECT
+                                  produk.id         AS id,
+                                  produk.model      AS id_model,
+                                  model.nama        AS model,
+                                  produk.warna      AS id_warna,
+                                  warna.nama        AS warna,
+                                  produk.ukuran     AS id_ukuran,
+                                  ukuran.nama       AS ukuran,
+                                  produk.stok       AS stok,
+                                  produk.harga_beli AS harga_beli,
+                                  produk.harga_jual AS harga_jual,
+                                  produk.keterangan AS keterangan
+                                FROM produk, model, ukuran, warna
+                                WHERE produk.model  = model.id
+                                  AND produk.ukuran = ukuran.id
+                                  AND produk.warna  = warna.id
+                                ORDER by $order1, $order2, $order3");
+
+        if($q->num_rows() > 0)
+        {
+            foreach ($q->result_array() as $row)
+            {
+                $data[] = $row;
+            }
+        }
+
+        $q->free_result();
+        return $data;
+    }
+
     function get_produk($model, $warna, $ukuran)
     {
         $data = "";

@@ -21,13 +21,13 @@
 
 <br/>
 
-<table class="tabel_merek" id="main_table">
+<table class="rounded-corner" id="main_table">
     <thead>
         <tr>
-            <th width="25">ID</th>
+            <th width="25" class="rounded-company">ID</th>
             <th width="250">Merek</th>
             <th width="350">Keterangan</th>
-            <th width="120">&nbsp;</th>
+            <th width="120" class="rounded-q4">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -58,10 +58,10 @@
         </tr>
         <tr>
             <form action="" id="form" method="post">
-                <td></td>
+                <td class="rounded-foot-left"></td>
                 <td><input type="text" size="30" maxlength="100" style="width: 100%" name="new_nama" id="new_nama"/></td>
                 <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_keterangan" id="new_keterangan"/></td>
-                <td><input type="submit" value="+ Tambahkan" name="submit"/></td>
+                <td class="rounded-foot-right"><input type="submit" value="+ Tambahkan" name="submit"/></td>
             </form>
         </tr>
     </tfoot>
@@ -79,7 +79,7 @@ $(document).ready(function(){
         if(inputNama.val() == "") return false;
        
     });
-    $('.entri_baru').css({backgroundColor : 'yellow'});
+    $('.entri_baru').css({backgroundColor : 'yellow !important'});
 
 })
 
