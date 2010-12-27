@@ -36,10 +36,27 @@ class Produk_model extends Model {
 
     }
 
-    function get_semua_warna_by_model($model, $order = 'id')
+    function get_semua_warna_by_model($model)
     {
         $data = array();
         $q = $this->db->query("SELECT produk.warna as id, warna.nama as nama FROM produk join warna WHERE model = $model And produk.warna = warna.id GROUP BY produk.warna ORDER BY produk.id");
+
+        if($q->num_rows() > 0)
+        {
+            foreach ($q->result_array() as $row)
+            {
+                $data[] = $row;
+            }
+        }
+
+        $q->free_result();
+        return $data;
+    }
+
+    function get_semua_ukuran($model, $warna)
+    {
+        $data = array();
+        $q = $this->db->query("SELECT produk.id as id, ukuran.nama as nama FROM produk join ukuran WHERE produk.model = $model And produk.ukuran = ukuran.id AND produk.warna=$warna  ORDER BY produk.id");
 
         if($q->num_rows() > 0)
         {

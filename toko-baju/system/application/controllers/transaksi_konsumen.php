@@ -31,8 +31,18 @@ class Transaksi_konsumen extends Controller {
         $x = $this->produk->get_semua_warna_by_model($model);
         $data = new stdClass();
         $data->daftar_warna = $x;
-        $data->model = $model;
+        $data->model_baju = $model;
         $this->load->view('ajax_warna', $data);
+    }
+
+    function ukuran($model, $warna)
+    {
+        $x = $this->produk->get_semua_ukuran($model, $warna);
+        $data = new stdClass();
+        $data->daftar_ukuran = $x;
+        $data->model = $model;
+        $data->warna = $warna;
+        $this->load->view('ajax_ukuran', $data);
     }
 
 }

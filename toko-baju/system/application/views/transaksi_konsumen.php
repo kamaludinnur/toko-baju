@@ -13,7 +13,7 @@
     <select name="merek">
         <option>--Merek--</option>
         <?php foreach ($daftar_merek as $merek) {?>
-        <option value="<?php echo $merek['id'] ?>" onclick="load_model(<?php echo $merek['id']?>)"><?php echo $merek['nama']?></option>
+        <option value="<?php echo $merek['id'] ?>" onclick="load_model(<?php echo $merek['id']?>); load_warna(0); load_ukuran(0,0)"><?php echo $merek['nama']?></option>
         <?php }?>
     </select>
     </div>
@@ -32,7 +32,9 @@
             <option>--Ukuran--</option>
         </select>
     </div>
-    <?php echo $this->input->get('id')?>
+    <div class="jumlah">
+        <input type="text" name="jumlah" value="1" />
+    </div>
 </form>
 
 <script type="text/javascript">
@@ -45,5 +47,8 @@ function load_warna(model){
     $('#warna').load('index.php/transaksi_konsumen/warna/' + model);
 }
 
+function load_ukuran(model,warna){
+    $('#ukuran').load('index.php/transaksi_konsumen/ukuran/' + model + '/' + warna);
+}
 
 </script>
