@@ -76,9 +76,31 @@ class Merek extends Controller {
         }
     }
 
-    function search($term)
+    function quick_entry()
     {
-        
+        // called via AJAX
+        if ($this->input->post('new_nama'))
+        {
+            $id_merek_baru = $this->insert();
+
+            echo $id_merek_baru;
+            exit;
+        }
+
+        $this->load->view('master/merek_quick_entry');
+    }
+
+    function refresh_merek()
+    {
+        // me-refresh dropdown merek
+        // via AJAX
+        $daftar_merek = $this->merek->get_semua_merek();
+
+        echo "<option>Pilih merek:</option>\n";
+        foreach ($daftar_merek as $merek)
+        {
+            echo "<option value='{$merek['id']}'>{$merek['nama']}</option>\n";
+        }
     }
 
 }

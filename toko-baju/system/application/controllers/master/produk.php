@@ -89,6 +89,7 @@ class Produk extends Controller {
 
         */
 
+        $data->custom_sidebar = "sidebar_entri_produk";
 
         $data->daftar_merek = $this->merek->get_semua_merek();
         $data->daftar_warna = $this->warna->get_semua_warna();
@@ -121,7 +122,30 @@ class Produk extends Controller {
         $x = $this->model_baju->get_semua_model_by_merek($merek);
         $data = new stdClass();
         $data->daftar_model = $x;
+        $data->merek = $merek;
         $this->load->view('master/ajax_model', $data);
+    }
+
+    function post()
+    {
+        // called via AJAX
+        // TODO: server-side sanitize
+        $data = array(
+            'model' => $this->input->post('model'),
+            'warna' => $this->input->post('warna'),
+            'ukuran' => $this->input->post('ukuran'),
+            'stok' => $this->input->post('stok'),
+            'harga_beli' => $this->input->post('harga_beli'),
+            'harga_jual' => $this->input->post('harga_jual'),
+            'keterangan' => $this->input->post('keterangan'),
+        );
+
+        if ($this->produk->insert_produk($data))
+        {
+            $data['id'] = $this->db->insert_id();
+            echo json_encode($data);
+            exit;
+        }
     }
 
 }

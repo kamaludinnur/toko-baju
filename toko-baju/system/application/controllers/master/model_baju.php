@@ -80,4 +80,21 @@ class Model_baju extends Controller {
         }
     }
 
+    function tambah_untuk_merek($merek)
+    {
+        // submit (via AJAX)
+        if($this->input->post('new_merek'))
+        {
+            $id_model_baru = $this->insert();
+
+            echo $id_model_baru;
+            exit;
+        }
+        
+        $data = new stdClass();
+        $data->merek = $merek;
+
+        $this->load->view('master/model_baju_quick_entry', $data);
+    }
+
 }

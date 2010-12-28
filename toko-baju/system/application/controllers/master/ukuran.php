@@ -76,9 +76,31 @@ class Ukuran extends Controller {
         }
     }
 
-    function search($term)
+    function quick_entry()
     {
+        // called via AJAX
+        if ($this->input->post('new_nama'))
+        {
+            $id_ukuran_baru = $this->insert();
 
+            echo $id_ukuran_baru;
+            exit;
+        }
+
+        $this->load->view('master/ukuran_quick_entry');
+    }
+
+    function refresh_ukuran()
+    {
+        // me-refresh dropdown ukuran
+        // via AJAX
+        $daftar_ukuran = $this->ukuran->get_semua_ukuran();
+
+        echo "<option>Pilih ukuran:</option>\n";
+        foreach ($daftar_ukuran as $ukuran)
+        {
+            echo "<option value='{$ukuran['id']}'>{$ukuran['nama']}</option>\n";
+        }
     }
 
 }

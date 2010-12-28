@@ -76,9 +76,31 @@ class Warna extends Controller {
         }
     }
 
-    function search($term)
+    function quick_entry()
     {
+        // called via AJAX
+        if ($this->input->post('new_nama'))
+        {
+            $id_warna_baru = $this->insert();
 
+            echo $id_warna_baru;
+            exit;
+        }
+
+        $this->load->view('master/warna_quick_entry');
+    }
+
+    function refresh_warna()
+    {
+        // me-refresh dropdown warna
+        // via AJAX
+        $daftar_warna = $this->warna->get_semua_warna();
+
+        echo "<option>Pilih warna:</option>\n";
+        foreach ($daftar_warna as $warna)
+        {
+            echo "<option value='{$warna['id']}'>{$warna['nama']}</option>\n";
+        }
     }
 
 }

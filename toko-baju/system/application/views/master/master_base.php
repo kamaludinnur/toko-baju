@@ -5,8 +5,11 @@
         <base href="<?php echo base_url(); ?>"/>
         <title><?php echo $title; ?></title>
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="colorbox.css" />
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/ddaccordion.js"></script>
+        <script type="text/javascript" src="js/jquery.validity.pack.js"></script>
+        <script type="text/javascript" src="js/jquery.colorbox.js"></script>
         <script type="text/javascript">
             ddaccordion.init({
                 headerclass: "submenuheader", //Shared CSS class name of headers group
@@ -73,7 +76,7 @@
 
                     <div class="left_content">
 
-                        <?php $this->load->view('master/sidebar'); ?>
+                        <?php if (isset($custom_sidebar)) $this->load->view('master/' . $custom_sidebar); else $this->load->view('master/sidebar'); ?>
 
                     </div>
 
