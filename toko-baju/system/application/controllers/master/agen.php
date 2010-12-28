@@ -48,6 +48,7 @@ class Agen extends Controller {
     {
         $agen = array(
             'nama' => $this->input->post('new_nama'),
+            'diskon' => floatval($this->input->post('new_diskon')),
             'keterangan' => $this->input->post('new_keterangan')
         );
 
@@ -63,6 +64,7 @@ class Agen extends Controller {
     {
         $agen = array(
             'nama' => $this->input->post('nama'),
+            'diskon' => floatval($this->input->post('diskon')),
             'keterangan' => $this->input->post('keterangan')
         );
 
@@ -76,9 +78,31 @@ class Agen extends Controller {
         }
     }
 
-    function search($term)
+    function quick_entry()
     {
+        // called via AJAX
+        if ($this->input->post('new_nama'))
+        {
+            $id_agen_baru = $this->insert();
 
+            echo $id_agen_baru;
+            exit;
+        }
+
+        $this->load->view('master/agen_quick_entry');
+    }
+
+    function refresh_agen()
+    {
+        // me-refresh dropdown agen
+        // via AJAX
+        $daftar_agen = $this->agen->get_semua_agen();
+
+        echo "<option>Pilih agen:</option>\n";
+        foreach ($daftar_agen as $agen)
+        {
+            echo "<option value='{$agen['id']}'>{$agen['nama']}</option>\n";
+        }
     }
 
 }

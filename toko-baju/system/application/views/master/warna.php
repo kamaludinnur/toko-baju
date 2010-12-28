@@ -1,6 +1,6 @@
 <h2>Manajemen Warna</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya.</div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -40,7 +40,7 @@
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['id']; ?></td>
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><input type="button" value="Edit"/></td>
+            <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><input type="button" value="Edit" class="edit-in-place-btn"/></td>
         </tr>
 	<tr id="edit_<?php echo $warna['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $warna['id'] ?>">
@@ -73,7 +73,6 @@ $(document).ready(function(){
 
     var inputNama = $('#new_nama');
 
-    inputNama.focus();
     $('#form').submit(function(){
 
         if(inputNama.val() == "") return false;

@@ -63,11 +63,11 @@
                     $('.right_content').css({width: '860px'});
                 });
                 $('#sidebar_toggler input').first().val("« Menu");
-                $.cookie('tokobaju_sidebar_isHidden', 'yes');
+                $.cookie('tokobaju_sidebar_isHidden', 'yes', {exprires: 30, path: '/'});
             } else {
                 $('.right_content').css({width: '625px'});
                 $('.left_content').fadeIn('fast');
-                $.cookie('tokobaju_sidebar_isHidden', 'no');
+                $.cookie('tokobaju_sidebar_isHidden', 'no', {exprires: 30, path: '/'});
                 $('#sidebar_toggler input').first().val("Menu »");
             }
         }
@@ -80,7 +80,7 @@
             }
         })
 
-        setInterval("console.log('hidden? ' + $.cookie('tokobaju_sidebar_isHidden'))", 1000);
+        //setInterval("console.log('hidden? ' + $.cookie('tokobaju_sidebar_isHidden'))", 1000);
         
         </script>
 

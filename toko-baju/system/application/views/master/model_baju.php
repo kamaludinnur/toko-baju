@@ -1,6 +1,6 @@
 <h2>Manajemen Model</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya.</div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -9,8 +9,9 @@
     <ul>
         <li>Urutkan berdasarkan
         <?php
-        if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/model_baju/manage/nama'>Nama</a>";
-        if($sort_by == 'nama') echo "<a href='index.php/master/model_baju/manage'>ID</a> &middot; <strong>Nama</strong>";
+        if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/model_baju/manage/nama'>Nama</a> &middot; <a href='index.php/master/model_baju/manage/merek'>Merek</a>";
+        if($sort_by == 'nama') echo "<a href='index.php/master/model_baju/manage'>ID</a> &middot; <strong>Nama</strong> &middot; <a href='index.php/master/model_baju/manage/merek'>Merek</a>";
+        if($sort_by == 'merek') echo "<a href='index.php/master/model_baju/manage'>ID</a> &middot; <a href='index.php/master/model_baju/manage/nama'>Nama</a> &middot; <strong>Merek</strong>";
         ?>
         </li>
         <li>
@@ -42,7 +43,7 @@
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $model_baju['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $this->merek->get_merek($model_baju['merek'])->nama; ?></td>
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $model_baju['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><input type="button" value="Edit"/></td>
+            <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><input type="button" value="Edit"  class="edit-in-place-btn"/></td>
         </tr>
 	<tr id="edit_<?php echo $model_baju['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $model_baju['id'] ?>">
@@ -89,7 +90,6 @@ $(document).ready(function(){
 
     var inputNama = $('#new_nama');
 
-    inputNama.focus();
     $('#form').submit(function(){
 
         if(inputNama.val() == "") return false;

@@ -182,7 +182,9 @@ a.forgot_pass{
 /* make the fourth level visible when you hover over third level list OR link */
 .menu ul :hover ul :hover ul :hover ul {visibility:visible;}
 
-
+.highlighted {
+    background-color: yellow;
+}
 
 
 
@@ -316,7 +318,7 @@ input.search_submit{
 }
 .rounded-corner td
 {
-    padding: 8px;
+    padding: 5px 8px;
     background: #ecf8fd;
     border-top: 1px solid #d2e7f0;
     border-right: 1px solid #d2e7f0;
@@ -334,10 +336,17 @@ input.search_submit{
 {
     background: #ecf8fd url('images/botright.jpg') right bottom no-repeat;
 }
-.rounded-corner tbody tr:hover td
+.rounded-corner tbody tr:hover td, .rounded-corner tr.editrow td
 {
     background: #d2e7f0;
 }
+
+.rounded-corner tr.entri_baru td {
+    background-color: #fff9d7 !important;
+    border-top: 1px solid #e2c822 !important;
+    border-bottom: 1px solid #e2c822 !important;
+}
+
 
 .question {
     position: absolute;
@@ -643,3 +652,9 @@ label.error {
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
 }
 
+input[type=button].edit-in-place-btn {
+    margin: 0px;
+    padding: 0px 3px 0px 18px;
+    background: #EEE url(images/user_edit.png) 3px center no-repeat;
+    font-size: 11px;
+}
