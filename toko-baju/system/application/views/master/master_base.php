@@ -47,11 +47,43 @@
             });
         </script>
         <script type="text/javascript" src="js/jquery.uitablefilter.js"></script>
-        <script language="javascript" type="text/javascript" src="js/niceforms.js"></script>
+        <script type="text/javascript" src="js/jquery.cookies.js"></script>
+
         <link rel="stylesheet" type="text/css" media="all" href="niceforms-default.css" />
 
     </head>
     <body>
+
+        <script type="text/javascript">
+
+        function toggleSidebar(){
+
+            if($.cookie('tokobaju_sidebar_isHidden') != 'yes' || $.cookie('tokobaju_sidebar_isHidden') == null){
+                $('.left_content').fadeOut('fast', function(){
+                    $('.right_content').css({width: '860px'});
+                });
+                $('#sidebar_toggler input').first().val("« Menu");
+                $.cookie('tokobaju_sidebar_isHidden', 'yes');
+            } else {
+                $('.right_content').css({width: '625px'});
+                $('.left_content').fadeIn('fast');
+                $.cookie('tokobaju_sidebar_isHidden', 'no');
+                $('#sidebar_toggler input').first().val("Menu »");
+            }
+        }
+
+        $(document).ready(function(){
+            if($.cookie('tokobaju_sidebar_isHidden') == 'yes'){
+                $('.left_content').hide()
+                $('.right_content').css({width: '860px'});
+                $('#sidebar_toggler input').first().val("« Menu");
+            }
+        })
+
+        setInterval("console.log('hidden? ' + $.cookie('tokobaju_sidebar_isHidden'))", 1000);
+        
+        </script>
+
         <div id="main_container">
 
             <div class="header">
@@ -78,6 +110,10 @@
 
                         <?php if (isset($custom_sidebar)) $this->load->view('master/' . $custom_sidebar); else $this->load->view('master/sidebar'); ?>
 
+                    </div>
+
+                    <div id="sidebar_toggler">
+                        <input type="submit" name="submit" value="Menu &raquo;" class="button blue" title="Tampil/sembunyikan menu" onclick="toggleSidebar();" style="margin: 0px; padding: 0px 5px; font-size: 11px"/>
                     </div>
 
                     <div class="right_content">

@@ -140,6 +140,7 @@
     }
 
     function putLatests(){
+        $('#produk_hint_sidebar').hide();
         $('#latest_entried_sidebar').fadeIn('slow');
         var data = "\
             <div class='entri'><table>\

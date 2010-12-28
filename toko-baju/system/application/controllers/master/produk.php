@@ -17,11 +17,49 @@ class Produk extends Controller {
         redirect('master/produk/manage');
     }
 
-    function manage($sort_by = 'id')
+    function manage()
     {
+        $this->load->library('pagination');
+
         $data = new stdClass();
 
-        $data->daftar_produk = $this->produk->get_semua_produk();
+        // store the sorting
+        // kalo belum ada, default
+        if (!$this->session->userdata('prod_sort_0'))
+        {
+            $prod_sorting = array(
+                'prod_sort_0' => 'merek',
+                'prod_sort_1' => 'model',
+                'prod_sort_2' => 'warna',
+                'prod_sort_3' => 'id_ukuran'
+            );
+
+            $this->session->set_userdata($prod_sorting);
+        }
+
+        $order0 = $this->session->userdata('prod_sort_0');
+        $order1 = $this->session->userdata('prod_sort_1');
+        $order2 = $this->session->userdata('prod_sort_2');
+        $order3 = $this->session->userdata('prod_sort_3');
+
+        // paging
+        $mulai = $this->uri->segment(4, 0);
+        $limit_per_halaman = 25;
+
+        $data->daftar_produk = $this->produk->get_semua_produk($order0, $order1, $order2, $order3, $mulai, $limit_per_halaman);
+
+        $paging['base_url']     = site_url("master/produk/manage");
+        $paging['total_rows']   = $this->produk->jumlah_semua_produk();
+        $paging['per_page']     = $limit_per_halaman;
+        $paging['uri_segment']  = 4;
+        $paging['next_link'] 	= 'Berikutnya &raquo;';
+        $paging['prev_link'] 	= '&laquo; Sebelumnya ';
+        $paging['first_link']   = '&lsaquo; Awal';
+        $paging['last_link']    = 'Akhir &rsaquo;';
+
+        $this->pagination->initialize($paging);
+
+        $data->page_links = $this->pagination->create_links();
 
         // view yang memuat isi halamannya
         $data->view_konten = "produk";
@@ -29,6 +67,45 @@ class Produk extends Controller {
 
         // ambil view "master_base.php" (templet dasar)
         $this->load->view('master/master_base', $data);
+    }
+
+    function sort($by, $dir = "ASC")
+    {
+        /* sorting schema:
+         * default   : merek, model, warna, ukuran
+         * by merek  : merek, model, warna, ukuran
+         * by model  : model, merek, warna, ukuran
+         * by warna  : warna, merek, model, ukuran
+         * by ukuran : ukuran, merek, model, warna
+         * by stok   : stok, merek, model, warna
+         * by h_b    : h_b, merek, model, warna
+         * by h_j    : h_j, merek, model, warna
+         */
+
+        $sort_by = array();
+        $prod_sort = array();
+
+        switch($by)
+        {
+            case 'merek'      : $sort_by = array('merek', 'model', 'warna', 'id_ukuran'); break;
+            case 'model'      : $sort_by = array('model', 'merek', 'warna', 'id_ukuran'); break;
+            case 'warna'      : $sort_by = array('warna', 'merek', 'model', 'id_ukuran'); break;
+            case 'ukuran'     : $sort_by = array('id_ukuran', 'merek', 'model', 'warna'); break;
+            case 'stok'       : $sort_by = array('stok', 'merek', 'model', 'warna'); break;
+            case 'harga_beli' : $sort_by = array('harga_beli', 'merek', 'model', 'warna'); break;
+            case 'harga_jual' : $sort_by = array('harga_jual', 'merek', 'model', 'warna'); break;
+            default           : $sort_by = array('merek', 'model', 'warna', 'id_ukuran'); break;
+        }
+
+        for($i = 0; $i <= 3; $i++)
+        {
+            $prod_sort['prod_sort_' . $i] = $sort_by[$i] . " " . $dir;
+        }
+
+        $this->session->set_userdata($prod_sort);
+
+        redirect('master/produk');
+
     }
 
     function entri()

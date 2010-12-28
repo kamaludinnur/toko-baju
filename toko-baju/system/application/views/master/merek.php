@@ -4,22 +4,22 @@
 
 <br/>
 
-<div>
-    <h3>Opsi</h3>
+<div class="yellowbox">
+    <h3 class="left_drop">Opsi</h3>
     <ul>
-        <li>Urutkan berdasarkan:
+        <li>Urutkan berdasarkan
         <?php
         if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/merek/manage/nama'>Nama</a>";
         if($sort_by == 'nama') echo "<a href='index.php/master/merek/manage'>ID</a> &middot; <strong>Nama</strong>";
         ?>
         </li>
         <li>
-            Filter merek: <input type="text" size="20" name="search" id="filter"/>
+            Filter merek <input type="text" size="20" name="search" id="filter"/>
         </li>
     </ul>
 </div>
 
-<br/>
+<br style="clear: both"/>
 
 <table class="rounded-corner" id="main_table">
     <thead>
@@ -36,7 +36,7 @@
             <td colspan="4">Belum ada data</td>
         </tr>
         <?php else : $i = 1; foreach($daftar_merek as $merek) : ?>
-        <tr class="row<?php if($id_merek_baru == $merek['id']) echo ' entri_baru'; ?>" id="baris_<?php echo $merek['id'] ?>" >
+        <tr class="row<?php if($id_merek_baru == $merek['id']) echo ' entri_baru'; ?> <?php if($i%2==0) echo "alt" ?>" id="baris_<?php echo $merek['id'] ?>" >
             <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><?php echo $merek['id']; ?></td>
             <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><?php echo $merek['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><?php echo $merek['keterangan']; ?></td>
@@ -61,7 +61,7 @@
                 <td class="rounded-foot-left"></td>
                 <td><input type="text" size="30" maxlength="100" style="width: 100%" name="new_nama" id="new_nama"/></td>
                 <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_keterangan" id="new_keterangan"/></td>
-                <td class="rounded-foot-right"><input type="submit" value="+ Tambahkan" name="submit"/></td>
+                <td class="rounded-foot-right"><input type="submit" value="+ Tambahkan" name="submit" class="button blue"/></td>
             </form>
         </tr>
     </tfoot>

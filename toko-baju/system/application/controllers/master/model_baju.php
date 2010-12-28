@@ -34,7 +34,7 @@ class Model_baju extends Controller {
         }
 
         $data->daftar_model_baju = $this->model_baju->get_semua_model($sort_by);
-        $data->title = "Manajemen Model_baju";
+        $data->title = "Manajemen Model";
 
         $data->sort_by = $sort_by;
         $data->daftar_merek = $this->merek->get_semua_merek();

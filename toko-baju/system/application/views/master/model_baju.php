@@ -1,31 +1,31 @@
-<h2>Manajemen Model_baju</h2>
+<h2>Manajemen Model</h2>
 
 <div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya.</div>
 
 <br/>
 
-<div>
-    <h3>Opsi</h3>
+<div class="yellowbox">
+    <h3 class="left_drop">Opsi</h3>
     <ul>
-        <li>Urutkan berdasarkan:
+        <li>Urutkan berdasarkan
         <?php
         if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/model_baju/manage/nama'>Nama</a>";
         if($sort_by == 'nama') echo "<a href='index.php/master/model_baju/manage'>ID</a> &middot; <strong>Nama</strong>";
         ?>
         </li>
         <li>
-            Filter model_baju: <input type="text" size="20" name="search" id="filter"/>
+            Filter model <input type="text" size="20" name="search" id="filter"/>
         </li>
     </ul>
 </div>
 
-<br/>
+<br style="clear: both"/>
 
-<table class="tabel_model_baju" id="main_table">
+<table  class="rounded-corner" id="main_table">
     <thead>
         <tr>
             <th width="25">ID</th>
-            <th width="250">Model_baju</th>
+            <th width="250">Model</th>
             <th width="250">Merek</th>
             <th width="350">Keterangan</th>
             <th width="120">&nbsp;</th>
@@ -34,10 +34,10 @@
     <tbody>
         <?php if (count($daftar_model_baju) == 0) : ?>
         <tr>
-            <td colspan="4">Belum ada data</td>
+            <td colspan="5">Belum ada data</td>
         </tr>
         <?php else : $i = 1; foreach($daftar_model_baju as $model_baju) : ?>
-        <tr class="row<?php if($id_model_baju_baru == $model_baju['id']) echo ' entri_baru'; ?>" id="baris_<?php echo $model_baju['id'] ?>" >
+        <tr class="row<?php if($id_model_baju_baru == $model_baju['id']) echo ' entri_baru'; ?> <?php if($i%2==0) echo "alt" ?>" id="baris_<?php echo $model_baju['id'] ?>" >
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $model_baju['id']; ?></td>
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $model_baju['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $this->merek->get_merek($model_baju['merek'])->nama; ?></td>
@@ -64,7 +64,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4">Tambahkan data</td>
+            <td colspan="5">Tambahkan data</td>
         </tr>
         <tr>
             <form action="" id="form" method="post">
@@ -77,7 +77,7 @@
                         <?php }?>
                     </select></td>
                 <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_keterangan" id="new_keterangan"/></td>
-                <td><input type="submit" value="+ Tambahkan" name="submit"/></td>
+                <td><input type="submit" value="+ Tambahkan" name="submit" class="button blue"/></td>
             </form>
         </tr>
     </tfoot>

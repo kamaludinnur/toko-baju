@@ -6,11 +6,13 @@ class Produk_model extends Model {
         parent::Model();
     }
 
-    function get_semua_produk($order1 = 'model', $order2 = 'warna', $order3 = 'id_ukuran')
+    function get_semua_produk($order0 = 'merek', $order1 = 'model', $order2 = 'warna', $order3 = 'id_ukuran', $mulai = 0, $sebanyak = 25)
     {
         $data = array();
         $q = $this->db->query("SELECT
                                   produk.id         AS id,
+                                  merek.id          AS id_merek,
+                                  merek.nama        AS merek,
                                   produk.model      AS id_model,
                                   model.nama        AS model,
                                   produk.warna      AS id_warna,
@@ -21,11 +23,13 @@ class Produk_model extends Model {
                                   produk.harga_beli AS harga_beli,
                                   produk.harga_jual AS harga_jual,
                                   produk.keterangan AS keterangan
-                                FROM produk, model, ukuran, warna
+                                FROM produk, model, ukuran, warna, merek
                                 WHERE produk.model  = model.id
                                   AND produk.ukuran = ukuran.id
                                   AND produk.warna  = warna.id
-                                ORDER by $order1, $order2, $order3");
+                                  AND model.merek   = merek.id
+                                ORDER by $order0, $order1, $order2, $order3
+                                LIMIT $mulai, $sebanyak");
 
         if($q->num_rows() > 0)
         {
@@ -37,6 +41,11 @@ class Produk_model extends Model {
 
         $q->free_result();
         return $data;
+    }
+
+    function jumlah_semua_produk()
+    {
+        return $this->db->count_all('produk');
     }
 
     function get_produk($model, $warna, $ukuran)

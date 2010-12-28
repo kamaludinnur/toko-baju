@@ -1,3 +1,18 @@
+<div id="produk_hint_sidebar">
+
+    <h2>&nbsp;</h2>
+
+    <br/>
+
+    <div class="greenbox">
+    <p>Masukkan data produk baru dengan memilih merek, model, warna, ukuran, stok, harga, dan keterangan.</p>
+    <p>Produk yang sudah pernah dimasukkan tidak dapat dimasukkan ulang.</p>
+    </div>
+
+</div>
+
+
+
 <div id="latest_entried_sidebar" style="display: none">
 
     <h2>Baru Saja Ditambahkan</h2>

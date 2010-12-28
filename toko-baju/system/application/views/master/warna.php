@@ -4,24 +4,24 @@
 
 <br/>
 
-<div>
-    <h3>Opsi</h3>
+<div class="yellowbox">
+    <h3 class="left_drop">Opsi</h3>
     <ul>
-        <li>Urutkan berdasarkan:
+        <li>Urutkan berdasarkan
         <?php
         if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/warna/manage/nama'>Nama</a>";
         if($sort_by == 'nama') echo "<a href='index.php/master/warna/manage'>ID</a> &middot; <strong>Nama</strong>";
         ?>
         </li>
         <li>
-            Filter warna: <input type="text" size="20" name="search" id="filter"/>
+            Filter warna <input type="text" size="20" name="search" id="filter"/>
         </li>
     </ul>
 </div>
 
-<br/>
+<br style="clear: both"/>
 
-<table class="tabel_warna" id="main_table">
+<table  class="rounded-corner" id="main_table">
     <thead>
         <tr>
             <th width="25">ID</th>
@@ -36,7 +36,7 @@
             <td colspan="4">Belum ada data</td>
         </tr>
         <?php else : $i = 1; foreach($daftar_warna as $warna) : ?>
-        <tr class="row<?php if($id_warna_baru == $warna['id']) echo ' entri_baru'; ?>" id="baris_<?php echo $warna['id'] ?>" >
+        <tr class="row<?php if($id_warna_baru == $warna['id']) echo ' entri_baru'; ?> <?php if($i%2==0) echo "alt" ?>" id="baris_<?php echo $warna['id'] ?>" >
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['id']; ?></td>
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['keterangan']; ?></td>
@@ -61,7 +61,7 @@
                 <td></td>
                 <td><input type="text" size="30" maxlength="100" style="width: 100%" name="new_nama" id="new_nama"/></td>
                 <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_keterangan" id="new_keterangan"/></td>
-                <td><input type="submit" value="+ Tambahkan" name="submit"/></td>
+                <td><input type="submit" value="+ Tambahkan" name="submit" class="button blue"/></td>
             </form>
         </tr>
     </tfoot>
