@@ -38,7 +38,7 @@
                 <a href="index.php/master/produk/sort/harga_jual<?php if($this->session->userdata('prod_sort_0') == 'harga_jual ASC') echo '/DESC' ?>">Harga penjualan</a>
             </th>
             <th width="">Keterangan</th>
-            <th style="width: 45px" class="rounded-q4">&nbsp;</th>
+            <th style="width: 70px" class="rounded-q4">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -55,10 +55,10 @@
             <td><?php echo $produk['ukuran']; ?></td>
             <td style="text-align: right" id="data_stok_<?php echo $produk['id'] ?>"><?php echo $produk['stok']; ?></td>
             <td style="text-align: right" id="data_hb_<?php echo $produk['id'] ?>"><?php echo number_format($produk['harga_beli'], 0, ',', '.'); ?></td>
-            <td style="text-align: right"><?php echo number_format($produk['harga_jual'], 0, ',', '.'); ?></td>
-            <td><?php echo $produk['keterangan']; ?></td>
+            <td style="text-align: right" id="data_hj_<?php echo $produk['id'] ?>"><?php echo number_format($produk['harga_jual'], 0, ',', '.'); ?></td>
+            <td id="data_ktr_<?php echo $produk['id'] ?>"><?php echo $produk['keterangan']; ?></td>
             <td>
-                <input type="button" value="" class="edit-in-place-btn tambahstok icon_only" title="Tambah stok untuk produk ini" onclick="tambahStok(<?php echo $produk['id'] ?>)"/><input type="button" value="" class="edit-in-place-btn delete icon_only" <?php if (!$this->produk->aman_dihapus($produk['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $produk['id']; ?>)" title="Klik untuk menghapus produk ini"/>
+                <input type="button" value="" class="edit-in-place-btn tambahstok icon_only" title="Tambah stok untuk produk ini" onclick="tambahStok(<?php echo $produk['id'] ?>)"/><input type="button" value="" class="edit-in-place-btn icon_only" <?php if (!$this->produk->aman_diedit($produk['id'])) echo 'disabled="disabled"' ?> onclick="editProduk(<?php echo $produk['id']; ?>)" title="Klik untuk mengedit produk ini" id="edit_btn_<?php echo $produk['id']; ?>"/><input type="button" value="" class="edit-in-place-btn delete icon_only" <?php if (!$this->produk->aman_dihapus($produk['id'])) echo 'disabled="disabled"' ?> onclick="hapus(<?php echo $produk['id']; ?>)" title="Klik untuk menghapus produk ini"/>
             </td>
         </tr>
         <?php $i++; endforeach; endif; ?>
@@ -104,6 +104,14 @@ function hapus(id){
            }
         });
     }
+}
+
+function editProduk(id){
+    $.colorbox({
+        href:'index.php/master/produk/edit/' + id,
+        width:'500px',
+        opacity: 0.5
+    });
 }
 
 </script>

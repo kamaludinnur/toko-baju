@@ -274,4 +274,51 @@ class Produk extends Controller {
 
         } else echo "0";
     }
+
+    function edit($id)
+    {
+        $data = new stdClass();
+
+        // called via AJAX
+        if ($this->input->post('new_id'))
+        {
+            $stok_baru = intval($this->input->post('new_stok'));
+            $hb_baru   = floatval($this->input->post('new_harga_beli'));
+            $hj_baru   = floatval($this->input->post('new_harga_jual'));
+            $ktr_baru  = $this->input->post('new_keterangan');
+
+            if ($stok_baru < 0) $stok_baru = 0; // wkwkwk
+            if ($hb_baru < 0) $hb_baru = 0;
+            if ($hj_baru < 0) $hj_baru = 0;
+
+            $data_update = array(
+                'stok' => $stok_baru,
+                'harga_beli' => $hb_baru,
+                'harga_jual' => $hj_baru,
+                'keterangan' => $ktr_baru
+            );
+
+            $update             = $this->produk->update_produk($this->input->post('new_id'), $data_update);
+            $update_record_stok = $this->db->query("UPDATE record_stok SET stok_akhir = {$stok_baru}, jumlah = {$stok_baru} WHERE produk = {$this->input->post('new_id')} AND jenis = 'tambah'");
+
+            if ($update && $update_record_stok)
+            {
+                $data_produk = array(
+                    'newStok' => $stok_baru,
+                    'newHB' => number_format($hb_baru, 0, ',', '.'),
+                    'newHJ' => number_format($hj_baru, 0, ',', '.'),
+                    'newKtr' => $ktr_baru
+                );
+
+                echo json_encode($data_produk);
+                exit;
+            }
+        }
+        
+        $data->id = $id;
+
+        $data->data_produk = $this->produk->get_produk_by_id($id);
+
+        $this->load->view('master/produk_edit_dialog', $data);
+    }
 }

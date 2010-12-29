@@ -202,4 +202,19 @@ class Produk_model extends Model {
             return true;
     }
 
+    function aman_diedit($id_produk)
+    {
+        // syarat aman diedit: belum pernah ditransaksiin + belum pernah tambah stok (baru pernah ditambahkan)
+        // update: produk, record_stok
+
+        $jumlah_transaksi = $this->db->query("SELECT id FROM record_stok WHERE jenis != 'tambah' AND produk = {$id_produk}")->num_rows();
+        $jumlah_tambah_stok = $this->db->query("SELECT id FROM record_stok WHERE jenis = 'tambah' AND produk = {$id_produk}")->num_rows();
+
+        if ($jumlah_tambah_stok == 1 && $jumlah_transaksi == 0)
+            return true;
+        else
+            return false;
+
+    }
+
 }

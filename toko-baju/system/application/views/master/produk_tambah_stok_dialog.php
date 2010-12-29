@@ -80,6 +80,7 @@ function submitTambahStok(){
                 $('#baris_' + <?php echo $id ?>).addClass('entri_baru');
                 $('#data_stok_' + <?php echo $id ?>).css({fontWeight : 'bold'}).text(data.newStok);
                 $('#data_hb_' + <?php echo $id ?>).css({fontWeight : 'bold'}).text(data.newHB);
+                $('#edit_btn_' + <?php echo $id ?>).attr({"disabled":"disabled"});
             },
             error : function(){
                 alert("Terjadi kesalahan saat menyimpan data");

@@ -213,4 +213,9 @@
     // anti tutup
     window.onbeforeunload = function() {if(successCount > 0) return "Anda yakin akan meninggalkan halaman ini?"}
 
+    $(document).ready(function(){
+        // preserve sidebar
+        $('#sidebar_toggler input').remove();
+    })
+
 </script>

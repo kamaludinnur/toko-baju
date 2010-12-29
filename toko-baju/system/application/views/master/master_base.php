@@ -76,6 +76,8 @@
             }
         }
 
+        <?php if ($this->uri->segment(3) != 'entri') : // preserve sidebar on product entry ?>
+
         $(document).ready(function(){
             if($.cookie('tokobaju_sidebar_isHidden') == 'yes'){
                 $('.left_content').hide()
@@ -83,6 +85,8 @@
                 $('#sidebar_toggler input').first().val("« Menu");
             }
         })
+
+        <?php endif; ?>
 
         //setInterval("console.log('hidden? ' + $.cookie('tokobaju_sidebar_isHidden'))", 1000);
         
