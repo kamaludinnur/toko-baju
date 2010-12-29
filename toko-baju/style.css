@@ -658,3 +658,13 @@ input[type=button].edit-in-place-btn {
     background: #EEE url(images/user_edit.png) 3px center no-repeat;
     font-size: 11px;
 }
+
+input[type=button].tambahstok {
+    background: #EEE url(images/user_tambahstok.png) 3px center no-repeat;
+}
+
+input[type=button].icon_only {
+    padding: 0px 3px 0px 3px;
+    width: 22px;
+    background-position: center center;
+}

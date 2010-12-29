@@ -17,7 +17,7 @@
                             <option value="<?php echo $merek['id'] ?>"><?php echo $merek['nama'] ?></option>
 <?php } ?>
                     </select>
-                    atau <a href="#" title="Klik untuk menambahkan merek baru" onclick="$.colorbox({href:'index.php/master/merek/quick_entry', width:'500px', height:'270px', onComplete: function(){$('#n').focus()}}); return false;">Tambah baru</a>
+                    atau <a href="#" title="Klik untuk menambahkan merek baru" onclick="$.colorbox({href:'index.php/master/merek/quick_entry', width:'500px', height:'270px', opacity: 0.5, onComplete: function(){$('#n').focus()}}); return false;">Tambah baru</a>
                 </dd>
             </dl>
 
@@ -39,7 +39,7 @@
                             <option value="<?php echo $merek['id'] ?>"><?php echo $merek['nama'] ?></option>
 <?php } ?>
                     </select>
-                    atau <a href="#" title="Klik untuk menambahkan warna baru" onclick="$.colorbox({href:'index.php/master/warna/quick_entry', width:'500px', height:'270px', onComplete: function(){$('#n').focus()}}); return false;">Tambah baru</a>
+                    atau <a href="#" title="Klik untuk menambahkan warna baru" onclick="$.colorbox({href:'index.php/master/warna/quick_entry', width:'500px', height:'270px', opacity: 0.5, onComplete: function(){$('#n').focus()}}); return false;">Tambah baru</a>
                 </dd>
             </dl>
 
@@ -52,7 +52,7 @@
                             <option value="<?php echo $merek['id'] ?>"><?php echo $merek['nama'] ?></option>
 <?php } ?>
                     </select>
-                    atau <a href="#" title="Klik untuk menambahkan ukuran baru" onclick="$.colorbox({href:'index.php/master/ukuran/quick_entry', width:'500px', height:'270px', onComplete: function(){$('#n').focus()}}); return false;">Tambah baru</a>
+                    atau <a href="#" title="Klik untuk menambahkan ukuran baru" onclick="$.colorbox({href:'index.php/master/ukuran/quick_entry', width:'500px', height:'270px',opacity: 0.5, onComplete: function(){$('#n').focus()}}); return false;">Tambah baru</a>
                 </dd>
             </dl>
 

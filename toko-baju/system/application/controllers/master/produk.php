@@ -225,4 +225,40 @@ class Produk extends Controller {
         }
     }
 
+    function tambah_stok($id)
+    {
+        $data = new stdClass();
+
+        // called via AJAX
+        if ($this->input->post('new_id'))
+        {
+            $stok_baru = intval($this->input->post('new_stok'));
+            $hb_baru   = floatval($this->input->post('new_harga_beli'));
+
+            if ($stok_baru < 0) $stok_baru = 0; // wkwkwk
+            if ($hb_baru < 0) $hb_baru = 0;
+
+            $id_stok_baru = $this->produk->tambah_stok_produk($this->input->post('new_id'), $stok_baru, $hb_baru);
+
+            if ($id_stok_baru)
+            {
+                $produk = $this->produk->get_produk_by_id($id);
+
+                $data_produk = array(
+                    'newStok' => $produk->stok,
+                    'newHB' => number_format($produk->harga_beli, 0, ',', '.')
+                );
+
+                echo json_encode($data_produk);
+                exit;
+            }
+        }
+
+        $data->id = $id;
+
+        $data->data_produk = $this->produk->get_produk_by_id($id);
+
+        $this->load->view('master/produk_tambah_stok_dialog', $data);
+    }
+
 }

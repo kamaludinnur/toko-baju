@@ -16,7 +16,7 @@
                 contentclass: "submenu", //Shared CSS class name of contents group
                 revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
                 mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
-                collapseprev: true, //Collapse previous content (so only one open at any time)? true/false
+                collapseprev: false, //Collapse previous content (so only one open at any time)? true/false
                 defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
                 onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
                 animatedefault: false, //Should contents open by default be animated into view?
@@ -59,14 +59,16 @@
         function toggleSidebar(){
 
             if($.cookie('tokobaju_sidebar_isHidden') != 'yes' || $.cookie('tokobaju_sidebar_isHidden') == null){
-                $('.left_content').fadeOut('fast', function(){
+                // hide it
+                $('.left_content').animate({width:"0px"}, function(){
                     $('.right_content').css({width: '860px'});
                 });
                 $('#sidebar_toggler input').first().val("« Menu");
                 $.cookie('tokobaju_sidebar_isHidden', 'yes', {exprires: 30, path: '/'});
             } else {
+                // show it
                 $('.right_content').css({width: '625px'});
-                $('.left_content').fadeIn('fast');
+                $('.left_content').animate({width:"195px"});
                 $.cookie('tokobaju_sidebar_isHidden', 'no', {exprires: 30, path: '/'});
                 $('#sidebar_toggler input').first().val("Menu »");
             }

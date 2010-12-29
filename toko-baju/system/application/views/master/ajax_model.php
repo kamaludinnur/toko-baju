@@ -8,12 +8,12 @@
 <?php }
 ?>
 </select>
-atau <a href="#" title="Tambahkan model baru" onclick="$.colorbox({href:'index.php/master/model_baju/tambah_untuk_merek/<?php echo $merek; ?>', width:'500px', height:'270px', onComplete: function(){$('#n').focus()}}); return false;">Tambah model baru</a>
+atau <a href="#" title="Tambahkan model baru" onclick="$.colorbox({href:'index.php/master/model_baju/tambah_untuk_merek/<?php echo $merek; ?>', width:'500px', height:'270px', opacity: 0.5, onComplete: function(){$('#n').focus()}}); return false;">Tambah model baru</a>
 <?php } else { ?>
 <select name="model" id="id_model" disabled>
     <option>Pilih model: </option>
 </select>
 <?php if($merek != 0) { ?>
-Belum ada model untuk <?php echo $this->merek->get_merek($merek)->nama; ?>. <a href="index.php/master/model_baju/tambah_untuk_merek/<?php echo $merek; ?>" onclick="$.colorbox({href:this.href, width:'500px', height:'270px', onComplete: function(){$('#n').focus()}}); return false;">Tambah model baru</a>
+Belum ada model untuk <?php echo $this->merek->get_merek($merek)->nama; ?>. <a href="index.php/master/model_baju/tambah_untuk_merek/<?php echo $merek; ?>" onclick="$.colorbox({href:this.href, width:'500px', height:'270px',opacity: 0.5, onComplete: function(){$('#n').focus()}}); return false;">Tambah model baru</a>
 <?php
 }}

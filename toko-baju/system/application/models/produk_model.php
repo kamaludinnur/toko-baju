@@ -66,7 +66,26 @@ class Produk_model extends Model {
     {
 
         $data = "";
-        $q = $this->db->query("SELECT * FROM produk WHERE id = $id_produk");
+        $q = $this->db->query("SELECT
+                                  produk.id         AS id,
+                                  merek.id          AS id_merek,
+                                  merek.nama        AS merek,
+                                  produk.model      AS id_model,
+                                  model.nama        AS model,
+                                  produk.warna      AS id_warna,
+                                  warna.nama        AS warna,
+                                  produk.ukuran     AS id_ukuran,
+                                  ukuran.nama       AS ukuran,
+                                  produk.stok       AS stok,
+                                  produk.harga_beli AS harga_beli,
+                                  produk.harga_jual AS harga_jual,
+                                  produk.keterangan AS keterangan
+                                FROM produk, model, ukuran, warna, merek
+                                WHERE produk.model  = model.id
+                                  AND produk.ukuran = ukuran.id
+                                  AND produk.warna  = warna.id
+                                  AND model.merek   = merek.id
+                                  AND produk.id = $id_produk");
 
         if($q->num_rows() > 0)
         {

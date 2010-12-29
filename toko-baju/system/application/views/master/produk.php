@@ -53,13 +53,12 @@
             <td><?php echo $produk['model']; ?></td>
             <td><?php echo $produk['warna']; ?></td>
             <td><?php echo $produk['ukuran']; ?></td>
-            <td style="text-align: right"><?php echo $produk['stok']; ?></td>
-            <td style="text-align: right"><?php echo number_format($produk['harga_beli'], 0, ',', '.'); ?></td>
+            <td style="text-align: right" id="data_stok_<?php echo $produk['id'] ?>"><?php echo $produk['stok']; ?></td>
+            <td style="text-align: right" id="data_hb_<?php echo $produk['id'] ?>"><?php echo number_format($produk['harga_beli'], 0, ',', '.'); ?></td>
             <td style="text-align: right"><?php echo number_format($produk['harga_jual'], 0, ',', '.'); ?></td>
             <td><?php echo $produk['keterangan']; ?></td>
             <td>
-                <a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a>
-                <a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a>
+                <input type="button" value="" class="edit-in-place-btn tambahstok icon_only" title="Tambah stok untuk produk ini" onclick="tambahStok(<?php echo $produk['id'] ?>)"/>
             </td>
         </tr>
         <?php $i++; endforeach; endif; ?>
@@ -76,3 +75,18 @@
 <div class="pagination">
 <?php echo $page_links; ?>
 </div>
+
+<script type="text/javascript">
+
+function tambahStok(id){
+
+    $.colorbox({
+        href:'index.php/master/produk/tambah_stok/' + id,
+        width:'500px',
+        opacity: 0.5,
+        onComplete: function(){$('#j').focus()}
+    });
+
+}
+
+</script>
