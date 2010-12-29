@@ -261,4 +261,17 @@ class Produk extends Controller {
         $this->load->view('master/produk_tambah_stok_dialog', $data);
     }
 
+    function hapus($id_produk)
+    {
+        // called via AJAX
+        if ($this->produk->aman_dihapus($id_produk))
+        {
+            $q  = $this->db->query("DELETE FROM produk WHERE id = {$id_produk}");
+            $q2 = $this->db->query("DELETE FROM record_stok WHERE produk = {$id_produk}");
+
+            if ($q && $q2) echo "1"; else echo "0";
+            exit;
+
+        } else echo "0";
+    }
 }

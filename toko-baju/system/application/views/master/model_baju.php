@@ -1,6 +1,6 @@
 <h2>Manajemen Model</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Model yang sudah dipakai untuk produk tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -43,7 +43,9 @@
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $model_baju['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $this->merek->get_merek($model_baju['merek'])->nama; ?></td>
             <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><?php echo $model_baju['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $model_baju['id']; ?>)"><input type="button" value="Edit"  class="edit-in-place-btn"/></td>
+            <td>
+                <input type="button" value="Edit"  class="edit-in-place-btn" onclick="showEditForm(<?php echo $model_baju['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->model_baju->aman_dihapus($model_baju['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $model_baju['id']; ?>)"/>
+            </td>
         </tr>
 	<tr id="edit_<?php echo $model_baju['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $model_baju['id'] ?>">
@@ -122,5 +124,22 @@ $(function() {
   })
 });
 
+function hapus(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        $.ajax({
+           url: 'index.php/master/model_baju/hapus/' + id,
+           dataType: 'text',
+           success: function(data){
+               if(data == 1){
+                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
+                   $('#edit_' + id).remove();
+               } else alert("Kesalahan: gagal menghapus data!");
+           },
+           error: function(){
+               alert("Kesalahan: gagal menghapus data!");
+           }
+        });
+    }
+}
 
 </script>

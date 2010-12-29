@@ -15,9 +15,9 @@
 		// yesAnswer : a text for Yes answer.
 		// cancelAnswer : a text for Cancel/No answer.
 		var theOptions = jQuery.extend ({
-			question: "Are You Sure ?",
-			yesAnswer: "Yes",
-			cancelAnswer: "Cancel"
+			question: "Yakin akan dihapus?",
+			yesAnswer: "Ya",
+			cancelAnswer: "Tidak"
 		}, options);
 		
 		return this.each (function () {

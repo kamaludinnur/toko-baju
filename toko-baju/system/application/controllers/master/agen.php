@@ -105,4 +105,17 @@ class Agen extends Controller {
         }
     }
 
+    function hapus($id_agen)
+    {
+        // called via AJAX
+        if ($this->agen->aman_dihapus($id_agen))
+        {
+            $q = $this->db->query("DELETE FROM agen WHERE id = {$id_agen}");
+
+            if ($q) echo "1"; else echo "0";
+            exit;
+
+        } else echo "0";
+    }
+
 }

@@ -1,6 +1,6 @@
 <h2>Manajemen Agen</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Agen yang sudah pernah melakukan transaksi tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -43,7 +43,9 @@
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo round($agen['diskon'], 2); ?>%</td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><input type="button" value="Edit" class="edit-in-place-btn"/></td>
+            <td>
+                <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $agen['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->agen->aman_dihapus($agen['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $agen['id']; ?>)"/>
+            </td>
         </tr>
 	<tr id="edit_<?php echo $agen['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $agen['id'] ?>">
@@ -110,5 +112,22 @@ $(function() {
   })
 });
 
+function hapus(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        $.ajax({
+           url: 'index.php/master/agen/hapus/' + id,
+           dataType: 'text',
+           success: function(data){
+               if(data == 1){
+                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
+                   $('#edit_' + id).remove();
+               } else alert("Kesalahan: gagal menghapus data!");
+           },
+           error: function(){
+               alert("Kesalahan: gagal menghapus data!");
+           }
+        });
+    }
+}
 
 </script>

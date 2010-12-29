@@ -103,4 +103,16 @@ class Ukuran extends Controller {
         }
     }
 
+    function hapus($id_ukuran)
+    {
+        // called via AJAX
+        if ($this->ukuran->aman_dihapus($id_ukuran))
+        {
+            $q = $this->db->query("DELETE FROM ukuran WHERE id = {$id_ukuran}");
+
+            if ($q) echo "1"; else echo "0";
+            exit;
+
+        } else echo "0";
+    }
 }

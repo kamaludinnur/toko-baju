@@ -103,4 +103,16 @@ class Warna extends Controller {
         }
     }
 
+    function hapus($id_warna)
+    {
+        // called via AJAX
+        if ($this->warna->aman_dihapus($id_warna))
+        {
+            $q = $this->db->query("DELETE FROM warna WHERE id = {$id_warna}");
+
+            if ($q) echo "1"; else echo "0";
+            exit;
+
+        } else echo "0";
+    }
 }

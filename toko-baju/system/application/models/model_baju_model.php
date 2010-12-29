@@ -67,5 +67,16 @@ class Model_baju_model extends Model {
         return $this->db->update('model', $data);
     }
 
+    function aman_dihapus($id_model)
+    {
+        // syarat => belum pernah dibikin produknya
+        //        => nggak ada di tabel "produk"
+
+        $n = $this->db->query("SELECT * FROM produk WHERE model = {$id_model}")->num_rows();
+        if ($n > 0)
+            return false; // kalo > 0 berarti ada modelnya => gak aman dihapus
+        else
+            return true;
+    }
 
 }

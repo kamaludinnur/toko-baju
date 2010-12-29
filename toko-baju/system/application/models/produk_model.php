@@ -188,4 +188,18 @@ class Produk_model extends Model {
         return $this->db->update('produk', $data);
     }
 
+    // pengecek apakah suatu produk aman dihapus atau nggak
+    function aman_dihapus($id_produk)
+    {
+        // syarat aman dihapus: belum pernah ditransaksiin
+        // hapus dari: produk, record_stok
+
+        $jumlah_transaksi = $this->db->query("SELECT id FROM record_stok WHERE jenis != 'tambah' AND produk = {$id_produk}")->num_rows();
+
+        if ($jumlah_transaksi > 0)
+            return false; // kalo > 0 berarti ada modelnya => gak aman dihapus
+        else
+            return true;
+    }
+
 }

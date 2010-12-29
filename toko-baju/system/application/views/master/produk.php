@@ -38,7 +38,7 @@
                 <a href="index.php/master/produk/sort/harga_jual<?php if($this->session->userdata('prod_sort_0') == 'harga_jual ASC') echo '/DESC' ?>">Harga penjualan</a>
             </th>
             <th width="">Keterangan</th>
-            <th width="120" class="rounded-q4">&nbsp;</th>
+            <th style="width: 45px" class="rounded-q4">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
             <td style="text-align: right"><?php echo number_format($produk['harga_jual'], 0, ',', '.'); ?></td>
             <td><?php echo $produk['keterangan']; ?></td>
             <td>
-                <input type="button" value="" class="edit-in-place-btn tambahstok icon_only" title="Tambah stok untuk produk ini" onclick="tambahStok(<?php echo $produk['id'] ?>)"/>
+                <input type="button" value="" class="edit-in-place-btn tambahstok icon_only" title="Tambah stok untuk produk ini" onclick="tambahStok(<?php echo $produk['id'] ?>)"/><input type="button" value="" class="edit-in-place-btn delete icon_only" <?php if (!$this->produk->aman_dihapus($produk['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $produk['id']; ?>)" title="Klik untuk menghapus produk ini"/>
             </td>
         </tr>
         <?php $i++; endforeach; endif; ?>
@@ -87,6 +87,23 @@ function tambahStok(id){
         onComplete: function(){$('#j').focus()}
     });
 
+}
+
+function hapus(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        $.ajax({
+           url: 'index.php/master/produk/hapus/' + id,
+           dataType: 'text',
+           success: function(data){
+               if(data == 1){
+                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
+               } else alert("Kesalahan: gagal menghapus data!");
+           },
+           error: function(){
+               alert("Kesalahan: gagal menghapus data!");
+           }
+        });
+    }
 }
 
 </script>

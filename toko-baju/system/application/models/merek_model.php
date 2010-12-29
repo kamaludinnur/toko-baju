@@ -48,5 +48,17 @@ class Merek_model extends Model {
         return $this->db->update('merek', $data);
     }
 
+    function aman_dihapus($id_merek)
+    {
+        // syarat => belum pernah dibikin modelnya
+        //        => nggak ada di tabel "model"
+
+        $n = $this->db->query("SELECT * FROM model WHERE merek = {$id_merek}")->num_rows();
+        if ($n > 0)
+            return false; // kalo > 0 berarti ada modelnya => gak aman dihapus
+        else
+            return true;
+    }
+
 }
 

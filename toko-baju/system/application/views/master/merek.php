@@ -1,6 +1,6 @@
 <h2>Manajemen Merek</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Merek yang sudah memiliki model tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -40,7 +40,9 @@
             <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><?php echo $merek['id']; ?></td>
             <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><?php echo $merek['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><?php echo $merek['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $merek['id']; ?>)"><input type="button" value="Edit" class="edit-in-place-btn"/></td>
+            <td>
+                <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $merek['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->merek->aman_dihapus($merek['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $merek['id']; ?>)"/>
+            </td>
         </tr>
 	<tr id="edit_<?php echo $merek['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $merek['id'] ?>">
@@ -105,5 +107,22 @@ $(function() {
   })
 });
 
+function hapus(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        $.ajax({
+           url: 'index.php/master/merek/hapus/' + id,
+           dataType: 'text',
+           success: function(data){
+               if(data == 1){
+                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
+                   $('#edit_' + id).remove();
+               } else alert("Kesalahan: gagal menghapus data!");
+           },
+           error: function(){
+               alert("Kesalahan: gagal menghapus data!");
+           }
+        });
+    }
+}
 
 </script>

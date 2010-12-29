@@ -97,4 +97,16 @@ class Model_baju extends Controller {
         $this->load->view('master/model_baju_quick_entry', $data);
     }
 
+    function hapus($id_model)
+    {
+        // called via AJAX
+        if ($this->model_baju->aman_dihapus($id_model))
+        {
+            $q = $this->db->query("DELETE FROM model WHERE id = {$id_model}");
+
+            if ($q) echo "1"; else echo "0";
+            exit;
+
+        } else echo "0";
+    }
 }

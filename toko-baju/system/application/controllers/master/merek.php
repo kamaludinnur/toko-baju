@@ -103,4 +103,17 @@ class Merek extends Controller {
         }
     }
 
+    function hapus($id_merek)
+    {
+        // called via AJAX
+        if ($this->merek->aman_dihapus($id_merek))
+        {
+            $q = $this->db->query("DELETE FROM merek WHERE id = {$id_merek}");
+            
+            if ($q) echo "1"; else echo "0";
+            exit;
+            
+        } else echo "0";
+    }
+
 }

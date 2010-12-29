@@ -1,6 +1,6 @@
 <h2>Manajemen Warna</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Warna yang sudah digunakan untuk produk tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -40,7 +40,9 @@
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['id']; ?></td>
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><?php echo $warna['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $warna['id']; ?>)"><input type="button" value="Edit" class="edit-in-place-btn"/></td>
+            <td>
+                <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $warna['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->warna->aman_dihapus($warna['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $warna['id']; ?>)"/>
+            </td>
         </tr>
 	<tr id="edit_<?php echo $warna['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $warna['id'] ?>">
@@ -105,5 +107,22 @@ $(function() {
   })
 });
 
+function hapus(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        $.ajax({
+           url: 'index.php/master/warna/hapus/' + id,
+           dataType: 'text',
+           success: function(data){
+               if(data == 1){
+                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
+                   $('#edit_' + id).remove();
+               } else alert("Kesalahan: gagal menghapus data!");
+           },
+           error: function(){
+               alert("Kesalahan: gagal menghapus data!");
+           }
+        });
+    }
+}
 
 </script>

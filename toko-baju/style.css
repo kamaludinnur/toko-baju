@@ -663,6 +663,20 @@ input[type=button].tambahstok {
     background: #EEE url(images/user_tambahstok.png) 3px center no-repeat;
 }
 
+input[type=button].delete {
+    background: #EEE url(images/trash.png) 3px center no-repeat;
+    border-left: none;
+}
+
+input[type=button]:disabled {
+    opacity: 0.5;
+}
+
+input[type=button]:disabled:hover {
+    border: solid 1px #C9C9C9;
+    border-left: none;
+}
+
 input[type=button].icon_only {
     padding: 0px 3px 0px 3px;
     width: 22px;

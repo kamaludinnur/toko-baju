@@ -47,4 +47,19 @@ class Agen_model extends Model {
         $this->db->where('id', $id_agen);
         return $this->db->update('agen', $data);
     }
+
+    function aman_dihapus($id_agen)
+    {
+        // syarat => belum pernah ada transaksi
+        //        => nggak ada di tabel "transaksi_{agen, reject, retur}"
+
+        $n1 = $this->db->query("SELECT * FROM transaksi_agen   WHERE agen = {$id_agen}")->num_rows();
+        $n2 = $this->db->query("SELECT * FROM transaksi_reject WHERE agen = {$id_agen}")->num_rows();
+        $n3 = $this->db->query("SELECT * FROM transaksi_retur  WHERE agen = {$id_agen}")->num_rows();
+
+        if (($n1 + $n2 + $n3) > 0)
+            return false;
+        else
+            return true;
+    }
 }

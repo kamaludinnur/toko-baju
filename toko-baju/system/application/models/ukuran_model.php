@@ -49,5 +49,16 @@ class Ukuran_model extends Model {
         return $this->db->update('ukuran', $data);
     }
 
+    function aman_dihapus($id_ukuran)
+    {
+        // syarat => belum pernah dibikin produknya
+        //        => nggak ada di tabel "produk"
+
+        $n = $this->db->query("SELECT * FROM produk WHERE ukuran = {$id_ukuran}")->num_rows();
+        if ($n > 0)
+            return false; // kalo > 0 berarti ada modelnya => gak aman dihapus
+        else
+            return true;
+    }
 }
 

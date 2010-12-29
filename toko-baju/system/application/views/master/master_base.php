@@ -34,6 +34,7 @@
         </script>
         <script src="js/jquery.jclock.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/jconfirmaction.jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.fastconfirm.js"></script>
         <script type="text/javascript">
 
             $(document).ready(function() {
@@ -50,6 +51,7 @@
         <script type="text/javascript" src="js/jquery.cookies.js"></script>
 
         <link rel="stylesheet" type="text/css" media="all" href="niceforms-default.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="jquery.fastconfirm.css" />
 
     </head>
     <body>

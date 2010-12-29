@@ -1,6 +1,6 @@
 <h2>Manajemen Ukuran</h2>
 
-<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Data yang sudah dimasukkan tidak dapat dihapus.</em></div>
+<div>Masukkan data pada kotak isian di bawah. Klik pada data untuk mengeditnya. <br/><em>Ukuran yang sudah digunakan untuk produk tidak dapat dihapus.</em></div>
 
 <br/>
 
@@ -40,7 +40,9 @@
             <td onclick="showEditForm(<?php echo $ukuran['id']; ?>)"><?php echo $ukuran['id']; ?></td>
             <td onclick="showEditForm(<?php echo $ukuran['id']; ?>)"><?php echo $ukuran['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $ukuran['id']; ?>)"><?php echo $ukuran['keterangan']; ?></td>
-            <td onclick="showEditForm(<?php echo $ukuran['id']; ?>)"><input type="button" value="Edit" class="edit-in-place-btn"/></td>
+            <td>
+                <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $ukuran['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->ukuran->aman_dihapus($ukuran['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $ukuran['id']; ?>)"/>
+            </td>
         </tr>
 	<tr id="edit_<?php echo $ukuran['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $ukuran['id'] ?>">
@@ -105,5 +107,22 @@ $(function() {
   })
 });
 
+function hapus(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        $.ajax({
+           url: 'index.php/master/ukuran/hapus/' + id,
+           dataType: 'text',
+           success: function(data){
+               if(data == 1){
+                   $('#baris_' + id).fadeOut('slow', function(){$(this).remove()});
+                   $('#edit_' + id).remove();
+               } else alert("Kesalahan: gagal menghapus data!");
+           },
+           error: function(){
+               alert("Kesalahan: gagal menghapus data!");
+           }
+        });
+    }
+}
 
 </script>
