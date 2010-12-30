@@ -1,14 +1,39 @@
 <h2>Transaksi Konsumen</h2>
+<?php if ($info) echo $info?>
 <table>
     <tr>
         <th>No</th>
-        <th>Produk</th>
+        <th>Merek</th>
+        <th>Model</th>
+        <th>Warna</th>
+        <th>Ukuran</th>
         <th>Jumlah</th>
         <th>Harga Satuan</th>
         <th>Total</th>
     </tr>
+
+
+<?php
+$i=1;
+foreach($this->cart->contents() as $item){?>
+    <tr>
+        <td><?php echo $i++?></td>
+        <td><?php echo $item['merek']?></td>
+        <td><?php echo $item['name']?></td>
+        <td><?php echo $item['warna']?></td>
+        <td><?php echo $item['ukuran']?></td>
+        <td><?php echo $item['qty']?></td>
+        <td><?php echo $item['price']?></td>
+        <td><?php echo $item['subtotal']?></td>
+    </tr>
+<?php }
+?>
 </table>
-<form>
+Total: Rp <?php echo number_format($this->cart->total())?> <br />
+
+<a href="index.php/transaksi_konsumen/bayar">Bayar</a>
+<a href="#">Batal</a>
+<form action="" method="POST">
     <div id="merek">
     <select name="merek">
         <option>--Merek--</option>
@@ -28,12 +53,15 @@
         </select>
     </div>
     <div id="ukuran">
-        <select name="ukuran" disabled>
+        <select name="id" disabled>
             <option>--Ukuran--</option>
         </select>
     </div>
-    <div class="jumlah">
-        <input type="text" name="jumlah" value="1" />
+    <div class="trx">
+        <input type="text" name="jumlah" value="" />
+    </div>
+    <div class="trx">
+        <input type="submit" name="submit" value="tambah">
     </div>
 </form>
 

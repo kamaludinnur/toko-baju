@@ -1,6 +1,6 @@
 <?php
 if(count($daftar_ukuran)>0){?>
-<select name="ukuran">
+<select name="id">
     <option>--ukuran--</option>
 <?php
 foreach ($daftar_ukuran as $ukuran)
@@ -12,7 +12,7 @@ foreach ($daftar_ukuran as $ukuran)
 <?php }
 else{?>
     <div id="ukuran">
-        <select name="ukuran" disabled>
+        <select name="id" disabled>
             <option>--ukuran--</option>
         </select>
     </div>

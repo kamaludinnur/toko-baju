@@ -7,15 +7,47 @@ class Transaksi_konsumen extends Controller {
         $this->load->model('Produk_model', 'produk');
         $this->load->model('Merek_model', 'merek');
         $this->load->model('Model_baju_model', 'model');
+        $this->load->model('Transaksi_konsumen_model', 'transaksi_konsumen');
     }
 
     function index()
     {
+        $info = "";
+        if ($this->input->post('submit')) {
+            $add = $this->add($this->input->post('id'), $this->input->post('jumlah'));
+            if (!$add) $info = "Stok Tidak mencukupi";
+        }
         $data = new stdClass();
+        $data->info = $info;
         $data->view_konten = 'transaksi_konsumen';
         $data->title = "Transaksi";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
+    }
+    function bayar(){
+        foreach($this->cart->contents() as $item){
+            $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty']);
+        }
+        $this->cart->destroy();
+        redirect('/transaksi_konsumen');
+    }
+    function add($produk, $jumlah)
+    {
+        $produk = $this->produk->get_produk_by_id($produk);
+        if($produk->stok<$jumlah){ return false;}
+        else {
+        $data = array(
+            'id'    => $produk->id,
+            'qty'   => $jumlah,
+            'price' => $produk->harga_jual,
+            'name'  => $produk->model,
+            'merek' => $produk->merek,
+            'warna' => $produk->warna,
+            'ukuran'=> $produk->ukuran
+        );
+        $this->cart->insert($data);
+        return true;
+        }
     }
 
     function model($merek)
