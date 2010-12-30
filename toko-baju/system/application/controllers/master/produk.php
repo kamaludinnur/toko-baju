@@ -19,6 +19,8 @@ class Produk extends Controller {
 
     function manage()
     {
+//        $this->session->unset_userdata('prod_filter'); die();
+
         $this->load->library('pagination');
 
         $data = new stdClass();
@@ -46,8 +48,15 @@ class Produk extends Controller {
         $mulai = $this->uri->segment(4, 0);
         $limit_per_halaman = 25;
 
-        $data->daftar_produk = $this->produk->get_semua_produk($order0, $order1, $order2, $order3, $mulai, $limit_per_halaman);
+        // filter
+        $filter = ($this->session->userdata('prod_filter')) ? unserialize($this->session->userdata('prod_filter')) : array();
 
+        $data->is_filtered = (count($filter) > 0);
+        $data->filter_count = count($filter);
+        
+        $data->daftar_produk = $this->produk->get_semua_produk($order0, $order1, $order2, $order3, $mulai, $limit_per_halaman, $filter);
+
+        // paging
         $paging['base_url']     = site_url("master/produk/manage");
         $paging['total_rows']   = $this->produk->jumlah_semua_produk();
         $paging['per_page']     = $limit_per_halaman;
@@ -60,6 +69,11 @@ class Produk extends Controller {
         $this->pagination->initialize($paging);
 
         $data->page_links = $this->pagination->create_links();
+
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $data->daftar_warna = $this->warna->get_semua_warna();
+        $data->daftar_model = $this->model_baju->get_semua_model();
+        $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
 
         // view yang memuat isi halamannya
         $data->view_konten = "produk";
@@ -320,5 +334,42 @@ class Produk extends Controller {
         $data->data_produk = $this->produk->get_produk_by_id($id);
 
         $this->load->view('master/produk_edit_dialog', $data);
+    }
+
+    function filter()
+    {
+        $filter = array();
+        $f = array();
+
+        $f[0] = ($this->input->post('f_merek')) ? "merek.nama = '" . $this->input->post('f_merek') . "'" : "";
+        $f[1] = ($this->input->post('f_model')) ? "model.nama = '" . $this->input->post('f_model') . "'" : "";
+        $f[2] = ($this->input->post('f_warna')) ? "warna.nama = '" . $this->input->post('f_warna') . "'" : "";
+        $f[3] = ($this->input->post('f_ukuran')) ? "ukuran.nama = '" . $this->input->post('f_ukuran') . "'" : "";
+        $f[4] = ($this->input->post('f_stok') != "") ? "produk.stok" . $this->input->post('f_stok_op') . $this->input->post('f_stok') : "";
+        $f[5] = ($this->input->post('f_hb') != "") ? "produk.harga_beli" . $this->input->post('f_hb_op') . $this->input->post('f_hb') : "";
+        $f[6] = ($this->input->post('f_hj') != "") ? "produk.harga_jual" . $this->input->post('f_hj_op') . $this->input->post('f_hj') : "";
+        $f[7] = ($this->input->post('f_ktr')) ? "produk.keterangan LIKE '%" . $this->input->post('f_ktr') . "%'" : "";
+
+        $this->session->set_userdata('prod_filter_input_0', $this->input->post('f_merek'));
+        $this->session->set_userdata('prod_filter_input_1', $this->input->post('f_model'));
+        $this->session->set_userdata('prod_filter_input_2', $this->input->post('f_warna'));
+        $this->session->set_userdata('prod_filter_input_3', $this->input->post('f_ukuran'));
+
+        $this->session->set_userdata('prod_filter_input_4', $this->input->post('f_stok'));
+        $this->session->set_userdata('prod_filter_input_5', $this->input->post('f_hb'));
+        $this->session->set_userdata('prod_filter_input_6', $this->input->post('f_hj'));
+        $this->session->set_userdata('prod_filter_input_7', $this->input->post('f_ktr'));
+
+        $this->session->set_userdata('prod_filter_input_4_op', $this->input->post('f_stok_op'));
+        $this->session->set_userdata('prod_filter_input_5_op', $this->input->post('f_hb_op'));
+        $this->session->set_userdata('prod_filter_input_6_op', $this->input->post('f_hj_op'));
+
+        foreach ($f as $g) {
+            if($g != '') $filter[] = $g;
+        }
+
+        $this->session->set_userdata('prod_filter', serialize($filter));
+
+        redirect('master/produk');
     }
 }

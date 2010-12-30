@@ -1,13 +1,103 @@
 <h2>Manajemen Produk</h2>
 
-<p>Berikut ini daftar semua produk yang sudah dientri. Klik pada judul kolom tabel untuk mengurutkannya.</p>
+<p>Berikut ini daftar semua produk yang sudah dientri. Klik pada judul kolom tabel untuk mengurutkannya. <br/>Produk yang sudah pernah ditransaksikan tidak dapat dihapus atau diedit lagi.</p>
 
 <div class="new_product" style="float: left">
-    <input type="submit" name="submit" id="submit" value="Entri produk &raquo;" class="button blue" title="Klik untuk mengentri produk baru" onclick="location.href='index.php/master/produk/entri'"/>
+    <input type="submit" name="submit" value="Entri produk &raquo;" class="button blue" title="Klik untuk mengentri produk baru" onclick="location.href='index.php/master/produk/entri'"/>
+    <input type="submit" name="submit" value="Filter<?php if($is_filtered) echo " ($filter_count kriteria)" ?>" class="button <?php echo ($is_filtered) ? "orange" : "blue"?>" title="Klik untuk memfilter produk berdasarkan kriteria tertentu" onclick="$('#filterbox').slideToggle();"/>
 </div>
 
 <div class="pagination">
 <?php echo $page_links; ?>
+</div>
+
+<?php $operators = array('=', '<', '<=', '>', '>='); ?>
+
+<br/>
+
+<div class="yellowbox" id="filterbox" style="display: none">
+    <?php //print_r($filter_value); ?>
+    <form action="index.php/master/produk/filter" method="post" id="filter_form">
+
+        <table width="100%">
+            <tr>
+                <td>Merek:</td>
+                <td><input type="text" id="merek" name="f_merek" size="20" value="<?php echo $this->session->userdata('prod_filter_input_0'); ?>"/></td>
+            </tr>
+            <tr>                
+                <td>Model:</td>
+                <td><input type="text" id="model" name="f_model" size="20" value="<?php echo $this->session->userdata('prod_filter_input_1'); ?>"/></td>
+            </tr>
+            <tr>
+                <td>Warna:</td>
+                <td><input type="text" id="warna" name="f_warna" size="20" value="<?php echo $this->session->userdata('prod_filter_input_2'); ?>"/></td>
+            </tr>
+            <tr>
+                <td>Ukuran:</td>
+                <td><input type="text" id="ukuran" name="f_ukuran" size="5" value="<?php echo $this->session->userdata('prod_filter_input_3'); ?>"/></td>
+            </tr>
+            <tr>
+                <td>Stok:</td>
+                <td>
+                    <select name="f_stok_op">
+                        <?php foreach ($operators as $o) {
+                            echo "<option value='$o'";
+                            echo ($this->session->userdata('prod_filter_input_4_op') == $o) ? "selected='selected'" : "";
+                            echo ">$o</option>";
+                        }; ?>
+                    </select>
+                    <input type="text" id="stok" name="f_stok" size="5" value="<?php echo $this->session->userdata('prod_filter_input_4'); ?>"/>
+                </td>               
+            </tr>
+            <tr>
+                <td>Harga beli:</td>
+                <td>
+                    <select name="f_hb_op">
+                        <?php foreach ($operators as $o) {
+                            echo "<option value='$o'";
+                            echo ($this->session->userdata('prod_filter_input_5_op') == $o) ? "selected='selected'" : "";
+                            echo ">$o</option>";
+                        }; ?>                    </select>
+                    <input type="text" id="hb" name="f_hb" size="10" value="<?php echo $this->session->userdata('prod_filter_input_5'); ?>"/>
+                </td>                
+            </tr>
+            <tr>
+                <td>Harga jual:</td>
+                <td>
+                    <select name="f_hj_op">
+                        <?php foreach ($operators as $o) {
+                            echo "<option value='$o'";
+                            echo ($this->session->userdata('prod_filter_input_6_op') == $o) ? "selected='selected'" : "";
+                            echo ">$o</option>";
+                        }; ?>                    </select>
+                    <input type="text" id="hj" name="f_hj" size="10" value="<?php echo $this->session->userdata('prod_filter_input_6'); ?>"/>
+                </td>                
+            </tr>
+            <tr>
+                <td>Keterangan:</td>
+                <td>
+                    <input type="text" id="ktr" name="f_ktr" size="20" value="<?php echo $this->session->userdata('prod_filter_input_7'); ?>"/>
+                </td>                
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Filter" class="button blue"/>
+                    <a href="#" onclick="$('#filter_form input[type=text]').val(''); $('select option:first-child').attr('selected', 'selected'); $('#filter_form').submit(); return false;">Hapus filter</a>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    <script type="text/javascript">
+
+    $('#merek').autocompleteArray("<?php foreach ($daftar_merek as $merek) echo $merek['nama'] . ";" ?>".split(";"), {autoFill:true, delay:10,selectFirst:true,selectOnly:true});
+    $('#model').autocompleteArray("<?php foreach ($daftar_model as $model) echo $model['nama'] . ";" ?>".split(";"), {autoFill:true, delay:10,selectFirst:true,selectOnly:true});
+    $('#warna').autocompleteArray("<?php foreach ($daftar_warna as $warna) echo $warna['nama'] . ";" ?>".split(";"), {autoFill:true, delay:10,selectFirst:true,selectOnly:true});
+    $('#ukuran').autocompleteArray("<?php foreach ($daftar_ukuran as $ukuran) echo $ukuran['nama'] . ";" ?>".split(";"), {autoFill:true, delay:10,selectFirst:true,selectOnly:true});
+    
+    </script>
+
 </div>
 
 <br/>
@@ -37,14 +127,14 @@
             <th class="<?php if(strpos($this->session->userdata('prod_sort_0'), 'harga_jual') !== FALSE) echo substr($this->session->userdata('prod_sort_0'), 11); ?>">
                 <a href="index.php/master/produk/sort/harga_jual<?php if($this->session->userdata('prod_sort_0') == 'harga_jual ASC') echo '/DESC' ?>">Harga penjualan</a>
             </th>
-            <th width="">Keterangan</th>
+            <th>Keterangan</th>
             <th style="width: 70px" class="rounded-q4">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         <?php if (count($daftar_produk) == 0) : ?>
         <tr>
-            <td colspan="9">Belum ada data</td>
+            <td colspan="10">Belum ada data</td>
         </tr>
         <?php else : $i = $this->uri->segment(4, 0) + 1; foreach($daftar_produk as $produk) : ?>
         <tr <?php if($i%2 == 0) echo "class='alt'" ; ?> id="baris_<?php echo $produk['id'] ?>" >
@@ -68,7 +158,7 @@
 <br/>
 
 <div class="new_product" style="float: left">
-    <input type="submit" name="submit" id="submit" value="Entri produk &raquo;" class="button blue" title="Klik untuk mengentri produk baru" onclick="location.href='index.php/master/produk/entri'"/>
+    <input type="submit" name="submit" value="Entri produk &raquo;" class="button blue" title="Klik untuk mengentri produk baru" onclick="location.href='index.php/master/produk/entri'"/>
 </div>
 
 

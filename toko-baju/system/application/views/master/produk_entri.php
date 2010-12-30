@@ -8,6 +8,10 @@
         <fieldset>
 
             <dl>
+                <dt>&nbsp;</dt>
+                <dd><a href="index.php/master/produk" class="form_jump">&laquo; Kembali ke semua produk</a></dd>
+            </dl>
+            <dl>
                 <dt><label>Merek</label></dt>
                 <dd>
                     <select size="1" name="merek" id="id_merek" onchange="load_model(this.value)">
@@ -24,7 +28,7 @@
             <dl>
                 <dt><label>Model</label></dt>
                 <dd id="model">
-                    <select size="1" name="model" id="id_model" disabled>
+                    <select size="1" name="model" id="id_model" disabled="disabled">
                         <option value="">Pilih model: </option>
                     </select>
                 </dd>
@@ -80,7 +84,7 @@
                 <dt></dt>
                 <dd>
                     <input type="submit" name="submit" id="submit" value="Simpan" class="button blue" />
-                    <a href="index.php/master/produk" class="form_jump">&laquo; Kembali ke semua produk</a>
+                    
                 </dd>
             </dl>
 
@@ -143,7 +147,7 @@
         $('#produk_hint_sidebar').hide();
         $('#latest_entried_sidebar').fadeIn('slow');
         var data = "\
-            <div class='entri'><table>\
+            <"+"div class='entri'><table>\
                 <tr>\
                     <td>Merek</td>\
                     <td>: "+$("#id_merek option:selected").text()+"</td>\

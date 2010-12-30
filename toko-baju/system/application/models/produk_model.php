@@ -6,30 +6,35 @@ class Produk_model extends Model {
         parent::Model();
     }
 
-    function get_semua_produk($order0 = 'merek', $order1 = 'model', $order2 = 'warna', $order3 = 'id_ukuran', $mulai = 0, $sebanyak = 25)
+    function get_semua_produk($order0 = 'merek', $order1 = 'model', $order2 = 'warna', $order3 = 'id_ukuran', $mulai = 0, $sebanyak = 25, $filter = array())
     {
         $data = array();
-        $q = $this->db->query("SELECT
-                                  produk.id         AS id,
-                                  merek.id          AS id_merek,
-                                  merek.nama        AS merek,
-                                  produk.model      AS id_model,
-                                  model.nama        AS model,
-                                  produk.warna      AS id_warna,
-                                  warna.nama        AS warna,
-                                  produk.ukuran     AS id_ukuran,
-                                  ukuran.nama       AS ukuran,
-                                  produk.stok       AS stok,
-                                  produk.harga_beli AS harga_beli,
-                                  produk.harga_jual AS harga_jual,
-                                  produk.keterangan AS keterangan
-                                FROM produk, model, ukuran, warna, merek
-                                WHERE produk.model  = model.id
-                                  AND produk.ukuran = ukuran.id
-                                  AND produk.warna  = warna.id
-                                  AND model.merek   = merek.id
-                                ORDER by $order0, $order1, $order2, $order3
-                                LIMIT $mulai, $sebanyak");
+        $query_string  =   "SELECT
+                              produk.id         AS id,
+                              merek.id          AS id_merek,
+                              merek.nama        AS merek,
+                              produk.model      AS id_model,
+                              model.nama        AS model,
+                              produk.warna      AS id_warna,
+                              warna.nama        AS warna,
+                              produk.ukuran     AS id_ukuran,
+                              ukuran.nama       AS ukuran,
+                              produk.stok       AS stok,
+                              produk.harga_beli AS harga_beli,
+                              produk.harga_jual AS harga_jual,
+                              produk.keterangan AS keterangan
+                            FROM produk, model, ukuran, warna, merek
+                            WHERE produk.model  = model.id
+                              AND produk.ukuran = ukuran.id
+                              AND produk.warna  = warna.id
+                              AND model.merek   = merek.id ";
+
+        if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
+
+        $query_string .=   " ORDER by $order0, $order1, $order2, $order3
+                            LIMIT $mulai, $sebanyak";
+
+        $q = $this->db->query($query_string);
 
         if($q->num_rows() > 0)
         {

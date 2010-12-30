@@ -9,7 +9,7 @@
 
                         <div class="sidebarmenu">
 
-                            <a class="menuitem submenuheader" href="">Data</a>
+                            <a class="menuitem submenuheader" href="#">Data</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="index.php/master/agen">Manajemen Agen</a></li>
@@ -19,7 +19,7 @@
                                     <li><a href="index.php/master/ukuran">Manajemen Ukuran</a></li>
                                 </ul>
                             </div>
-                            <a class="menuitem submenuheader" href="" >Produk</a>
+                            <a class="menuitem submenuheader" href="#" >Produk</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="index.php/master/produk/entri"><strong>Entri Produk Baru</strong></a></li>
