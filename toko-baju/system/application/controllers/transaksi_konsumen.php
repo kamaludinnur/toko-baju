@@ -31,6 +31,9 @@ class Transaksi_konsumen extends Controller {
         $this->cart->destroy();
         redirect('/transaksi_konsumen');
     }
+    function batal(){
+        $this->cart->destroy();
+    }
     function add($produk, $jumlah)
     {
         $produk = $this->produk->get_produk_by_id($produk);

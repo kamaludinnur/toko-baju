@@ -32,7 +32,7 @@ foreach($this->cart->contents() as $item){?>
 Total: Rp <?php echo number_format($this->cart->total())?> <br />
 
 <a href="index.php/transaksi_konsumen/bayar">Bayar</a>
-<a href="#">Batal</a>
+<a href="index.php/transaksi_konsumen/batal">Batal</a>
 <form action="" method="POST">
     <div id="merek">
     <select name="merek">
