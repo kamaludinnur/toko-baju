@@ -14,13 +14,13 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" size="15" id="start_date" name="start_date"/>
+                    <input type="text" size="15" id="start_date" name="start_date" value="<?php echo date("d/m/Y"); ?>"/>
                 </td>
                 <td>
                     <input type="button" value="&rArr;" title="Samakan tanggal" onclick="$('#end_date').val($('#start_date').val())"/>
                 </td>
                 <td>
-                    <input type="text" size="15" id="end_date" name="end_date"/>
+                    <input type="text" size="15" id="end_date" name="end_date" value="<?php echo date("d/m/Y"); ?>"/>
                 </td>
                 <td>
                     <input type="submit" class="button blue" value="Rekap &raquo;" name="submit"/>

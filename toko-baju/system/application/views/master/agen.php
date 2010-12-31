@@ -9,9 +9,10 @@
     <ul>
         <li>Urutkan berdasarkan
         <?php
-        if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/agen/manage/nama'>Nama</a> &middot; <a href='index.php/master/agen/manage/diskon'>Diskon</a>";
-        if($sort_by == 'nama') echo "<a href='index.php/master/agen/manage'>ID</a> &middot; <strong>Nama</strong> &middot; <a href='index.php/master/agen/manage/diskon'>Diskon</a>";
-        if($sort_by == 'diskon') echo "<a href='index.php/master/agen/manage'>ID</a> &middot; <a href='index.php/master/agen/manage/nama'>Nama</a> &middot; <strong>Diskon</strong>";
+        if($sort_by == 'id') echo "<strong>ID</strong> &middot; <a href='index.php/master/agen/manage/kode'>Kode</a> &middot; <a href='index.php/master/agen/manage/nama'>Nama</a> &middot; <a href='index.php/master/agen/manage/diskon'>Diskon</a>";
+        if($sort_by == 'kode') echo "<a href='index.php/master/agen/manage'>ID</a> &middot; <strong>Kode</strong> &middot; <a href='index.php/master/agen/manage/nama'>Nama</a> &middot; <a href='index.php/master/agen/manage/diskon'>Diskon</a>";
+        if($sort_by == 'nama') echo "<a href='index.php/master/agen/manage'>ID</a> &middot; <a href='index.php/master/agen/manage/kode'>Kode</a> &middot; <strong>Nama</strong> &middot; <a href='index.php/master/agen/manage/diskon'>Diskon</a>";
+        if($sort_by == 'diskon') echo "<a href='index.php/master/agen/manage'>ID</a> &middot; <a href='index.php/master/agen/manage/kode'>Kode</a> &middot; <a href='index.php/master/agen/manage/nama'>Nama</a> &middot; <strong>Diskon</strong>";
         ?>
         </li>
         <li>
@@ -26,6 +27,7 @@
     <thead>
         <tr>
             <th width="25" class="rounded-company">ID</th>
+            <th width="80">Kode</th>
             <th width="250">Agen</th>
             <th>Diskon</th>
             <th width="350">Keterangan</th>
@@ -35,11 +37,12 @@
     <tbody>
         <?php if (count($daftar_agen) == 0) : ?>
         <tr>
-            <td colspan="5">Belum ada data</td>
+            <td colspan="6">Belum ada data</td>
         </tr>
         <?php else : $i = 1; foreach($daftar_agen as $agen) : ?>
         <tr class="row<?php if($id_agen_baru == $agen['id']) echo ' entri_baru'; ?> <?php if($i%2==0) echo "alt" ?>" id="baris_<?php echo $agen['id'] ?>" >
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['id']; ?></td>
+            <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['kode']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo round($agen['diskon'], 2); ?>%</td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['keterangan']; ?></td>
@@ -50,6 +53,7 @@
 	<tr id="edit_<?php echo $agen['id'] ?>" class="editrow" style="display: none">
 		<form action="" method="post" id="edit_form_<?php echo $agen['id'] ?>">
 			<td><input type="hidden" name="id" value="<?php echo $agen['id'] ?>" /><?php echo $agen['id'] ?></td>
+			<td><input type="text"   name="kode" id="kode_<?php echo $agen['id'] ?>" size="15" value="<?php echo $agen['kode'] ?>"  style="width: 100%"/></td>
 			<td><input type="text"   name="nama" id="nama_<?php echo $agen['id'] ?>" size="30" value="<?php echo $agen['nama'] ?>"  style="width: 100%"/></td>
                         <td><input type="text"   name="diskon" id="diskon_<?php echo $agen['id'] ?>" size="5" value="<?php echo round($agen['diskon'], 2) ?>"  style="width: 100%"/></td>
 			<td><input type="text"   name="keterangan" id="keterangan_<?php echo $agen['id'] ?>" size="50" value="<?php echo $agen['keterangan'] ?>"  style="width: 100%"/></td>
@@ -60,11 +64,12 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5">Tambahkan data</td>
+            <td colspan="6">Tambahkan data</td>
         </tr>
         <tr>
             <form action="" id="form" method="post">
                 <td class="rounded-foot-left"></td>
+                <td><input type="text" size="15" maxlength="100" style="width: 100%" name="new_kode" id="new_kode"/></td>
                 <td><input type="text" size="30" maxlength="100" style="width: 100%" name="new_nama" id="new_nama"/></td>
                 <td><input type="text" size="10" maxlength="100" style="width: 100%" name="new_diskon" id="new_diskon"/></td>
                 <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_keterangan" id="new_keterangan"/></td>
@@ -82,7 +87,7 @@ $(document).ready(function(){
 
     $('#form').submit(function(){
 
-        if(inputNama.val() == "" || $('#new_diskon').val() == "") return false;
+        if(inputNama.val() == "" || $('#new_diskon').val() == "" || $('#new_kode').val() == "") return false;
        
     });
     $('.entri_baru').css({backgroundColor : 'yellow !important'});

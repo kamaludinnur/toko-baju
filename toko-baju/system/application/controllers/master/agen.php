@@ -47,6 +47,7 @@ class Agen extends Controller {
     function insert()
     {
         $agen = array(
+            'kode' => $this->input->post('new_kode'),
             'nama' => $this->input->post('new_nama'),
             'diskon' => floatval($this->input->post('new_diskon')),
             'keterangan' => $this->input->post('new_keterangan')
@@ -63,6 +64,7 @@ class Agen extends Controller {
     function update()
     {
         $agen = array(
+            'kode' => $this->input->post('kode'),
             'nama' => $this->input->post('nama'),
             'diskon' => floatval($this->input->post('diskon')),
             'keterangan' => $this->input->post('keterangan')
