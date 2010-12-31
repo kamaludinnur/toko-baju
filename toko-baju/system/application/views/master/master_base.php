@@ -71,7 +71,7 @@
                 $.cookie('tokobaju_sidebar_isHidden', 'yes', {exprires: 30, path: '/'});
             } else {
                 // show it
-                $('.right_content').css({width: '625px'});
+                $('.right_content').css({width: '640px'});
                 $('.left_content').animate({width:"195px"});
                 $.cookie('tokobaju_sidebar_isHidden', 'no', {exprires: 30, path: '/'});
                 $('#sidebar_toggler input').first().val("Menu »");

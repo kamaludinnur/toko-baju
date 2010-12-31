@@ -77,6 +77,7 @@ class Rekap_model extends Model {
                                 ukuran.nama     AS ukuran,
                                 ta.agen         AS id_agen,
                                 agen.nama       AS agen,
+                                agen.kode       AS kode_agen,
                                 ta.jumlah       AS jumlah,
                                 ta.harga        AS harga,
                                 ta.keuntungan   AS keuntungan,

@@ -202,9 +202,10 @@ a.forgot_pass{
     padding-top: 40px;
 }
 .right_content{
-    width:625px;
+    width:640px;
     float:left;
     padding:30px 0 0 20px;
+    overflow: hidden;
 }
 
 #sidebar_toggler{
@@ -559,6 +560,14 @@ input, textarea, select {
         margin-right: 5px;
 	}
 
+input:disabled {
+        opacity: 0.4;
+}
+
+input:disabled:hover {
+        border: solid 1px #C9C9C9;
+}
+
 textarea {
 	height: 150px;
 	line-height: 150%;
@@ -757,9 +766,9 @@ input[type=button].icon_only {
 
 .datepicker { border-collapse: collapse; border: 1px solid #888; -moz-box-shadow: 0px 1px 5px rgba(0,0,0,0.5);; position: absolute; z-index: 2000;}
 .datepicker tr.controls th { height: 22px; font-size: 11px; padding: 2px 5px; width: 230px}
+.datepicker tr.top th { padding: 5px 3px;}
 .datepicker select { font-size: 11px; }
 .datepicker tr.days th { height: 18px; }
-.datepicker tfoot td { height: 18px; text-align: center; text-transform: capitalize; }
 .datepicker th, .datepicker tfoot td { background: #eee;}
 .datepicker th span, .datepicker tfoot td span { font-weight: bold; }
 .datepicker .prevMonth, .datepicker .nextMonth {padding: 2px 10px; border: 1px solid #CCC}

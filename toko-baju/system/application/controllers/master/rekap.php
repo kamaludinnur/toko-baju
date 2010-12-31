@@ -51,4 +51,33 @@ class Rekap extends Controller {
         $this->load->view('master/rekap_transaksi_konsumen_table', $data);
     }
 
+    function transaksi_agen()
+    {
+        $data = new stdClass();
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap_transaksi_agen";
+        $data->title = "Rekap Transaksi Agen";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+    function transaksi_agen_get()
+    {
+        $data = new stdClass();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        $data->sehari_doang = ($start_date == $end_date);
+        $data->data_rekapan = $this->rekap->get_transaksi_agen($this->format_date($start_date), $this->format_date($end_date));
+
+        $this->load->view('master/rekap_transaksi_agen_table', $data);
+    }
+
+
 }

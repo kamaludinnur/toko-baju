@@ -93,9 +93,9 @@
 				for (var i in years) yearselect += '<option>'+years[i]+'</option>';
 				yearselect += '</select>';
 
+			jQuery("thead",table).append('<tr class="top"><th colspan="2"><span class="today" title="Pilih tanggal hari ini">Hari ini</span></th><th colspan="3">&nbsp;</th><th colspan="2"><span class="close">Tutup [X]</span></th></tr>');
 			jQuery("thead",table).append('<tr class="controls"><th colspan="7"><span class="prevMonth">&laquo;</span>&nbsp;'+monthselect+yearselect+'&nbsp;<span class="nextMonth">&raquo;</span></th></tr>');
 			jQuery("thead",table).append('<tr class="days"><th>M</th><th>S</th><th>S</th><th>R</th><th>K</th><th>J</th><th>S</th></tr>');
-			jQuery("tfoot",table).append('<tr><td colspan="2"><span class="today">Hari ini</span></td><td colspan="3">&nbsp;</td><td colspan="2"><span class="close">Tutup</span></td></tr>');
 			for (var i = 0; i < 6; i++) jQuery("tbody",table).append('<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
 			return table;
 		}

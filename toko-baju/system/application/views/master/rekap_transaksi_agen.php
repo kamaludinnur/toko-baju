@@ -1,10 +1,10 @@
 <script type="text/javascript" src="js/jquery.datepicker.js"></script>
 
-<h2>Rekap Transaksi Konsumen</h2>
+<h2>Rekap Transaksi Agen</h2>
 
 <div class="yellowbox">
     <h3 class="left_drop">Rentang</h3>
-    <form action="index.php/master/rekap/transaksi_konsumen_res" method="post" id="trx_form">
+    <form action="index.php/master/rekap/transaksi_agen_res" method="post" id="trx_form">
         <table style="margin-top: 10px">
             <tr>
                 <td>Tanggal:</td>
@@ -42,7 +42,7 @@ $('#trx_form').submit(function(){
 
     $('#rekap_result').slideUp('slow', function(){
         $('#rekap_result')
-            .load('index.php/master/rekap/transaksi_konsumen_get',
+            .load('index.php/master/rekap/transaksi_agen_get',
             {
                 "start" : $('#start_date').val(),
                 "end"   : $('#end_date').val()
