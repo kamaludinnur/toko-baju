@@ -58,7 +58,7 @@ class Produk extends Controller {
 
         // paging
         $paging['base_url']     = site_url("master/produk/manage");
-        $paging['total_rows']   = $this->produk->jumlah_semua_produk();
+        $paging['total_rows']   = $this->produk->jumlah_semua_produk($filter);
         $paging['per_page']     = $limit_per_halaman;
         $paging['uri_segment']  = 4;
         $paging['next_link'] 	= 'Berikutnya &raquo;';

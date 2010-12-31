@@ -50,6 +50,7 @@
         <script type="text/javascript" src="js/jquery.uitablefilter.js"></script>
         <script type="text/javascript" src="js/jquery.cookies.js"></script>
         <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+        <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
 
         <link rel="stylesheet" type="text/css" media="all" href="niceforms-default.css" />
         <link rel="stylesheet" type="text/css" media="all" href="jquery.fastconfirm.css" />

@@ -48,9 +48,24 @@ class Produk_model extends Model {
         return $data;
     }
 
-    function jumlah_semua_produk()
+    function jumlah_semua_produk($filter = array())
     {
-        return $this->db->count_all('produk');
+        if (count($filter) == 0)
+        {
+            return $this->db->count_all('produk');
+        }
+        else
+        {
+            $query_string  =   "SELECT COUNT(*) AS numrows
+                                FROM produk, model, ukuran, warna, merek
+                                WHERE produk.model  = model.id
+                                  AND produk.ukuran = ukuran.id
+                                  AND produk.warna  = warna.id
+                                  AND model.merek   = merek.id ";
+            $query_string .= ' AND ' . implode($filter, ' AND ');
+            
+            return $this->db->query($query_string)->row()->numrows;
+        }
     }
 
     function get_produk($model, $warna, $ukuran)

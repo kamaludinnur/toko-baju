@@ -26,7 +26,13 @@
                                     <li><a href="index.php/master/produk">Manajemen Produk</a></li>
                                 </ul>
                             </div>
-
+                            <a class="menuitem submenuheader" href="#">Rekap</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="index.php/master/rekap/transaksi_konsumen">Transaksi Konsumen</a></li>
+                                    <li><a href="index.php/master/rekap/transaksi_agen">Transaksi Agen</a></li>
+                                </ul>
+                            </div>
                             <!--
 
                             <a class="menuitem" href="">User Reference</a>
