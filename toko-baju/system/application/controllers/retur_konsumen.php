@@ -1,45 +1,45 @@
 <?php
-class Transaksi_konsumen extends Controller {
+class Retur_konsumen extends Controller {
 
-    function Transaksi_konsumen()
+    function Retur_konsumen()
     {
         parent::Controller();
         $this->load->model('Produk_model', 'produk');
         $this->load->model('Merek_model', 'merek');
         $this->load->model('Model_baju_model', 'model');
-        $this->load->model('Transaksi_konsumen_model', 'transaksi_konsumen');
+        $this->load->model('Retur_model', 'retur');
     }
 
     function index()
     {
-        if($this->session->userdata('transaksi')!='transaksi_konsumen'){
+        if($this->session->userdata('transaksi')!='retur_konsumen'){
             $this->cart->destroy();
-            $this->session->set_userdata('transaksi', 'transaksi_konsumen');
+            $this->session->set_userdata('transaksi', 'retur_konsumen');
         }
         $info = "";
         if ($this->input->post('submit')) {
-            $add = $this->add($this->input->post('id'), $this->input->post('jumlah'));
+            $add = $this->add($this->input->post('id'), $this->input->post('jumlah'), $this->input->post('harga'));
             if (!$add) $info = "Stok Tidak mencukupi";
         }
         $data = new stdClass();
         $data->info = $info;
-        $data->view_konten = 'transaksi_konsumen';
+        $data->view_konten = 'retur_konsumen';
         $data->title = "Transaksi";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
-    function bayar(){
+    function refund(){
         foreach($this->cart->contents() as $item){
-            $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty']);
+            $this->retur->retur_konsumen($item['id'], $item['qty'], $item['price']);
         }
         $this->cart->destroy();
-        redirect('/transaksi_konsumen');
+        redirect('/retur_konsumen');
     }
     function batal(){
         $this->cart->destroy();
-        redirect('/transaksi_konsumen');
+        redirect('/retur_konsumen');
     }
-    function add($produk, $jumlah)
+    function add($produk, $jumlah, $harga)
     {
         $produk = $this->produk->get_produk_by_id($produk);
         if($produk->stok<$jumlah){ return false;}
@@ -47,7 +47,7 @@ class Transaksi_konsumen extends Controller {
         $data = array(
             'id'    => $produk->id,
             'qty'   => $jumlah,
-            'price' => $produk->harga_jual,
+            'price' => $harga,
             'name'  => $produk->model,
             'merek' => $produk->merek,
             'warna' => $produk->warna,

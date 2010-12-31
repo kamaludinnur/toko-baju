@@ -1,21 +1,24 @@
 <?php
-class Transaksi_konsumen extends Controller {
+class Transaksi_agen extends Controller {
 
-    function Transaksi_konsumen()
+    function Transaksi_agen()
     {
         parent::Controller();
         $this->load->model('Produk_model', 'produk');
         $this->load->model('Merek_model', 'merek');
         $this->load->model('Model_baju_model', 'model');
-        $this->load->model('Transaksi_konsumen_model', 'transaksi_konsumen');
+        $this->load->model('Transaksi_agen_model', 'transaksi_agen');
+        $this->load->model('Agen_model', 'agen');
     }
 
     function index()
     {
-        if($this->session->userdata('transaksi')!='transaksi_konsumen'){
+        if($this->session->userdata('transaksi')!='transaksi_agen'){
             $this->cart->destroy();
-            $this->session->set_userdata('transaksi', 'transaksi_konsumen');
+            $this->session->set_userdata('transaksi', 'transaksi_agen');
+            $this->session->unset_userdata('id_agen');
         }
+        if(!$this->session->userdata('id_agen')) redirect('/transaksi_agen/tentukan_agen');
         $info = "";
         if ($this->input->post('submit')) {
             $add = $this->add($this->input->post('id'), $this->input->post('jumlah'));
@@ -23,22 +26,50 @@ class Transaksi_konsumen extends Controller {
         }
         $data = new stdClass();
         $data->info = $info;
-        $data->view_konten = 'transaksi_konsumen';
+        $data->view_konten = 'transaksi_agen';
         $data->title = "Transaksi";
+        $id_agen = $this->session->userdata('id_agen');
+        $data->nama_agen = "";
+        $data->nama_agen .= $this->agen->get_agen($id_agen)->nama;
+        $data->daftar_agen = $this->agen->get_semua_agen();
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
+
+    function pilih_agen($id)
+    {
+        $agen = $this->agen->get_agen($id);
+        if ($agen) $this->session->set_userdata('id_agen', $id);
+        redirect('/transaksi_agen');
+    }
+
+    function tentukan_agen()
+    {
+        $data = new stdClass();
+        $data->view_konten = 'tentukan_agen';
+        $data->title = "Transaksi";
+        $data->nama_agen = "";
+        $data->nama_agen .= $this->session->userdata('id_agen');
+        $data->daftar_agen = $this->agen->get_semua_agen();
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $this->load->view('base', $data);
+    }
+    
     function bayar(){
         foreach($this->cart->contents() as $item){
-            $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty']);
+            $this->transaksi_agen->tambah_transaksi($item['id'], $item['qty'], $this->session->userdata('id_agen'));
         }
         $this->cart->destroy();
-        redirect('/transaksi_konsumen');
+        $this->session->unset_userdata('id_agen');
+        redirect('/transaksi_agen');
     }
+
     function batal(){
         $this->cart->destroy();
-        redirect('/transaksi_konsumen');
+        $this->session->unset_userdata('id_agen');
+        redirect('/transaksi_agen');
     }
+
     function add($produk, $jumlah)
     {
         $produk = $this->produk->get_produk_by_id($produk);
