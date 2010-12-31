@@ -22,7 +22,9 @@ class Reject_model extends Model {
             "refund" => $refund
         );
         $q = $this->db->insert('transaksi_reject',$data);
-        return $q;
+        if($q){
+            return $this->produk->tambah_stok_produk($id_produk,$jumlah,$x->harga_beli, "reject_konsumen");
+        }
     }
 
     function reject_agen($id_produk, $jumlah, $harga, $agen)
@@ -40,7 +42,9 @@ class Reject_model extends Model {
             "refund" => $refund
         );
         $q = $this->db->insert('transaksi_reject',$data);
-        return $q;
+        if($q){
+            return $this->produk->tambah_stok_produk($id_produk,$jumlah,$x->harga_beli, "reject_agen");
+        }
     }
 
 
