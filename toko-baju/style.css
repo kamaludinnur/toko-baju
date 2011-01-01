@@ -531,12 +531,16 @@ h3.left_drop {
 .sortable th.ASC, th.headerSortUp {
     background: #ECF8FD url('images/asc.gif') center right no-repeat;
     padding-right: 18px;
+    cursor: pointer;
 }
 
 .sortable th.DESC, th.headerSortDown {
     background: #ECF8FD url('images/desc.gif') center right no-repeat;
     padding-right: 18px;
+    cursor: pointer;
 }
+
+.sortable th {    cursor: pointer;    }
 
 .sortable th a {
     text-decoration: none;
@@ -776,3 +780,21 @@ input[type=button].icon_only {
 .datepicker tbody td.date { cursor: pointer; }
 .datepicker tbody td.date.over { background-color: #99ffff; }
 .datepicker tbody td.date.chosen { font-weight: bold; background-color: #60C8F2; }
+
+/* tabs */
+
+.tab {
+    border: 1px solid #e9e6c7;
+    background-color: #fff;
+    padding: 10px;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: -1px;
+}
+
+.activetab {
+    border: 1px solid #e9e6c7;
+    background-color: #fcfae9;
+    border-bottom: 1px solid #fcfae9;
+    z-index: 1000;
+}

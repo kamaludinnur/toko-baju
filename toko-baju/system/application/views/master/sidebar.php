@@ -22,7 +22,7 @@
                             <a class="menuitem submenuheader" href="#" >Produk</a>
                             <div class="submenu">
                                 <ul>
-                                    <li><a href="index.php/master/produk/entri"><strong>Entri Produk Baru</strong></a></li>
+                                    <li><a href="index.php/master/produk/entri">Entri Produk Baru</a></li>
                                     <li><a href="index.php/master/produk">Manajemen Produk</a></li>
                                 </ul>
                             </div>
@@ -31,6 +31,7 @@
                                 <ul>
                                     <li><a href="index.php/master/rekap/transaksi_konsumen">Transaksi Konsumen</a></li>
                                     <li><a href="index.php/master/rekap/transaksi_agen">Transaksi Agen</a></li>
+                                    <li><a href="index.php/master/rekap/record_stok">Record Stok Produk</a></li>
                                 </ul>
                             </div>
                             <!--

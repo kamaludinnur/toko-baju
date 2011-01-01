@@ -107,4 +107,98 @@ class Rekap_model extends Model {
         return $data;
     }
 
+    function get_record_stok_by_produk($id_merek = 0, $id_model = 0, $id_warna = 0, $id_ukuran = 0, $order_by = 'tanggal ASC')
+    {
+        $data = array();
+
+        $query_string = "   SELECT
+                              produk.id         AS id_produk,
+                              merek.id          AS id_merek,
+                              merek.nama        AS merek,
+                              produk.model      AS id_model,
+                              model.nama        AS model,
+                              produk.warna      AS id_warna,
+                              warna.nama        AS warna,
+                              produk.ukuran     AS id_ukuran,
+                              ukuran.nama       AS ukuran,
+                              rs.tanggal        AS tanggal,
+                              rs.stok_akhir     AS stok_akhir,
+                              rs.jenis          AS jenis
+                            FROM record_stok AS rs, produk, merek, model, warna, ukuran
+                            WHERE rs.produk = produk.id
+                              AND produk.model  = model.id
+                              AND produk.ukuran = ukuran.id
+                              AND produk.warna  = warna.id
+                              AND model.merek   = merek.id ";
+
+        if ($id_merek != 0) $query_string .= " AND merek.id = {$id_merek}";
+        if ($id_model != 0) $query_string .= " AND produk.model = {$id_model}";
+        if ($id_warna != 0) $query_string .= " AND produk.warna = {$id_warna}";
+        if ($id_ukuran != 0) $query_string .= " AND produk.ukuran = {$id_ukuran}";
+
+        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+
+        $q = $this->db->query($query_string);
+
+        if($q->num_rows() > 0)
+        {
+            foreach ($q->result_array() as $row)
+            {
+                $data[] = $row;
+            }
+        }
+
+        $q->free_result();
+        return $data;
+        
+    }
+
+    function get_record_stok_by_tanggal($start_date, $end_date, $order_by = 'tanggal ASC')
+    {
+        $data = array();
+
+        // formatting
+        // from mm/dd/yyyy to yyyy-mm-dd
+
+        $start_date = date('Y-m-d', strtotime($start_date));
+        $end_date = date('Y-m-d', strtotime($end_date));
+        
+        $query_string = "   SELECT
+                              produk.id         AS id_produk,
+                              merek.id          AS id_merek,
+                              merek.nama        AS merek,
+                              produk.model      AS id_model,
+                              model.nama        AS model,
+                              produk.warna      AS id_warna,
+                              warna.nama        AS warna,
+                              produk.ukuran     AS id_ukuran,
+                              ukuran.nama       AS ukuran,
+                              rs.tanggal        AS tanggal,
+                              rs.stok_akhir     AS stok_akhir,
+                              rs.jenis          AS jenis
+                            FROM record_stok AS rs, produk, merek, model, warna, ukuran
+                            WHERE rs.produk = produk.id
+                              AND produk.model  = model.id
+                              AND produk.ukuran = ukuran.id
+                              AND produk.warna  = warna.id
+                              AND model.merek   = merek.id
+                              AND DATE_FORMAT(rs.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(rs.tanggal, '%Y-%m-%d') <= '{$end_date}'";
+
+        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+
+        $q = $this->db->query($query_string);
+
+        if($q->num_rows() > 0)
+        {
+            foreach ($q->result_array() as $row)
+            {
+                $data[] = $row;
+            }
+        }
+
+        $q->free_result();
+        return $data;
+
+    }
+
 }

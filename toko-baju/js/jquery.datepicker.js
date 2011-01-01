@@ -305,7 +305,7 @@
 
 		// date string matching /^\d{1,2}\/\d{1,2}\/\d{2}|\d{4}$/
 		// or four digit year
-		startdate : today.getFullYear(),
+		startdate : today.getFullYear() - 5,
 		enddate : today.getFullYear() + 1,
 
 		// offset from the top left corner of the input element
