@@ -39,7 +39,7 @@ class Rekap_model extends Model {
                               AND model.merek   = merek.id
                               AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   "ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -91,7 +91,7 @@ class Rekap_model extends Model {
                                 AND model.merek = merek.id
                                 AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   "ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 

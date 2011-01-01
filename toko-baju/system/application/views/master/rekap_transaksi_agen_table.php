@@ -45,9 +45,7 @@
     </tbody>
     <tfoot>
         <tr style="font-size: 15px;">
-            <td colspan="7" style="text-align: right"><strong>Total</strong></td>
-            <td style="text-align: right"><?php echo $total_jumlah; ?></td>
-            <td style="text-align: right"><?php echo number_format($total_harga, 0, ',', '.'); ?></td>
+            <td colspan="9" style="text-align: right"><strong>Total keuntungan</strong></td>
             <td style="text-align: right"><?php echo number_format($total_keuntungan, 0, ',', '.'); ?></td>
         </tr>
     </tfoot>
