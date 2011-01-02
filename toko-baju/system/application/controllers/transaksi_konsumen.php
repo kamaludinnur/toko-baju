@@ -24,7 +24,7 @@ class Transaksi_konsumen extends Controller {
         $data = new stdClass();
         $data->info = $info;
         $data->view_konten = 'transaksi_konsumen';
-        $data->title = "Transaksi";
+        $data->title = "Transaksi Konsumen";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }

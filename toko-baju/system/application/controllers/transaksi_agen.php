@@ -27,7 +27,7 @@ class Transaksi_agen extends Controller {
         $data = new stdClass();
         $data->info = $info;
         $data->view_konten = 'transaksi_agen';
-        $data->title = "Transaksi";
+        $data->title = "Transaksi Agen";
         $id_agen = $this->session->userdata('id_agen');
         $data->nama_agen = "";
         $data->nama_agen .= $this->agen->get_agen($id_agen)->nama;
@@ -47,7 +47,7 @@ class Transaksi_agen extends Controller {
     {
         $data = new stdClass();
         $data->view_konten = 'tentukan_agen';
-        $data->title = "Transaksi";
+        $data->title = "Transaksi Agen";
         $data->nama_agen = "";
         $data->nama_agen .= $this->session->userdata('id_agen');
         $data->daftar_agen = $this->agen->get_semua_agen();

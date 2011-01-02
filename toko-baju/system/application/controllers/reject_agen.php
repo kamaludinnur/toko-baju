@@ -32,7 +32,7 @@ class Reject_agen extends Controller {
         $data->daftar_agen = $this->agen->get_semua_agen();
         $data->info = $info;
         $data->view_konten = 'reject_agen';
-        $data->title = "Transaksi";
+        $data->title = "Reject Agen";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
@@ -47,7 +47,7 @@ class Reject_agen extends Controller {
     {
         $data = new stdClass();
         $data->view_konten = 'tentukan_agen_reject';
-        $data->title = "Transaksi";
+        $data->title = "Reject Agen";
         $data->nama_agen = "";
         $data->nama_agen .= $this->session->userdata('id_agen');
         $data->daftar_agen = $this->agen->get_semua_agen();

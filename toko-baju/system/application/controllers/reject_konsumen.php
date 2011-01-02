@@ -24,7 +24,7 @@ class Reject_konsumen extends Controller {
         $data = new stdClass();
         $data->info = $info;
         $data->view_konten = 'reject_konsumen';
-        $data->title = "Transaksi";
+        $data->title = "Reject Konsumen";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }

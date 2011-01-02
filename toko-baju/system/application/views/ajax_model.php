@@ -1,11 +1,11 @@
 <?php
 if(count($daftar_model)>0){?>
-<select name="model">
+<select name="model" onchange="load_warna(this.value); load_ukuran(0)">
     <option>--Model--</option>
 <?php
 foreach ($daftar_model as $model)
 {?>
-    <option value="<?php echo $model['id'] ?>" onclick="load_warna(<?php echo $model['id']?>); load_ukuran(0)"><?php echo $model['nama']?></option>
+    <option value="<?php echo $model['id'] ?>"><?php echo $model['nama']?></option>
 <?php }
 ?>
 </select>

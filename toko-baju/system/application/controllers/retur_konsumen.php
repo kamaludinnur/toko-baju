@@ -24,7 +24,7 @@ class Retur_konsumen extends Controller {
         $data = new stdClass();
         $data->info = $info;
         $data->view_konten = 'retur_konsumen';
-        $data->title = "Transaksi";
+        $data->title = "Retur Konsumen";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
