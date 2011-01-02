@@ -1,6 +1,6 @@
 body
 {
-    background:url(images/bg.jpg) no-repeat center top #310b28;
+    background:#FFF;
     font-family:Arial, Helvetica, sans-serif;
     padding:0;
     font-size:12px;
@@ -39,18 +39,49 @@ a.forgot_pass{
     margin:15px 20px 0 0;
 }
 #main_container{
-    margin:0 auto;
-    width:900px;
+    width:100%;
     padding:0px 0 0px 0;
 }
 .header{
-    width:900px;
-    height:100px;
+    height:80px;
+    padding:0px 20px;
+    background: url(images/bg.jpg) center top #310b28 no-repeat ;
 }
 .header_login{
     width:600px;
     margin:auto;
 }
+#title {
+    float:left;
+    padding:35px 0 0 0;
+}
+
+#title h2 {
+    color: #FFF;
+    font-weight: bold;
+}
+
+#nav_buttons{
+    float:left;
+    margin-top:25px;
+    margin-right: 25px;
+    -moz-border-radius: 5px;
+}
+
+#nav_buttons img {
+    border:none;
+    opacity: 0.8;
+}
+
+#nav_buttons img:hover {
+    opacity: 1;
+}
+
+#nav_buttons a {
+    display: inline-block;
+    padding: 2px;
+}
+
 .logo{
     float:left;
     padding:35px 0 0 0;
@@ -89,11 +120,9 @@ a.forgot_pass{
 
 .main_content{
     margin:0 auto;
-    width:900px;
+
     height:auto;
-    padding:0px 0 50px 0;
-    background:url(images/menu_bg.jpg) no-repeat 0px -25px #fff;
-    -moz-box-shadow:2px 5px 25px rgba(0, 0, 0, 0.6);
+    background:url(images/menu_bg.jpg) 0px -25px #fff repeat-x;
     border: 1px solid #EEE;
     position: relative;
 }
@@ -192,20 +221,22 @@ a.forgot_pass{
 
 .center_content{
     clear:both;
+    position: relative;
 }
 
 .left_content{
     width:195px;
     overflow: hidden;
-    float:right;
-    margin:30px 20px 0 0;
-    padding-top: 40px;
+    padding:0px 20px 0 0;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 .right_content{
-    width:640px;
-    float:left;
-    padding:30px 0 0 20px;
-    overflow: hidden;
+    margin-top: 30px;
+    padding:0px 20px 20px 20px;
+    overflow: auto;
+    margin-right: 230px;
 }
 
 #sidebar_toggler{
@@ -431,7 +462,7 @@ img.sidebar_icon_right{
 }
 
 
-.warning_box{width:540px;clear:both;background:url(images/warning.png) no-repeat left #fcfae9;
+.warning_box{width:540px;clear:both;background:url(images/warning.png) no-repeat left #fff9d7;
              border:1px #e9e6c7 solid;background-position:15px 10px;padding:20px 20px 15px 60px;margin:0 0 10px 0;}
 
 .valid_box{width:540px;clear:both;background:url(images/valid.png) no-repeat left #edfce9;
@@ -509,7 +540,7 @@ hr.pageseparator {
 .yellowbox {
     border: 1px solid #e9e6c7;
     padding: 10px;
-    background-color: #fcfae9;
+    background-color: #fff9d7;
     margin-bottom: 5px;
 }
 
@@ -794,7 +825,7 @@ input[type=button].icon_only {
 
 .activetab {
     border: 1px solid #e9e6c7;
-    background-color: #fcfae9;
-    border-bottom: 1px solid #fcfae9;
+    background-color: #fff9d7;
+    border-bottom: 1px solid #fff9d7;
     z-index: 1000;
 }

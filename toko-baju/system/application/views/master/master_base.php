@@ -56,42 +56,20 @@
         <link rel="stylesheet" type="text/css" media="all" href="jquery.fastconfirm.css" />
 
     </head>
-    <body>
+    <body style="overflow: hidden;">
 
         <script type="text/javascript">
 
-        function toggleSidebar(){
-
-            if($.cookie('tokobaju_sidebar_isHidden') != 'yes' || $.cookie('tokobaju_sidebar_isHidden') == null){
-                // hide it
-                $('.left_content').animate({width:"0px"}, function(){
-                    $('.right_content').css({width: '860px'});
-                });
-                $('#sidebar_toggler input').first().val("« Menu");
-                $.cookie('tokobaju_sidebar_isHidden', 'yes', {exprires: 30, path: '/'});
-            } else {
-                // show it
-                $('.right_content').css({width: '640px'});
-                $('.left_content').animate({width:"195px"});
-                $.cookie('tokobaju_sidebar_isHidden', 'no', {exprires: 30, path: '/'});
-                $('#sidebar_toggler input').first().val("Menu »");
-            }
-        }
-
-        <?php if ($this->uri->segment(3) != 'entri') : // preserve sidebar on product entry ?>
-
         $(document).ready(function(){
-            if($.cookie('tokobaju_sidebar_isHidden') == 'yes'){
-                $('.left_content').hide()
-                $('.right_content').css({width: '860px'});
-                $('#sidebar_toggler input').first().val("« Menu");
-            }
-        })
+            $('.right_content, .left_content').css({height: $(window).height() - $('.header').height() - 50 + 'px'});
+            $('.right_content h2').first().remove();
 
-        <?php endif; ?>
+        });
 
-        //setInterval("console.log('hidden? ' + $.cookie('tokobaju_sidebar_isHidden'))", 1000);
-        
+        $(window).resize(function(){
+            $('.right_content, .left_content').css({height: $(window).height() - $('.header').height() - 50 + 'px'});
+        });
+
         </script>
 
         <div id="main_container">
@@ -118,13 +96,10 @@
 
                     <div class="left_content">
 
-                        <?php if (isset($custom_sidebar)) $this->load->view('master/' . $custom_sidebar); else $this->load->view('master/sidebar'); ?>
+                        <?php $this->load->view('master/sidebar'); ?>
 
                     </div>
 
-                    <div id="sidebar_toggler">
-                        <input type="submit" name="submit" value="Menu &raquo;" class="button blue" title="Tampil/sembunyikan menu" onclick="toggleSidebar();" style="margin: 0px; padding: 0px 5px; font-size: 11px"/>
-                    </div>
 
                     <div class="right_content">
 
@@ -140,13 +115,6 @@
 
                 <div class="clear"></div>
             </div> <!--end of main content-->
-
-
-            <div class="footer">
-
-                <?php $this->load->view('master/footer'); ?>
-
-            </div>
 
         </div>
     </body>

@@ -1,6 +1,9 @@
 <h2>Manajemen Produk</h2>
 
-<p>Berikut ini daftar semua produk yang sudah dientri. Klik pada judul kolom tabel untuk mengurutkannya. <br/>Produk yang sudah pernah ditransaksikan tidak dapat dihapus atau diedit lagi.</p>
+Berikut ini daftar semua produk yang sudah dientri. Klik pada judul kolom tabel untuk mengurutkannya. <br/>Produk yang sudah pernah ditransaksikan tidak dapat dihapus atau diedit lagi.
+
+<br style="clear: both"/>
+<br/>
 
 <div class="new_product" style="float: left">
     <input type="submit" name="submit" value="Entri produk &raquo;" class="button blue" title="Klik untuk mengentri produk baru" onclick="location.href='index.php/master/produk/entri'"/>

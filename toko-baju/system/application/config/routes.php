@@ -43,6 +43,7 @@
 $route['default_controller'] = "welcome";
 $route['scaffolding_trigger'] = "";
 
+$route['master'] = 'master/home';
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
