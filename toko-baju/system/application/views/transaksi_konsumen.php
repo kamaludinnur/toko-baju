@@ -5,13 +5,14 @@
 <div class="yellowbox">
     <h3 class="left_drop">Produk</h3>
 
-    <form action="" method="post" style="margin-top: 10px">
+    <form id="form" action="" method="post" style="margin-top: 10px">
     <table>
         <tr>
             <td>Merek:</td>
             <td>Model:</td>
             <td>Warna:</td>
             <td>Ukuran:</td>
+            <td width="50px">Stok:</td>
             <td>Jumlah:</td>
             <td></td>
         </tr>
@@ -29,32 +30,37 @@
             </td>
             <td>
                 <div id="model">
-                    <select name="model" disabled>
+                    <select name="model" id="model" disabled>
                         <option>--Model--</option>
                     </select>
                 </div>
             </td>
             <td>
                 <div id="warna">
-                    <select name="warna" disabled>
+                    <select name="warna" id="warna" disabled>
                         <option>--Warna--</option>
                     </select>
                 </div>
             </td>
             <td>
                 <div id="ukuran">
-                    <select name="id" disabled>
+                    <select name="id" id="ukuran" disabled>
                         <option>--Ukuran--</option>
                     </select>
                 </div>
             </td>
             <td>
-                <div class="trx">
-                    <input type="text" name="jumlah" value="" size="10" />
+                <div id="stok">
+                    <input type="text" id="isi_stok" value="" disabled style="width: 40px; font-weight: bolder" />
                 </div>
             </td>
             <td>
-                <input type="submit" class="button blue" value="Tambah &raquo;" name="submit"/>
+                <div class="trx">
+                    <input type="text" id="jumlah" name="jumlah" value="" size="10" />
+                </div>
+            </td>
+            <td>
+                <input id="submit" type="button" class="button blue" value="Tambah &raquo;" name="submit" onclick="tambah();"/>
             </td>
         </tr>
     </table>
@@ -129,6 +135,15 @@
 
     function load_ukuran(model,warna){
         $('#ukuran').load('index.php/transaksi_konsumen/ukuran/' + model + '/' + warna);
+    }
+
+    function load_stok(id){
+        $('#stok').load('index.php/transaksi_konsumen/stok/' + id);
+    }
+
+    function tambah(){
+        if ($('#jumlah').val() > $('#isi_stok').val()) alert("Stok tidak cukup!");
+        else $('#form').submit();
     }
 
 </script>

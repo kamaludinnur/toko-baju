@@ -18,8 +18,14 @@ class Transaksi_konsumen extends Controller {
         }
         $info = "";
         if ($this->input->post('submit')) {
+            if(!$this->input->post('id')) $info = "Input produk tidak lengkap";
+//            else if(($this->input->post('jumlah'))){
+//                $info = "Input jumlah salah";
+//            }
+            else{
             $add = $this->add($this->input->post('id'), $this->input->post('jumlah'));
             if (!$add) $info = "Stok Tidak mencukupi";
+            }
         }
         $data = new stdClass();
         $data->info = $info;
@@ -35,10 +41,19 @@ class Transaksi_konsumen extends Controller {
         $this->cart->destroy();
         redirect('/transaksi_konsumen');
     }
-    function batal(){
+    function batal()
+    {
         $this->cart->destroy();
         redirect('/transaksi_konsumen');
     }
+    function stok($id)
+    {
+        $produk = $this->produk->get_produk_by_id($id);
+        ?>
+        <input type="text" id="isi_stok" value="<?php echo $produk->stok?>" disabled style="width: 40px; font-weight: bolder" />
+        <?php
+    }
+
     function add($produk, $jumlah)
     {
         $produk = $this->produk->get_produk_by_id($produk);

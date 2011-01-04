@@ -5,7 +5,7 @@ if(count($daftar_ukuran)>0){?>
 <?php
 foreach ($daftar_ukuran as $ukuran)
 {?>
-    <option value="<?php echo $ukuran['id'] ?>"><?php echo $ukuran['nama']?></option>
+    <option value="<?php echo $ukuran['id'] ?>" onclick="load_stok(<?php echo $ukuran['id']?>)"><?php echo $ukuran['nama']?></option>
 <?php }
 ?>
 </select>
