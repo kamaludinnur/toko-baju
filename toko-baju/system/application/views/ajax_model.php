@@ -1,6 +1,6 @@
 <?php
 if(count($daftar_model)>0){?>
-<select name="model" onchange="load_warna(this.value); load_ukuran(0)">
+<select name="model" onchange="load_warna(this.value); load_ukuran(0,0)">
     <option>--Model--</option>
 <?php
 foreach ($daftar_model as $model)

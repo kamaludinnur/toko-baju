@@ -5,7 +5,7 @@
 <div class="yellowbox">
     <h3 class="left_drop">Produk</h3>
 
-    <form id="form" action="" method="post" style="margin-top: 10px">
+    <form id="form" action="" method="post" style="margin-top: 10px" onsubmit="return tambah();">
     <table>
         <tr>
             <td>Merek:</td>
@@ -19,7 +19,7 @@
         <tr>
             <td>
                 <div id="merek">
-                    <select name="merek" onchange="load_model(this.value); load_warna(0); load_ukuran(0,0)">
+                    <select name="merek" onchange="load_model(this.value); load_warna(0); load_ukuran(0,0); $('.error_box').slideUp()">
                         <option>--Merek--</option>
                         <?php foreach ($daftar_merek as $merek) {
  ?>
@@ -56,11 +56,11 @@
             </td>
             <td>
                 <div class="trx">
-                    <input type="text" id="jumlah" name="jumlah" value="" size="10" />
+                    <input type="text" id="jumlah" name="jumlah" value="" size="10" onchange="$('.error_box').slideUp();" />
                 </div>
             </td>
             <td>
-                <input id="submit" type="button" class="button blue" value="Tambah &raquo;" name="submit" onclick="tambah();"/>
+                <input id="submit" type="submit" class="button blue" value="Tambah &raquo;" name="submit"/>
             </td>
         </tr>
     </table>
@@ -71,6 +71,8 @@
 
 <?php if ($info)
                             echo "<div class='error_box'>" . $info . "</div>" ?>
+
+<div class="error_box" style="display: none"></div>
 
                             <br/>
 
@@ -120,7 +122,7 @@
 
 <div style="text-align: right">
     <input type="button" value="Bayar" class="button blue" onclick="location.href = 'index.php/transaksi_konsumen/bayar'"/>
-    <input type="button" value="Batal" class="button red"  onclick="location.href = 'index.php/transaksi_konsumen/batal'"/>
+    <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/transaksi_konsumen/batal'"/>
 </div>
 
 <script type="text/javascript">
@@ -142,8 +144,13 @@
     }
 
     function tambah(){
-        if ($('#jumlah').val() > $('#isi_stok').val()) alert("Stok tidak cukup!");
-        else $('#form').submit();
+
+        var jumlahDipesen = parseInt($('#jumlah').val());
+        var stokTersedia = parseInt($('#stok input[type=text]').val());
+        if (jumlahDipesen > stokTersedia) {
+            $('.error_box').slideDown('slow').html("Stok tidak mencukupi. Stok tersedia hanya " + stokTersedia + " sedangkan jumlah yang dipesan " + jumlahDipesen);
+            return false;
+        }
     }
 
 </script>
