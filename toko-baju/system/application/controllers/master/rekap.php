@@ -21,6 +21,14 @@ class Rekap extends Controller {
         redirect('master/rekap/transaksi_konsumen');
     }
 
+    function format_date($date)
+    {
+        // inputted date dd/mm/yyyy
+        // output should mm/dd/yyyy
+        $d = explode('/', $date); // 0 = dd, 1 = mm, 2 = yy
+        return $d[1].'/'.$d[0].'/'.$d[2];
+    }
+
     function transaksi_konsumen()
     {
         $data = new stdClass();
@@ -38,13 +46,6 @@ class Rekap extends Controller {
         $this->load->view('master/master_base', $data);
     }
 
-    function format_date($date)
-    {
-        // inputted date dd/mm/yyyy
-        // output should mm/dd/yyyy
-        $d = explode('/', $date); // 0 = dd, 1 = mm, 2 = yy
-        return $d[1].'/'.$d[0].'/'.$d[2];
-    }
 
     function transaksi_konsumen_get()
     {
@@ -183,6 +184,285 @@ class Rekap extends Controller {
         $data->data_rekapan = $this->rekap->get_record_stok_by_tanggal($this->format_date($start_date), $this->format_date($end_date));
 
         $this->load->view('master/rekap_record_stok_per_tanggal_table', $data);
+    }
+
+    function kehilangan()
+    {
+        $data = new stdClass();
+
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $data->daftar_warna = $this->warna->get_semua_warna();
+        $data->daftar_model = $this->model_baju->get_semua_model();
+        $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap_kehilangan";
+        $data->title = "Rekap Kehilangan";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+
+    function kehilangan_get()
+    {
+        $data = new stdClass();
+
+        $filter = array();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        if ($this->input->post('is_filtered') == 1)
+        {
+            $f = array();
+
+            $f[0] = ($this->input->post('f_merek')) ? "merek.nama = '" . $this->input->post('f_merek') . "'" : "";
+            $f[1] = ($this->input->post('f_model')) ? "model.nama = '" . $this->input->post('f_model') . "'" : "";
+            $f[2] = ($this->input->post('f_warna')) ? "warna.nama = '" . $this->input->post('f_warna') . "'" : "";
+            $f[3] = ($this->input->post('f_ukuran')) ? "ukuran.nama = '" . $this->input->post('f_ukuran') . "'" : "";
+
+            $f[4] = ($this->input->post('f_jumlah') != "") ? "tk.jumlah" . $this->input->post('f_jumlah_op') . $this->input->post('f_jumlah') : "";
+            $f[5] = ($this->input->post('f_harga') != "") ? "tk.harga" . $this->input->post('f_harga_op') . $this->input->post('f_harga') : "";
+            $f[6] = ($this->input->post('f_keuntungan') != "") ? "tk.kerugian" . $this->input->post('f_keuntungan_op') . $this->input->post('f_keuntungan') : "";
+
+            foreach ($f as $g) {
+                if($g != '') $filter[] = $g;
+            }
+        }
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        $data->sehari_doang = ($start_date == $end_date);
+        $data->data_rekapan = $this->rekap->get_kehilangan($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
+
+        $this->load->view('master/rekap_kehilangan_table', $data);
+    }
+
+
+    // retur classes ===========================================================
+
+    function retur_konsumen()
+    {
+        $data = new stdClass();
+
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $data->daftar_warna = $this->warna->get_semua_warna();
+        $data->daftar_model = $this->model_baju->get_semua_model();
+        $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap_retur_konsumen";
+        $data->title = "Rekap Retur Retail";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+
+    function retur_konsumen_get()
+    {
+        $data = new stdClass();
+
+        $filter = array();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        if ($this->input->post('is_filtered') == 1)
+        {
+            $f = array();
+
+            $f[0] = ($this->input->post('f_merek')) ? "merek.nama = '" . $this->input->post('f_merek') . "'" : "";
+            $f[1] = ($this->input->post('f_model')) ? "model.nama = '" . $this->input->post('f_model') . "'" : "";
+            $f[2] = ($this->input->post('f_warna')) ? "warna.nama = '" . $this->input->post('f_warna') . "'" : "";
+            $f[3] = ($this->input->post('f_ukuran')) ? "ukuran.nama = '" . $this->input->post('f_ukuran') . "'" : "";
+
+            $f[4] = ($this->input->post('f_jumlah') != "") ? "tk.jumlah" . $this->input->post('f_jumlah_op') . $this->input->post('f_jumlah') : "";
+            $f[5] = ($this->input->post('f_harga') != "") ? "tk.harga" . $this->input->post('f_harga_op') . $this->input->post('f_harga') : "";
+            $f[6] = ($this->input->post('f_keuntungan') != "") ? "tk.refund" . $this->input->post('f_keuntungan_op') . $this->input->post('f_keuntungan') : "";
+
+            foreach ($f as $g) {
+                if($g != '') $filter[] = $g;
+            }
+        }
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        $data->sehari_doang = ($start_date == $end_date);
+        $data->data_rekapan = $this->rekap->get_retur_konsumen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
+
+        $this->load->view('master/rekap_retur_konsumen_table', $data);
+    }
+
+    function retur_agen()
+    {
+        $data = new stdClass();
+
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $data->daftar_warna = $this->warna->get_semua_warna();
+        $data->daftar_model = $this->model_baju->get_semua_model();
+        $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
+        $data->daftar_agen = $this->agen->get_semua_agen('kode');
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap_retur_agen";
+        $data->title = "Rekap Retur Agen";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+    function retur_agen_get()
+    {
+        $data = new stdClass();
+
+        $filter = array();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        if ($this->input->post('is_filtered') == 1)
+        {
+            $f = array();
+
+            $f[0] = ($this->input->post('f_merek')) ? "merek.nama = '" . $this->input->post('f_merek') . "'" : "";
+            $f[1] = ($this->input->post('f_model')) ? "model.nama = '" . $this->input->post('f_model') . "'" : "";
+            $f[2] = ($this->input->post('f_warna')) ? "warna.nama = '" . $this->input->post('f_warna') . "'" : "";
+            $f[3] = ($this->input->post('f_ukuran')) ? "ukuran.nama = '" . $this->input->post('f_ukuran') . "'" : "";
+
+            $f[4] = ($this->input->post('f_jumlah') != "") ? "tk.jumlah" . $this->input->post('f_jumlah_op') . $this->input->post('f_jumlah') : "";
+            $f[5] = ($this->input->post('f_harga') != "") ? "tk.harga" . $this->input->post('f_harga_op') . $this->input->post('f_harga') : "";
+            $f[6] = ($this->input->post('f_keuntungan') != "") ? "tk.refund" . $this->input->post('f_keuntungan_op') . $this->input->post('f_keuntungan') : "";
+
+            $f[7] = ($this->input->post('f_agen')) ? "agen.kode = '" . $this->input->post('f_agen') . "'" : "";
+
+            foreach ($f as $g) {
+                if($g != '') $filter[] = $g;
+            }
+        }
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        $data->sehari_doang = ($start_date == $end_date);
+        $data->data_rekapan = $this->rekap->get_retur_agen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC', $filter);
+
+        $this->load->view('master/rekap_retur_agen_table', $data);
+    }
+
+    // reject classes ==========================================================
+
+    function reject_konsumen()
+    {
+        $data = new stdClass();
+
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $data->daftar_warna = $this->warna->get_semua_warna();
+        $data->daftar_model = $this->model_baju->get_semua_model();
+        $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap_reject_konsumen";
+        $data->title = "Rekap Reject Retail";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+
+    function reject_konsumen_get()
+    {
+        $data = new stdClass();
+
+        $filter = array();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        if ($this->input->post('is_filtered') == 1)
+        {
+            $f = array();
+
+            $f[0] = ($this->input->post('f_merek')) ? "merek.nama = '" . $this->input->post('f_merek') . "'" : "";
+            $f[1] = ($this->input->post('f_model')) ? "model.nama = '" . $this->input->post('f_model') . "'" : "";
+            $f[2] = ($this->input->post('f_warna')) ? "warna.nama = '" . $this->input->post('f_warna') . "'" : "";
+            $f[3] = ($this->input->post('f_ukuran')) ? "ukuran.nama = '" . $this->input->post('f_ukuran') . "'" : "";
+
+            $f[4] = ($this->input->post('f_jumlah') != "") ? "tk.jumlah" . $this->input->post('f_jumlah_op') . $this->input->post('f_jumlah') : "";
+            $f[5] = ($this->input->post('f_harga') != "") ? "tk.harga" . $this->input->post('f_harga_op') . $this->input->post('f_harga') : "";
+            $f[6] = ($this->input->post('f_keuntungan') != "") ? "tk.refund" . $this->input->post('f_keuntungan_op') . $this->input->post('f_keuntungan') : "";
+
+            foreach ($f as $g) {
+                if($g != '') $filter[] = $g;
+            }
+        }
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        $data->sehari_doang = ($start_date == $end_date);
+        $data->data_rekapan = $this->rekap->get_reject_konsumen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
+
+        $this->load->view('master/rekap_reject_konsumen_table', $data);
+    }
+
+    function reject_agen()
+    {
+        $data = new stdClass();
+
+        $data->daftar_merek = $this->merek->get_semua_merek();
+        $data->daftar_warna = $this->warna->get_semua_warna();
+        $data->daftar_model = $this->model_baju->get_semua_model();
+        $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
+        $data->daftar_agen = $this->agen->get_semua_agen('kode');
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap_reject_agen";
+        $data->title = "Rekap Reject Agen";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+    function reject_agen_get()
+    {
+        $data = new stdClass();
+
+        $filter = array();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        if ($this->input->post('is_filtered') == 1)
+        {
+            $f = array();
+
+            $f[0] = ($this->input->post('f_merek')) ? "merek.nama = '" . $this->input->post('f_merek') . "'" : "";
+            $f[1] = ($this->input->post('f_model')) ? "model.nama = '" . $this->input->post('f_model') . "'" : "";
+            $f[2] = ($this->input->post('f_warna')) ? "warna.nama = '" . $this->input->post('f_warna') . "'" : "";
+            $f[3] = ($this->input->post('f_ukuran')) ? "ukuran.nama = '" . $this->input->post('f_ukuran') . "'" : "";
+
+            $f[4] = ($this->input->post('f_jumlah') != "") ? "tk.jumlah" . $this->input->post('f_jumlah_op') . $this->input->post('f_jumlah') : "";
+            $f[5] = ($this->input->post('f_harga') != "") ? "tk.harga" . $this->input->post('f_harga_op') . $this->input->post('f_harga') : "";
+            $f[6] = ($this->input->post('f_keuntungan') != "") ? "tk.refund" . $this->input->post('f_keuntungan_op') . $this->input->post('f_keuntungan') : "";
+
+            $f[7] = ($this->input->post('f_agen')) ? "agen.kode = '" . $this->input->post('f_agen') . "'" : "";
+
+            foreach ($f as $g) {
+                if($g != '') $filter[] = $g;
+            }
+        }
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        $data->sehari_doang = ($start_date == $end_date);
+        $data->data_rekapan = $this->rekap->get_reject_agen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC', $filter);
+
+        $this->load->view('master/rekap_reject_agen_table', $data);
     }
 
 }
