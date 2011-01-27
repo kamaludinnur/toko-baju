@@ -50,6 +50,8 @@ class Agen extends Controller {
             'kode' => $this->input->post('new_kode'),
             'nama' => $this->input->post('new_nama'),
             'diskon' => floatval($this->input->post('new_diskon')),
+            'hp' => $this->input->post('new_hp'),
+            'alamat' => $this->input->post('new_alamat'),
             'keterangan' => $this->input->post('new_keterangan')
         );
 
@@ -67,6 +69,8 @@ class Agen extends Controller {
             'kode' => $this->input->post('kode'),
             'nama' => $this->input->post('nama'),
             'diskon' => floatval($this->input->post('diskon')),
+            'hp' => $this->input->post('hp'),
+            'alamat' => $this->input->post('alamat'),
             'keterangan' => $this->input->post('keterangan')
         );
 

@@ -28,16 +28,18 @@
         <tr>
             <th width="25" class="rounded-company">ID</th>
             <th width="80">Kode</th>
-            <th width="250">Agen</th>
+            <th width="250">Nama</th>
             <th>Diskon</th>
-            <th width="350">Keterangan</th>
-            <th width="120" class="rounded-q4">&nbsp;</th>
+            <th width="150">No. HP</th>
+            <th width="300">Alamat</th>
+            <th width="300">Keterangan</th>
+            <th class="rounded-q4" style="width: 130px">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         <?php if (count($daftar_agen) == 0) : ?>
         <tr>
-            <td colspan="6">Belum ada data</td>
+            <td colspan="8">Belum ada data</td>
         </tr>
         <?php else : $i = 1; foreach($daftar_agen as $agen) : ?>
         <tr class="row<?php if($id_agen_baru == $agen['id']) echo ' entri_baru'; ?> <?php if($i%2==0) echo "alt" ?>" id="baris_<?php echo $agen['id'] ?>" >
@@ -45,6 +47,8 @@
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['kode']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['nama']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo round($agen['diskon'], 2); ?>%</td>
+            <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['hp']; ?></td>
+            <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['alamat']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['keterangan']; ?></td>
             <td>
                 <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $agen['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->agen->aman_dihapus($agen['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $agen['id']; ?>)"/>
@@ -56,6 +60,8 @@
 			<td><input type="text"   name="kode" id="kode_<?php echo $agen['id'] ?>" size="15" value="<?php echo $agen['kode'] ?>"  style="width: 100%"/></td>
 			<td><input type="text"   name="nama" id="nama_<?php echo $agen['id'] ?>" size="30" value="<?php echo $agen['nama'] ?>"  style="width: 100%"/></td>
                         <td><input type="text"   name="diskon" id="diskon_<?php echo $agen['id'] ?>" size="5" value="<?php echo round($agen['diskon'], 2) ?>"  style="width: 100%"/></td>
+			<td><input type="text"   name="hp" id="hp_<?php echo $agen['id'] ?>" size="50" value="<?php echo $agen['hp'] ?>"  style="width: 100%"/></td>
+			<td><input type="text"   name="alamat" id="alamat_<?php echo $agen['id'] ?>" size="50" value="<?php echo $agen['alamat'] ?>"  style="width: 100%"/></td>
 			<td><input type="text"   name="keterangan" id="keterangan_<?php echo $agen['id'] ?>" size="50" value="<?php echo $agen['keterangan'] ?>"  style="width: 100%"/></td>
 			<td><input type="submit" name="edit_submit" id="edit_submit_btn_<?php echo $agen['id'] ?>" value="Simpan" class="e_formbtn_l" /><input onclick="hideEditForm(<?php echo $agen['id'] ?>)" type="button" value="Batal" id="btn_edit_batal" class="e_formbtn_r" /></td>
 		</form>
@@ -64,7 +70,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="6">Tambahkan data</td>
+            <td colspan="8">Tambahkan data</td>
         </tr>
         <tr>
             <form action="" id="form" method="post">
@@ -72,6 +78,8 @@
                 <td><input type="text" size="15" maxlength="100" style="width: 100%" name="new_kode" id="new_kode"/></td>
                 <td><input type="text" size="30" maxlength="100" style="width: 100%" name="new_nama" id="new_nama"/></td>
                 <td><input type="text" size="10" maxlength="100" style="width: 100%" name="new_diskon" id="new_diskon"/></td>
+                <td><input type="text" size="20" maxlength="255" style="width: 100%" name="new_hp" id="new_hp"/></td>
+                <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_alamat" id="new_alamat"/></td>
                 <td><input type="text" size="50" maxlength="255" style="width: 100%" name="new_keterangan" id="new_keterangan"/></td>
                 <td class="rounded-foot-right"><input type="submit" value="+ Tambahkan" name="submit" class="button blue"/></td>
             </form>
