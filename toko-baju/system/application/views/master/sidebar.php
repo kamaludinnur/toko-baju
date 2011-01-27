@@ -29,7 +29,7 @@
                             <a class="menuitem submenuheader" href="#">Rekap</a>
                             <div class="submenu">
                                 <ul>
-                                    <li><a href="index.php/master/rekap/transaksi_konsumen">Transaksi Konsumen</a></li>
+                                    <li><a href="index.php/master/rekap/transaksi_konsumen">Transaksi Retail</a></li>
                                     <li><a href="index.php/master/rekap/transaksi_agen">Transaksi Agen</a></li>
                                     <li><a href="index.php/master/rekap/record_stok">Record Stok Produk</a></li>
                                 </ul>

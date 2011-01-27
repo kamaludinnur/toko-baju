@@ -13,10 +13,11 @@
                             <div class="submenu">
                                 <ul>
                                     <li><a href="index.php/transaksi_agen">Transaksi Agen</a></li>
-                                    <li><a href="index.php/transaksi_konsumen">Transaksi Konsumen</a></li>
+                                    <li><a href="index.php/transaksi_konsumen">Transaksi Retail</a></li>
+                                    <li><a href="index.php/transaksi_kehilangan">Transaksi Kehilangan</a></li>
                                 </ul>
                             </div>
-                            <a class="menuitem submenuheader" href="#" >Retur</a>
+                            <a class="menuitem submenuheader" href="#">Retur</a>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="index.php/retur_agen">Retur Agen</a></li>

@@ -32,7 +32,7 @@ class Rekap extends Controller {
 
         // view yang memuat isi halamannya
         $data->view_konten = "rekap_transaksi_konsumen";
-        $data->title = "Rekap Transaksi Konsumen";
+        $data->title = "Rekap Transaksi Retail";
 
         // ambil view "master_base.php" (templet dasar)
         $this->load->view('master/master_base', $data);
