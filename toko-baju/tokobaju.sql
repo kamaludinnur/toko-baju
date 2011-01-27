@@ -19,7 +19,7 @@ CREATE TABLE `agen` (
 
 INSERT INTO `agen` (`id`, `kode`, `nama`, `hp`, `alamat`, `diskon`, `keterangan`) VALUES
 (1,	'X0097',	'Arief',	'0856890004',	'Kp geledug RT sekian RW sekian',	30.00000,	'Dia suka sekali belanja dalam jumlah banyak'),
-(2,	'X0909',	'Abrar',	'',	'',	20.00000,	'hehe');
+(2,	'X0909',	'Abrar',	'',	'',	20.00000,	'ksdf');
 
 DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE `ci_sessions` (
@@ -32,7 +32,9 @@ CREATE TABLE `ci_sessions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('9c0123092730c78f89d23c918d1ec1e3',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1294145522,	'a:6:{s:11:\"prod_sort_0\";s:5:\"merek\";s:11:\"prod_sort_1\";s:5:\"model\";s:11:\"prod_sort_2\";s:5:\"warna\";s:11:\"prod_sort_3\";s:9:\"id_ukuran\";s:9:\"transaksi\";s:14:\"transaksi_agen\";s:7:\"id_agen\";s:1:\"1\";}');
+('53ef6edbab9029ab0b5c4ef7cdd202a3',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296051729,	'a:5:{s:11:\"prod_sort_0\";s:5:\"merek\";s:11:\"prod_sort_1\";s:5:\"model\";s:11:\"prod_sort_2\";s:5:\"warna\";s:11:\"prod_sort_3\";s:9:\"id_ukuran\";s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}'),
+('858ac388376c5273443ed66384849c25',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296111293,	'a:1:{s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}'),
+('47832ebbe4c9c387f89b1ac159b2c9b1',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296115199,	'a:1:{s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}');
 
 DROP TABLE IF EXISTS `merek`;
 CREATE TABLE `merek` (
@@ -50,6 +52,18 @@ INSERT INTO `merek` (`id`, `nama`, `keterangan`) VALUES
 (5,	'Hugo',	'Ini keterangan Hugo'),
 (6,	'Jakie Clothe',	'Merek yang sangat bagus');
 
+DROP TABLE IF EXISTS `metode_pembayaran`;
+CREATE TABLE `metode_pembayaran` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+INSERT INTO `metode_pembayaran` (`id`, `nama`) VALUES
+(1,	'Cash'),
+(2,	'EDC'),
+(3,	'Transfer');
+
 DROP TABLE IF EXISTS `model`;
 CREATE TABLE `model` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,7 +71,7 @@ CREATE TABLE `model` (
   `merek` int(11) NOT NULL,
   `keterangan` tinytext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 INSERT INTO `model` (`id`, `nama`, `merek`, `keterangan`) VALUES
 (1,	'Sunny Monday',	1,	'Sunny Monday itu model yang bagus'),
@@ -68,7 +82,29 @@ INSERT INTO `model` (`id`, `nama`, `merek`, `keterangan`) VALUES
 (6,	'J-Holiday',	6,	'Good'),
 (7,	'J-Party',	6,	'good design'),
 (8,	'Nevada-Gurun',	2,	''),
-(9,	'Joninshu',	5,	'');
+(9,	'Joninshu',	5,	''),
+(10,	'QD001',	1,	'');
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` datetime NOT NULL,
+  `total` decimal(12,4) NOT NULL,
+  `lunas` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `pembayaran`;
+CREATE TABLE `pembayaran` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` datetime NOT NULL,
+  `order` int(11) NOT NULL,
+  `jumlah` decimal(12,4) NOT NULL,
+  `metode` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 
 DROP TABLE IF EXISTS `produk`;
 CREATE TABLE `produk` (
@@ -81,7 +117,7 @@ CREATE TABLE `produk` (
   `harga_jual` decimal(12,4) NOT NULL,
   `keterangan` tinytext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 INSERT INTO `produk` (`id`, `model`, `ukuran`, `warna`, `stok`, `harga_beli`, `harga_jual`, `keterangan`) VALUES
 (1,	1,	1,	1,	19,	12000.0000,	26000.0000,	''),
@@ -92,26 +128,31 @@ INSERT INTO `produk` (`id`, `model`, `ukuran`, `warna`, `stok`, `harga_beli`, `h
 (6,	1,	2,	2,	30,	12000.0000,	26000.0000,	''),
 (7,	1,	2,	3,	20,	12000.0000,	26000.0000,	''),
 (8,	1,	2,	4,	20,	12000.0000,	26000.0000,	''),
-(9,	2,	1,	2,	20,	60000.0000,	150000.0000,	''),
+(9,	2,	1,	2,	22,	60000.0000,	150000.0000,	''),
 (10,	2,	2,	2,	20,	61000.0000,	153000.0000,	''),
 (11,	2,	2,	4,	17,	63000.0000,	160000.0000,	''),
-(32,	4,	1,	3,	100,	15000.0000,	40000.0000,	''),
+(32,	4,	1,	3,	66,	15000.0000,	40000.0000,	''),
 (31,	3,	1,	4,	20,	26000.0000,	56000.0000,	''),
 (14,	3,	2,	1,	22,	26000.0000,	56000.0000,	''),
 (30,	3,	1,	4,	20,	26000.0000,	56000.0000,	''),
 (16,	3,	2,	2,	20,	26000.0000,	56000.0000,	''),
 (17,	3,	2,	4,	20,	26000.0000,	56000.0000,	''),
-(18,	3,	1,	1,	20,	26000.0000,	56000.0000,	''),
+(18,	3,	1,	1,	19,	26000.0000,	56000.0000,	''),
 (19,	3,	1,	4,	20,	26000.0000,	56000.0000,	''),
 (20,	3,	3,	4,	10,	17000.0000,	30000.0000,	'produk yang baik'),
 (21,	1,	5,	3,	90,	17000.0000,	40000.0000,	'testing'),
 (22,	6,	1,	3,	99,	11000.0000,	28000.0000,	''),
 (23,	8,	1,	5,	8,	15000.0000,	40000.0000,	''),
-(24,	2,	3,	1,	39,	62000.0000,	170000.0000,	''),
-(26,	9,	3,	1,	30,	15000.0000,	40000.0000,	''),
+(24,	2,	3,	1,	36,	62000.0000,	170000.0000,	''),
+(26,	9,	3,	1,	28,	15000.0000,	40000.0000,	''),
 (27,	9,	1,	1,	18,	15400.0000,	42000.0000,	''),
 (28,	9,	2,	1,	50,	15000.0000,	42000.0000,	''),
-(33,	3,	1,	4,	20,	26000.0000,	56000.0000,	'');
+(33,	3,	1,	4,	20,	26000.0000,	56000.0000,	''),
+(34,	4,	2,	3,	100,	15200.0000,	42000.0000,	''),
+(35,	4,	3,	3,	100,	15200.0000,	42000.0000,	''),
+(36,	4,	4,	3,	70,	15300.0000,	42000.0000,	''),
+(37,	3,	1,	4,	20,	26000.0000,	56000.0000,	''),
+(38,	2,	2,	1,	30,	60000.0000,	160000.0000,	'');
 
 DROP TABLE IF EXISTS `record_stok`;
 CREATE TABLE `record_stok` (
@@ -122,7 +163,7 @@ CREATE TABLE `record_stok` (
   `stok_akhir` int(11) NOT NULL,
   `jenis` enum('konsumen','agen','tambah','retur_agen','retur_konsumen','retur_pabrik','reject_agen','reject_konsumen','reject_pabrik','kehilangan') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
 INSERT INTO `record_stok` (`id`, `tanggal`, `produk`, `jumlah`, `stok_akhir`, `jenis`) VALUES
 (1,	'2010-12-26 10:06:27',	1,	20,	20,	'tambah'),
@@ -205,7 +246,21 @@ INSERT INTO `record_stok` (`id`, `tanggal`, `produk`, `jumlah`, `stok_akhir`, `j
 (83,	'2011-01-02 05:40:11',	32,	100,	100,	'tambah'),
 (84,	'2011-01-04 19:22:29',	33,	20,	20,	'tambah'),
 (85,	'2011-01-04 19:24:31',	11,	-2,	17,	'konsumen'),
-(86,	'2011-01-04 19:24:31',	23,	-2,	8,	'konsumen');
+(86,	'2011-01-04 19:24:31',	23,	-2,	8,	'konsumen'),
+(87,	'2011-01-05 04:59:49',	34,	100,	100,	'tambah'),
+(88,	'2011-01-05 05:01:55',	35,	100,	100,	'tambah'),
+(89,	'2011-01-05 05:02:56',	36,	70,	70,	'tambah'),
+(90,	'2011-01-05 22:30:48',	37,	20,	20,	'tambah'),
+(91,	'2011-01-05 22:33:27',	32,	-33,	67,	'konsumen'),
+(92,	'2011-01-07 06:32:30',	24,	-1,	38,	'konsumen'),
+(93,	'2011-01-07 16:29:40',	24,	-2,	36,	'konsumen'),
+(94,	'2011-01-07 16:29:40',	18,	-1,	19,	'konsumen'),
+(95,	'2011-01-07 16:31:21',	32,	-1,	66,	'agen'),
+(96,	'2011-01-07 16:46:04',	9,	2,	22,	'retur_konsumen'),
+(97,	'2011-01-07 16:49:02',	38,	30,	30,	'tambah'),
+(98,	'2011-01-07 18:35:13',	32,	-1,	65,	'konsumen'),
+(99,	'2011-01-07 18:35:13',	26,	-2,	28,	'konsumen'),
+(100,	'2011-01-25 06:49:54',	32,	1,	66,	'reject_konsumen');
 
 DROP TABLE IF EXISTS `setting`;
 CREATE TABLE `setting` (
@@ -223,18 +278,20 @@ CREATE TABLE `transaksi_agen` (
   `jumlah` int(11) NOT NULL,
   `harga` decimal(12,4) NOT NULL,
   `keuntungan` decimal(12,4) NOT NULL,
+  `order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
-INSERT INTO `transaksi_agen` (`id`, `tanggal`, `agen`, `produk`, `jumlah`, `harga`, `keuntungan`) VALUES
-(1,	'2010-12-26 10:32:03',	1,	1,	5,	18200.0000,	31000.0000),
-(2,	'2010-12-26 10:32:03',	1,	2,	5,	18200.0000,	31000.0000),
-(3,	'2010-12-26 10:32:03',	1,	3,	5,	18200.0000,	31000.0000),
-(4,	'2010-12-31 05:26:19',	1,	22,	1,	19600.0000,	8600.0000),
-(5,	'2010-12-31 07:32:16',	2,	11,	1,	128000.0000,	65000.0000),
-(6,	'2010-12-31 07:34:34',	2,	11,	1,	128000.0000,	65000.0000),
-(7,	'2010-12-31 07:51:06',	1,	11,	1,	112000.0000,	49000.0000),
-(8,	'2010-12-31 08:56:30',	2,	14,	2,	44800.0000,	37600.0000);
+INSERT INTO `transaksi_agen` (`id`, `tanggal`, `agen`, `produk`, `jumlah`, `harga`, `keuntungan`, `order`) VALUES
+(1,	'2010-12-26 10:32:03',	1,	1,	5,	18200.0000,	31000.0000,	0),
+(2,	'2010-12-26 10:32:03',	1,	2,	5,	18200.0000,	31000.0000,	0),
+(3,	'2010-12-26 10:32:03',	1,	3,	5,	18200.0000,	31000.0000,	0),
+(4,	'2010-12-31 05:26:19',	1,	22,	1,	19600.0000,	8600.0000,	0),
+(5,	'2010-12-31 07:32:16',	2,	11,	1,	128000.0000,	65000.0000,	0),
+(6,	'2010-12-31 07:34:34',	2,	11,	1,	128000.0000,	65000.0000,	0),
+(7,	'2010-12-31 07:51:06',	1,	11,	1,	112000.0000,	49000.0000,	0),
+(8,	'2010-12-31 08:56:30',	2,	14,	2,	44800.0000,	37600.0000,	0),
+(9,	'2011-01-07 16:31:21',	1,	32,	1,	28000.0000,	13000.0000,	0);
 
 DROP TABLE IF EXISTS `transaksi_kehilangan`;
 CREATE TABLE `transaksi_kehilangan` (
@@ -244,11 +301,12 @@ CREATE TABLE `transaksi_kehilangan` (
   `jumlah` int(11) NOT NULL,
   `harga` decimal(12,4) NOT NULL,
   `kerugian` decimal(12,4) NOT NULL,
+  `order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen';
 
-INSERT INTO `transaksi_kehilangan` (`id`, `produk`, `tanggal`, `jumlah`, `harga`, `kerugian`) VALUES
-(1,	11,	'2010-12-26 11:35:57',	2,	63000.0000,	126000.0000);
+INSERT INTO `transaksi_kehilangan` (`id`, `produk`, `tanggal`, `jumlah`, `harga`, `kerugian`, `order`) VALUES
+(1,	11,	'2010-12-26 11:35:57',	2,	63000.0000,	126000.0000,	0);
 
 DROP TABLE IF EXISTS `transaksi_konsumen`;
 CREATE TABLE `transaksi_konsumen` (
@@ -258,40 +316,47 @@ CREATE TABLE `transaksi_konsumen` (
   `jumlah` int(11) NOT NULL,
   `harga` decimal(12,4) NOT NULL,
   `keuntungan` decimal(12,4) NOT NULL,
+  `order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
-INSERT INTO `transaksi_konsumen` (`id`, `tanggal`, `produk`, `jumlah`, `harga`, `keuntungan`) VALUES
-(1,	'2010-12-26 10:10:09',	1,	2,	26000.0000,	28000.0000),
-(2,	'2010-12-26 10:10:09',	2,	2,	26000.0000,	28000.0000),
-(3,	'2010-12-26 10:10:09',	3,	1,	26000.0000,	14000.0000),
-(4,	'2010-12-26 10:10:09',	11,	2,	160000.0000,	194000.0000),
-(5,	'2010-12-30 08:53:58',	27,	2,	42000.0000,	53200.0000),
-(6,	'2010-12-30 08:53:58',	24,	1,	170000.0000,	108000.0000),
-(7,	'2010-12-30 08:54:27',	27,	2,	42000.0000,	53200.0000),
-(8,	'2010-12-30 08:54:27',	24,	1,	170000.0000,	108000.0000),
-(9,	'2010-12-30 08:55:06',	27,	2,	42000.0000,	53200.0000),
-(10,	'2010-12-30 08:55:06',	24,	1,	170000.0000,	108000.0000),
-(11,	'2010-12-30 08:56:06',	27,	2,	42000.0000,	53200.0000),
-(12,	'2010-12-30 08:56:06',	24,	1,	170000.0000,	108000.0000),
-(13,	'2010-12-30 08:56:16',	27,	2,	42000.0000,	53200.0000),
-(14,	'2010-12-30 08:56:16',	24,	1,	170000.0000,	108000.0000),
-(15,	'2010-12-30 08:57:28',	27,	2,	42000.0000,	53200.0000),
-(16,	'2010-12-30 08:57:28',	24,	1,	170000.0000,	108000.0000),
-(17,	'2010-12-30 08:57:36',	27,	2,	42000.0000,	53200.0000),
-(18,	'2010-12-30 08:57:36',	24,	1,	170000.0000,	108000.0000),
-(19,	'2010-12-30 08:57:59',	27,	2,	42000.0000,	53200.0000),
-(20,	'2010-12-30 08:57:59',	24,	1,	170000.0000,	108000.0000),
-(21,	'2010-12-30 08:58:01',	27,	2,	42000.0000,	53200.0000),
-(22,	'2010-12-30 08:58:01',	24,	1,	170000.0000,	108000.0000),
-(23,	'2010-12-30 08:58:03',	27,	2,	42000.0000,	53200.0000),
-(24,	'2010-12-30 08:58:03',	24,	1,	170000.0000,	108000.0000),
-(25,	'2010-12-30 09:02:58',	27,	2,	42000.0000,	53200.0000),
-(26,	'2010-12-30 09:02:58',	24,	1,	170000.0000,	108000.0000),
-(27,	'2010-12-31 06:30:25',	11,	1,	160000.0000,	97000.0000),
-(28,	'2010-12-31 09:13:58',	14,	2,	56000.0000,	60000.0000),
-(29,	'2011-01-04 19:24:31',	11,	2,	160000.0000,	194000.0000),
-(30,	'2011-01-04 19:24:31',	23,	2,	40000.0000,	50000.0000);
+INSERT INTO `transaksi_konsumen` (`id`, `tanggal`, `produk`, `jumlah`, `harga`, `keuntungan`, `order`) VALUES
+(1,	'2010-12-26 10:10:09',	1,	2,	26000.0000,	28000.0000,	0),
+(2,	'2010-12-26 10:10:09',	2,	2,	26000.0000,	28000.0000,	0),
+(3,	'2010-12-26 10:10:09',	3,	1,	26000.0000,	14000.0000,	0),
+(4,	'2010-12-26 10:10:09',	11,	2,	160000.0000,	194000.0000,	0),
+(5,	'2010-12-30 08:53:58',	27,	2,	42000.0000,	53200.0000,	0),
+(6,	'2010-12-30 08:53:58',	24,	1,	170000.0000,	108000.0000,	0),
+(7,	'2010-12-30 08:54:27',	27,	2,	42000.0000,	53200.0000,	0),
+(8,	'2010-12-30 08:54:27',	24,	1,	170000.0000,	108000.0000,	0),
+(9,	'2010-12-30 08:55:06',	27,	2,	42000.0000,	53200.0000,	0),
+(10,	'2010-12-30 08:55:06',	24,	1,	170000.0000,	108000.0000,	0),
+(11,	'2010-12-30 08:56:06',	27,	2,	42000.0000,	53200.0000,	0),
+(12,	'2010-12-30 08:56:06',	24,	1,	170000.0000,	108000.0000,	0),
+(13,	'2010-12-30 08:56:16',	27,	2,	42000.0000,	53200.0000,	0),
+(14,	'2010-12-30 08:56:16',	24,	1,	170000.0000,	108000.0000,	0),
+(15,	'2010-12-30 08:57:28',	27,	2,	42000.0000,	53200.0000,	0),
+(16,	'2010-12-30 08:57:28',	24,	1,	170000.0000,	108000.0000,	0),
+(17,	'2010-12-30 08:57:36',	27,	2,	42000.0000,	53200.0000,	0),
+(18,	'2010-12-30 08:57:36',	24,	1,	170000.0000,	108000.0000,	0),
+(19,	'2010-12-30 08:57:59',	27,	2,	42000.0000,	53200.0000,	0),
+(20,	'2010-12-30 08:57:59',	24,	1,	170000.0000,	108000.0000,	0),
+(21,	'2010-12-30 08:58:01',	27,	2,	42000.0000,	53200.0000,	0),
+(22,	'2010-12-30 08:58:01',	24,	1,	170000.0000,	108000.0000,	0),
+(23,	'2010-12-30 08:58:03',	27,	2,	42000.0000,	53200.0000,	0),
+(24,	'2010-12-30 08:58:03',	24,	1,	170000.0000,	108000.0000,	0),
+(25,	'2010-12-30 09:02:58',	27,	2,	42000.0000,	53200.0000,	0),
+(26,	'2010-12-30 09:02:58',	24,	1,	170000.0000,	108000.0000,	0),
+(27,	'2010-12-31 06:30:25',	11,	1,	160000.0000,	97000.0000,	0),
+(28,	'2010-12-31 09:13:58',	14,	2,	56000.0000,	60000.0000,	0),
+(29,	'2011-01-04 19:24:31',	11,	2,	160000.0000,	194000.0000,	0),
+(30,	'2011-01-04 19:24:31',	23,	2,	40000.0000,	50000.0000,	0),
+(31,	'2011-01-05 22:33:27',	32,	33,	40000.0000,	825000.0000,	0),
+(32,	'2011-01-07 06:32:30',	24,	1,	170000.0000,	108000.0000,	0),
+(33,	'2011-01-07 16:29:40',	24,	2,	170000.0000,	216000.0000,	0),
+(34,	'2011-01-07 16:29:40',	18,	1,	56000.0000,	30000.0000,	0),
+(35,	'2011-01-07 18:35:13',	32,	1,	40000.0000,	25000.0000,	0),
+(36,	'2011-01-07 18:35:13',	26,	2,	40000.0000,	50000.0000,	0);
 
 DROP TABLE IF EXISTS `transaksi_reject`;
 CREATE TABLE `transaksi_reject` (
@@ -302,22 +367,24 @@ CREATE TABLE `transaksi_reject` (
   `harga` decimal(12,4) NOT NULL,
   `agen` int(11) NOT NULL,
   `refund` decimal(12,4) NOT NULL,
+  `order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen';
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen';
 
-INSERT INTO `transaksi_reject` (`id`, `produk`, `tanggal`, `jumlah`, `harga`, `agen`, `refund`) VALUES
-(1,	1,	'2010-12-26 11:07:40',	2,	18200.0000,	1,	18200.0000),
-(2,	11,	'2010-12-26 11:11:38',	1,	160000.0000,	0,	160000.0000),
-(3,	11,	'2010-12-26 11:37:57',	2,	160000.0000,	0,	320000.0000),
-(4,	11,	'2010-12-26 11:38:53',	2,	160000.0000,	1,	320000.0000),
-(5,	3,	'2010-12-26 11:40:07',	1,	18200.0000,	1,	18200.0000),
-(6,	3,	'2010-12-26 11:40:36',	2,	18200.0000,	1,	36400.0000),
-(7,	3,	'2010-12-26 16:49:07',	2,	18200.0000,	1,	36400.0000),
-(8,	3,	'2010-12-27 06:22:33',	2,	18200.0000,	1,	36400.0000),
-(9,	14,	'2010-12-31 08:58:06',	2,	44800.0000,	1,	89600.0000),
-(10,	14,	'2010-12-31 09:02:30',	2,	44800.0000,	1,	89600.0000),
-(11,	14,	'2010-12-31 09:04:11',	2,	44800.0000,	1,	89600.0000),
-(12,	14,	'2010-12-31 09:14:52',	2,	56000.0000,	0,	112000.0000);
+INSERT INTO `transaksi_reject` (`id`, `produk`, `tanggal`, `jumlah`, `harga`, `agen`, `refund`, `order`) VALUES
+(1,	1,	'2010-12-26 11:07:40',	2,	18200.0000,	1,	18200.0000,	0),
+(2,	11,	'2010-12-26 11:11:38',	1,	160000.0000,	0,	160000.0000,	0),
+(3,	11,	'2010-12-26 11:37:57',	2,	160000.0000,	0,	320000.0000,	0),
+(4,	11,	'2010-12-26 11:38:53',	2,	160000.0000,	1,	320000.0000,	0),
+(5,	3,	'2010-12-26 11:40:07',	1,	18200.0000,	1,	18200.0000,	0),
+(6,	3,	'2010-12-26 11:40:36',	2,	18200.0000,	1,	36400.0000,	0),
+(7,	3,	'2010-12-26 16:49:07',	2,	18200.0000,	1,	36400.0000,	0),
+(8,	3,	'2010-12-27 06:22:33',	2,	18200.0000,	1,	36400.0000,	0),
+(9,	14,	'2010-12-31 08:58:06',	2,	44800.0000,	1,	89600.0000,	0),
+(10,	14,	'2010-12-31 09:02:30',	2,	44800.0000,	1,	89600.0000,	0),
+(11,	14,	'2010-12-31 09:04:11',	2,	44800.0000,	1,	89600.0000,	0),
+(12,	14,	'2010-12-31 09:14:52',	2,	56000.0000,	0,	112000.0000,	0),
+(13,	32,	'2011-01-25 06:49:54',	1,	40000.0000,	0,	40000.0000,	0);
 
 DROP TABLE IF EXISTS `transaksi_retur`;
 CREATE TABLE `transaksi_retur` (
@@ -328,15 +395,17 @@ CREATE TABLE `transaksi_retur` (
   `harga` decimal(12,4) NOT NULL,
   `agen` int(11) NOT NULL,
   `refund` decimal(12,4) NOT NULL,
+  `order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Kalo konsumen, agen = 0, selainnya pake ID agen';
 
-INSERT INTO `transaksi_retur` (`id`, `produk`, `tanggal`, `jumlah`, `harga`, `agen`, `refund`) VALUES
-(1,	1,	'2010-12-26 10:13:26',	2,	26000.0000,	0,	28000.0000),
-(2,	2,	'2010-12-26 10:16:03',	2,	26000.0000,	0,	28000.0000),
-(3,	1,	'2010-12-26 10:52:35',	2,	18200.0000,	1,	12400.0000),
-(4,	11,	'2010-12-31 06:40:03',	1,	160000.0000,	0,	97000.0000),
-(5,	11,	'2010-12-31 07:45:20',	1,	128000.0000,	2,	65000.0000);
+INSERT INTO `transaksi_retur` (`id`, `produk`, `tanggal`, `jumlah`, `harga`, `agen`, `refund`, `order`) VALUES
+(1,	1,	'2010-12-26 10:13:26',	2,	26000.0000,	0,	28000.0000,	0),
+(2,	2,	'2010-12-26 10:16:03',	2,	26000.0000,	0,	28000.0000,	0),
+(3,	1,	'2010-12-26 10:52:35',	2,	18200.0000,	1,	12400.0000,	0),
+(4,	11,	'2010-12-31 06:40:03',	1,	160000.0000,	0,	97000.0000,	0),
+(5,	11,	'2010-12-31 07:45:20',	1,	128000.0000,	2,	65000.0000,	0),
+(6,	9,	'2011-01-07 16:46:04',	2,	150000.0000,	0,	180000.0000,	0);
 
 DROP TABLE IF EXISTS `ukuran`;
 CREATE TABLE `ukuran` (

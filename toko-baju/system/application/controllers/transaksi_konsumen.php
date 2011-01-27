@@ -8,6 +8,7 @@ class Transaksi_konsumen extends Controller {
         $this->load->model('Merek_model', 'merek');
         $this->load->model('Model_baju_model', 'model');
         $this->load->model('Transaksi_konsumen_model', 'transaksi_konsumen');
+        $this->load->model('Order_model', 'order');
     }
 
     function index()
@@ -35,6 +36,7 @@ class Transaksi_konsumen extends Controller {
         $this->load->view('base', $data);
     }
     function bayar(){
+
         foreach($this->cart->contents() as $item){
             $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty']);
         }
