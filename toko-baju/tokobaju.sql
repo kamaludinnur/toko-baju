@@ -34,7 +34,7 @@ CREATE TABLE `ci_sessions` (
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
 ('53ef6edbab9029ab0b5c4ef7cdd202a3',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296051729,	'a:5:{s:11:\"prod_sort_0\";s:5:\"merek\";s:11:\"prod_sort_1\";s:5:\"model\";s:11:\"prod_sort_2\";s:5:\"warna\";s:11:\"prod_sort_3\";s:9:\"id_ukuran\";s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}'),
 ('858ac388376c5273443ed66384849c25',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296111293,	'a:1:{s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}'),
-('47832ebbe4c9c387f89b1ac159b2c9b1',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296115199,	'a:1:{s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}');
+('acf8f519f6648c79695d410fd1625167',	'0.0.0.0',	'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.1',	1296121910,	'a:1:{s:9:\"transaksi\";s:18:\"transaksi_konsumen\";}');
 
 DROP TABLE IF EXISTS `merek`;
 CREATE TABLE `merek` (
