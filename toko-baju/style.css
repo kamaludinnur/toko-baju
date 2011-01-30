@@ -237,12 +237,14 @@ a.forgot_pass{
     padding:0px 20px 20px 20px;
     overflow: auto;
     margin-right: 230px;
+    position: relative;
 }
 
 #sidebar_toggler{
     position: absolute;
-    top: 30px;
-    right: 20px;
+    top: 5px;
+    right: 25px;
+    z-index: 2007
 }
 
 .sidebarmenu{
@@ -766,6 +768,14 @@ input[type=button].icon_only {
     width: 22px;
     background-position: center center;
 }
+
+.xls-button {
+    margin: 0px;
+    padding: 0px 3px 0px 18px;
+    background: #EEE url(images/ms-excel.png) 3px center no-repeat;
+    font-size: 11px;
+}
+
 
 /* autocompleter */
 

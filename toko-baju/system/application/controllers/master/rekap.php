@@ -39,7 +39,7 @@ class Rekap extends Controller {
         $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_transaksi_konsumen";
+        $data->view_konten = "rekap/rekap_transaksi_konsumen";
         $data->title = "Rekap Transaksi Retail";
 
         // ambil view "master_base.php" (templet dasar)
@@ -80,7 +80,25 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_transaksi_konsumen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
 
-        $this->load->view('master/rekap_transaksi_konsumen_table', $data);
+        $this->load->view('master/rekap/rekap_transaksi_konsumen_table', $data);
+    }
+
+    function transaksi_konsumen_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_transaksi_konsumen($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_transaksi_konsumen_xls', $data);
+
     }
 
     function transaksi_agen()
@@ -94,7 +112,7 @@ class Rekap extends Controller {
         $data->daftar_agen = $this->agen->get_semua_agen('kode');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_transaksi_agen";
+        $data->view_konten = "rekap/rekap_transaksi_agen";
         $data->title = "Rekap Transaksi Agen";
 
         // ambil view "master_base.php" (templet dasar)
@@ -136,8 +154,27 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_transaksi_agen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC', $filter);
 
-        $this->load->view('master/rekap_transaksi_agen_table', $data);
+        $this->load->view('master/rekap/rekap_transaksi_agen_table', $data);
     }
+
+    function transaksi_agen_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_transaksi_agen($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_transaksi_agen_xls', $data);
+
+    }
+
 
     function record_stok()
     {
@@ -149,7 +186,7 @@ class Rekap extends Controller {
         $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_record_stok";
+        $data->view_konten = "rekap/rekap_record_stok";
         $data->title = "Record Stok Produk";
 
         // ambil view "master_base.php" (templet dasar)
@@ -167,7 +204,7 @@ class Rekap extends Controller {
 
         $data->data_rekapan = $this->rekap->get_record_stok_by_produk($id_merek, $id_model, $id_warna, $id_ukuran);
 
-        $this->load->view('master/rekap_record_stok_per_produk_table', $data);
+        $this->load->view('master/rekap/rekap_record_stok_per_produk_table', $data);
     }
 
     function record_stok_per_tanggal()
@@ -183,8 +220,28 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_record_stok_by_tanggal($this->format_date($start_date), $this->format_date($end_date));
 
-        $this->load->view('master/rekap_record_stok_per_tanggal_table', $data);
+        $this->load->view('master/rekap/rekap_record_stok_per_tanggal_table', $data);
     }
+
+    function record_stok_xls()
+    {
+        $data = new stdClass();
+
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_record_stok_by_tanggal($start_date, $end_date);
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_record_stok_xls', $data);
+    }
+
+
+// ==========
 
     function kehilangan()
     {
@@ -196,7 +253,7 @@ class Rekap extends Controller {
         $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_kehilangan";
+        $data->view_konten = "rekap/rekap_kehilangan";
         $data->title = "Rekap Kehilangan";
 
         // ambil view "master_base.php" (templet dasar)
@@ -237,9 +294,26 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_kehilangan($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
 
-        $this->load->view('master/rekap_kehilangan_table', $data);
+        $this->load->view('master/rekap/rekap_kehilangan_table', $data);
     }
 
+    function kehilangan_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_kehilangan($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_kehilangan_xls', $data);
+
+    }
 
     // retur classes ===========================================================
 
@@ -253,7 +327,7 @@ class Rekap extends Controller {
         $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_retur_konsumen";
+        $data->view_konten = "rekap/rekap_retur_konsumen";
         $data->title = "Rekap Retur Retail";
 
         // ambil view "master_base.php" (templet dasar)
@@ -294,8 +368,28 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_retur_konsumen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
 
-        $this->load->view('master/rekap_retur_konsumen_table', $data);
+        $this->load->view('master/rekap/rekap_retur_konsumen_table', $data);
     }
+
+    function retur_konsumen_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_retur_konsumen($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_retur_konsumen_xls', $data);
+
+    }
+
+
 
     function retur_agen()
     {
@@ -308,7 +402,7 @@ class Rekap extends Controller {
         $data->daftar_agen = $this->agen->get_semua_agen('kode');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_retur_agen";
+        $data->view_konten = "rekap/rekap_retur_agen";
         $data->title = "Rekap Retur Agen";
 
         // ambil view "master_base.php" (templet dasar)
@@ -350,8 +444,28 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_retur_agen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC', $filter);
 
-        $this->load->view('master/rekap_retur_agen_table', $data);
+        $this->load->view('master/rekap/rekap_retur_agen_table', $data);
     }
+
+    function retur_agen_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_retur_agen($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_retur_agen_xls', $data);
+
+    }
+
+
 
     // reject classes ==========================================================
 
@@ -365,7 +479,7 @@ class Rekap extends Controller {
         $data->daftar_ukuran = $this->ukuran->get_semua_ukuran('id');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_reject_konsumen";
+        $data->view_konten = "rekap/rekap_reject_konsumen";
         $data->title = "Rekap Reject Retail";
 
         // ambil view "master_base.php" (templet dasar)
@@ -406,7 +520,25 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_reject_konsumen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC' ,$filter);
 
-        $this->load->view('master/rekap_reject_konsumen_table', $data);
+        $this->load->view('master/rekap/rekap_reject_konsumen_table', $data);
+    }
+
+    function reject_konsumen_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_reject_konsumen($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_reject_konsumen_xls', $data);
+
     }
 
     function reject_agen()
@@ -420,7 +552,7 @@ class Rekap extends Controller {
         $data->daftar_agen = $this->agen->get_semua_agen('kode');
 
         // view yang memuat isi halamannya
-        $data->view_konten = "rekap_reject_agen";
+        $data->view_konten = "rekap/rekap_reject_agen";
         $data->title = "Rekap Reject Agen";
 
         // ambil view "master_base.php" (templet dasar)
@@ -462,7 +594,26 @@ class Rekap extends Controller {
         $data->sehari_doang = ($start_date == $end_date);
         $data->data_rekapan = $this->rekap->get_reject_agen($this->format_date($start_date), $this->format_date($end_date), 'tanggal ASC', $filter);
 
-        $this->load->view('master/rekap_reject_agen_table', $data);
+        $this->load->view('master/rekap/rekap_reject_agen_table', $data);
     }
+
+    function reject_agen_xls()
+    {
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $data_dump  = $this->input->post('data_dump');
+
+        // gak perlu di-format_date lagi karena udah dateng dalam bentuk ter-format
+        $data->start_date = $start_date;
+        $data->end_date = $end_date;
+
+        $data->data_rekapan = $this->rekap->get_reject_agen($start_date, $end_date, 'tanggal ASC');
+
+        $this->load->plugin('phpexcel');
+
+        $this->load->view('master/rekap/rekap_reject_agen_xls', $data);
+
+    }
+
 
 }

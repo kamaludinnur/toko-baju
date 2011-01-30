@@ -1,5 +1,13 @@
 <?php $total_jumlah = 0; $total_harga = 0; $total_keuntungan = 0 ?>
 
+<?php if(count($data_rekapan) > 0) : ?>
+<form action="index.php/master/rekap/retur_konsumen_xls" method="post" style="float: right; margin-bottom: 10px">
+    <input type="hidden" name="start" value="<?php echo $start_date; ?>"/>
+    <input type="hidden" name="end" value="<?php echo $end_date; ?>"/>
+    <input type="submit" class="xls-button" value="Simpan XLS" title="Klik untuk menyimpan hasil rekap dalam bentuk file XLS"/>
+</form>
+<?php endif; ?>
+
 <strong><big>Tanggal <?php echo date('d/m/Y', strtotime($start_date)); if(!$sehari_doang) echo " sampai " . date('d/m/Y', strtotime($end_date)) ?></big></strong>
 
 <br/><br/>
@@ -8,6 +16,7 @@
     <thead>
         <tr>
             <th width="25" class="rounded-company">No</th>
+            <th>No. Transaksi</th>
             <th>Tanggal</th>
             <th>Merek</th>
             <th>Model</th>
@@ -21,11 +30,12 @@
     <tbody>
     <?php if (count($data_rekapan) == 0) : ?>
         <tr>
-            <td colspan="9" style="text-align: center"><h1>Tidak ada data</h1></td>
+            <td colspan="10" style="text-align: center"><h1>Tidak ada data</h1></td>
         </tr>
     <?php else : $i = 1; foreach($data_rekapan as $data) : ?>
         <tr>
             <td><?php echo $i; ?></td>
+            <td><?php echo $data['id_order']; ?></td>
             <td><?php echo date('d/m/Y', strtotime($data['tanggal'])); ?></td>
             <td><?php echo $data['merek']; ?></td>
             <td><?php echo $data['model']; ?></td>
@@ -43,7 +53,7 @@
     </tbody>
     <tfoot>
         <tr style="font-size: 15px;">
-            <td colspan="8" style="text-align: right"><strong>Total refund</strong></td>
+            <td colspan="9" style="text-align: right"><strong>Total refund</strong></td>
             <td style="text-align: right"><?php echo number_format($total_keuntungan, 0, ',', '.'); ?></td>
         </tr>
     </tfoot>

@@ -2,11 +2,10 @@
 
 <h2>Record Stok Produk</h2>
 
-<div class="tab activetab" id="t1" onclick="$('#t2').removeClass('activetab'); $('#t1').addClass('activetab'); $('#filterbox').show(); $('#datebox').hide(); $('#rekap_result').slideUp()">Berdasarkan produk</div>
-<div class="tab"           id="t2" onclick="$('#t1').removeClass('activetab'); $('#t2').addClass('activetab'); $('#filterbox').hide(); $('#datebox').show(); $('#rekap_result').slideUp()">Berdasarkan tanggal</div>
+<div class="tab"           id="t1" onclick="$('#t2').removeClass('activetab'); $('#t1').addClass('activetab'); $('#filterbox').show(); $('#datebox').hide(); $('#rekap_result').slideUp()">Berdasarkan produk</div>
+<div class="tab activetab" id="t2" onclick="$('#t1').removeClass('activetab'); $('#t2').addClass('activetab'); $('#filterbox').hide(); $('#datebox').show(); $('#rekap_result').slideUp()">Berdasarkan tanggal</div>
 
-<div class="yellowbox" id="filterbox">
-    <?php //print_r($filter_value); ?>
+<div class="yellowbox" id="filterbox" style="display: none;">
     <form action="" method="post" id="filter_form">
 
         <table>
@@ -69,7 +68,7 @@
 
 </div>
 
-<div class="yellowbox" id="datebox" style="display: none;">
+<div class="yellowbox" id="datebox">
 
     <form action="" method="post" id="trx_form">
         <table>

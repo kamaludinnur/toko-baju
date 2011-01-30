@@ -30,7 +30,8 @@ class Rekap_model extends Model {
                               tk.jumlah         AS jumlah,
                               tk.harga          AS harga,
                               tk.keuntungan     AS keuntungan,
-                              tk.tanggal        AS tanggal
+                              tk.tanggal        AS tanggal,
+                              tk.order          AS id_order
                             FROM transaksi_konsumen AS tk, produk, merek, model, warna, ukuran
                             WHERE tk.produk = produk.id
                               AND produk.model  = model.id
@@ -39,7 +40,7 @@ class Rekap_model extends Model {
                               AND model.merek   = merek.id
                               AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -81,7 +82,8 @@ class Rekap_model extends Model {
                                 ta.jumlah       AS jumlah,
                                 ta.harga        AS harga,
                                 ta.keuntungan   AS keuntungan,
-                                ta.tanggal      AS tanggal
+                                ta.tanggal      AS tanggal,
+                                ta.order        AS id_order
                             FROM transaksi_agen AS ta, produk, merek, model, warna, ukuran, agen
                             WHERE ta.produk = produk.id
                                 AND ta.agen = agen.id
@@ -91,7 +93,7 @@ class Rekap_model extends Model {
                                 AND model.merek = merek.id
                                 AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -130,7 +132,8 @@ class Rekap_model extends Model {
                               tk.jumlah         AS jumlah,
                               tk.harga          AS harga,
                               tk.kerugian       AS kerugian,
-                              tk.tanggal        AS tanggal
+                              tk.tanggal        AS tanggal,
+                              tk.order          AS id_order
                             FROM transaksi_kehilangan AS tk, produk, merek, model, warna, ukuran
                             WHERE tk.produk = produk.id
                               AND produk.model  = model.id
@@ -139,7 +142,7 @@ class Rekap_model extends Model {
                               AND model.merek   = merek.id
                               AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -182,7 +185,8 @@ class Rekap_model extends Model {
                               tk.jumlah         AS jumlah,
                               tk.harga          AS harga,
                               tk.refund         AS refund,
-                              tk.tanggal        AS tanggal
+                              tk.tanggal        AS tanggal,
+                              tk.order          AS id_order
                             FROM transaksi_retur AS tk, produk, merek, model, warna, ukuran
                             WHERE tk.produk = produk.id
                               AND produk.model  = model.id
@@ -192,7 +196,7 @@ class Rekap_model extends Model {
                               AND tk.agen       = 0
                               AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -234,7 +238,8 @@ class Rekap_model extends Model {
                                 ta.jumlah       AS jumlah,
                                 ta.harga        AS harga,
                                 ta.refund       AS refund,
-                                ta.tanggal      AS tanggal
+                                ta.tanggal      AS tanggal,
+                                ta.order        AS id_order
                             FROM transaksi_retur AS ta, produk, merek, model, warna, ukuran, agen
                             WHERE ta.produk = produk.id
                                 AND ta.agen = agen.id
@@ -244,7 +249,7 @@ class Rekap_model extends Model {
                                 AND model.merek = merek.id
                                 AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -285,7 +290,8 @@ class Rekap_model extends Model {
                               tk.jumlah         AS jumlah,
                               tk.harga          AS harga,
                               tk.refund         AS refund,
-                              tk.tanggal        AS tanggal
+                              tk.tanggal        AS tanggal,
+                              tk.order          AS id_order
                             FROM transaksi_reject AS tk, produk, merek, model, warna, ukuran
                             WHERE tk.produk = produk.id
                               AND produk.model  = model.id
@@ -295,7 +301,7 @@ class Rekap_model extends Model {
                               AND tk.agen       = 0
                               AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(tk.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 
@@ -337,7 +343,8 @@ class Rekap_model extends Model {
                                 ta.jumlah       AS jumlah,
                                 ta.harga        AS harga,
                                 ta.refund       AS refund,
-                                ta.tanggal      AS tanggal
+                                ta.tanggal      AS tanggal,
+                                ta.order        AS id_order
                             FROM transaksi_reject AS ta, produk, merek, model, warna, ukuran, agen
                             WHERE ta.produk = produk.id
                                 AND ta.agen = agen.id
@@ -347,7 +354,7 @@ class Rekap_model extends Model {
                                 AND model.merek = merek.id
                                 AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(ta.tanggal, '%Y-%m-%d') <= '{$end_date}'";
         if (count($filter) > 0) $query_string .= ' AND ' . implode($filter, ' AND ');
-        $query_string .=   " ORDER BY {$order_by}, merek, model, warna, ukuran";
+        $query_string .=   " ORDER BY id_order, {$order_by}, merek, model, warna, ukuran";
 
         $q = $this->db->query($query_string);
 

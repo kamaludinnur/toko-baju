@@ -1,3 +1,11 @@
+<?php if(count($data_rekapan) > 0) : ?>
+<form action="index.php/master/rekap/record_stok_xls" method="post" style="float: right; margin-bottom: 10px">
+    <input type="hidden" name="start" value="<?php echo $start_date; ?>"/>
+    <input type="hidden" name="end" value="<?php echo $end_date; ?>"/>
+    <input type="submit" class="xls-button" value="Simpan XLS" title="Klik untuk menyimpan hasil rekap dalam bentuk file XLS"/>
+</form>
+<?php endif; ?>
+
 <strong><big><?php echo count($data_rekapan); ?> record, tanggal <?php echo date('d/m/Y', strtotime($start_date)); if(!$sehari_doang) echo " sampai " . date('d/m/Y', strtotime($end_date)) ?></big></strong>
 
 <br/><br/>

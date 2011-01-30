@@ -60,9 +60,34 @@
 
         <script type="text/javascript">
 
+        function toggleSidebar(){
+
+            if($.cookie('tokobaju_sidebar_isHidden') != 'yes' || $.cookie('tokobaju_sidebar_isHidden') == null){
+                // hide it
+                $('.left_content').animate({width:"0px"}, function(){
+                    $(this).hide();
+                    $('.right_content').css({marginRight: '0px'});
+                });
+                $('#sidebar_toggler input').first().val("« Menu");
+                $.cookie('tokobaju_sidebar_isHidden', 'yes', {exprires: 30, path: '/'});
+            } else {
+                // show it
+                $('.right_content').css({marginRight: '230px'});
+                $('.left_content').show().animate({width:"195px"});
+                $.cookie('tokobaju_sidebar_isHidden', 'no', {exprires: 30, path: '/'});
+                $('#sidebar_toggler input').first().val("Menu »");
+            }
+        }
+
+
         $(document).ready(function(){
             $('.right_content, .left_content').css({height: $(window).height() - $('.header').height() - 50 + 'px'});
             $('.right_content h2').first().remove();
+            if($.cookie('tokobaju_sidebar_isHidden') == 'yes'){
+                $('.left_content').hide()
+                $('.right_content').css({marginRight: '0px'});
+                $('#sidebar_toggler input').first().val("« Menu");
+            }
 
         });
 
@@ -100,6 +125,9 @@
 
                     </div>
 
+                    <div id="sidebar_toggler">
+                        <input type="submit" name="submit" value="Menu &raquo;" class="button" title="Tampil/sembunyikan menu" onclick="toggleSidebar();" style="margin: 0px; padding: 0px 5px; font-size: 11px; text-shadow: none"/>
+                    </div>
 
                     <div class="right_content">
 
