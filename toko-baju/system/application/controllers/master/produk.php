@@ -10,6 +10,10 @@ class Produk extends Controller {
         $this->load->model('Warna_model', 'warna');
         $this->load->model('Ukuran_model', 'ukuran');
         $this->load->model('Merek_model', 'merek');
+
+        if(!$this->session->userdata('master_login'))
+            redirect('master/home/login');
+
     }
 
     function index()

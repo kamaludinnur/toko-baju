@@ -107,14 +107,6 @@
 
             <div class="main_content">
 
-                <!--
-                <div class="menu">
-
-                <?php // $this->load->view('master/navigation'); ?>
-
-                </div>
-                -->
-
                 <div class="center_content">
 
 

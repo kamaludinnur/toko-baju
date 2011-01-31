@@ -13,6 +13,10 @@ class Rekap extends Controller {
         $this->load->model('Ukuran_model', 'ukuran');
         $this->load->model('Merek_model', 'merek');
         $this->load->model('Agen_model', 'agen');
+
+        if(!$this->session->userdata('master_login'))
+            redirect('master/home/login');
+
     }
 
 

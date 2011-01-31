@@ -7,6 +7,10 @@ class Model_baju extends Controller {
         parent::Controller();
         $this->load->model('Model_baju_model', 'model_baju');
         $this->load->model('Merek_model', 'merek');
+
+        if(!$this->session->userdata('master_login'))
+            redirect('master/home/login');
+
     }
 
     function index()

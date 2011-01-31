@@ -6,6 +6,10 @@ class Warna extends Controller {
     {
         parent::Controller();
         $this->load->model('Warna_model', 'warna');
+
+        if(!$this->session->userdata('master_login'))
+            redirect('master/home/login');
+
     }
 
     function index()

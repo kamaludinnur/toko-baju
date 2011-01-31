@@ -6,6 +6,10 @@ class Ukuran extends Controller {
     {
         parent::Controller();
         $this->load->model('Ukuran_model', 'ukuran');
+
+        if(!$this->session->userdata('master_login'))
+            redirect('master/home/login');
+
     }
 
     function index()

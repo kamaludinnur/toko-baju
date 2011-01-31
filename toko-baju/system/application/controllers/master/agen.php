@@ -6,6 +6,10 @@ class Agen extends Controller {
     {
         parent::Controller();
         $this->load->model('Agen_model', 'agen');
+
+        if(!$this->session->userdata('master_login'))
+            redirect('master/home/login');
+
     }
 
     function index()
