@@ -123,9 +123,9 @@
 <div style="text-align: right">
     Metode Pembayaran:
     <select name="metode">
-        <option value="1">Cash</option>
-        <option value="2">EDC</option>
-        <option value="3">Transfer</option>
+        <option value="1" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/1'" <?php if($metode_pembayaran==1) echo "selected"?>>Cash</option>
+        <option value="2" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/2'" <?php if($metode_pembayaran==2) echo "selected"?>>EDC</option>
+        <option value="3" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/3'" <?php if($metode_pembayaran==3) echo "selected"?>>Transfer</option>
     </select>
     <input type="button" value="Bayar" class="button blue" onclick="location.href = 'index.php/transaksi_konsumen/bayar'"/>
     <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/transaksi_konsumen/batal'"/>

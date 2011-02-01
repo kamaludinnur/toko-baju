@@ -6,7 +6,7 @@ class Transaksi_konsumen_model extends Model{
         $this->load->model('Produk_model', 'produk');
     }
 
-    function tambah_transaksi($id_produk, $jumlah)
+    function tambah_transaksi($id_produk, $jumlah=1, $order_id=0)
     {
         $x = $this->produk->get_produk_by_id($id_produk);       
         //tanggal,produk,jumlah,harga,keuntungan
@@ -17,7 +17,8 @@ class Transaksi_konsumen_model extends Model{
             "produk" => $id_produk,
             "jumlah" => $jumlah,
             "harga" => $x->harga_jual,
-            "keuntungan" => $keuntungan
+            "keuntungan" => $keuntungan,
+            "order" => $order_id
         );
         $q = $this->db->insert('transaksi_konsumen',$data);
         if($q){

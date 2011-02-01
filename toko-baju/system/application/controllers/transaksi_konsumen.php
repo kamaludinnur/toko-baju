@@ -30,16 +30,40 @@ class Transaksi_konsumen extends Controller {
         }
         $data = new stdClass();
         $data->info = $info;
+        if (!$this->session->userdata('metode'))
+        {
+            $this->session->set_userdata('metode', 1);
+        }
+        $metode = $this->session->userdata('metode');
+        $data->metode_pembayaran = $metode;
         $data->view_konten = 'transaksi_konsumen';
-        $data->title = "Transaksi Konsumen";
+        $data->title = "Transaksi Retail";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
-    function bayar(){
-
-        foreach($this->cart->contents() as $item){
-            $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty']);
+    function bayar()
+    {
+        $tanggal = date("Y-m-d H:i:s");
+        $this->load->model('Order_model', 'order');
+        $data = array(
+            "tanggal"   => $tanggal,
+            "total"     => $this->cart->total(),
+            "jenis"     => "konsumen",
+            "lunas"     => 1
+        );
+        $id_order = $this->order->insert_order($data);
+        foreach($this->cart->contents() as $item)
+        {
+            $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty'], $id_order);
         }
+        $data = array(
+            "tanggal"   => $tanggal,
+            "order"     => $id_order,
+            "jumlah"    => $this->cart->total(),
+            "metode"    => $this->session->userdata('metode')
+        );
+        $this->order->insert_pembayaran($data);
+        $this->session->set_userdata('metode', 1);
         $this->cart->destroy();
         redirect('/transaksi_konsumen');
     }
@@ -54,6 +78,12 @@ class Transaksi_konsumen extends Controller {
         ?>
         <input type="text" id="isi_stok" value="<?php echo $produk->stok?>" disabled style="width: 40px; font-weight: bolder" />
         <?php
+    }
+
+    function metode_pembayaran($id=1)
+    {
+        $this->session->set_userdata('metode', $id);
+        redirect('/transaksi_konsumen');
     }
 
     function add($produk, $jumlah)

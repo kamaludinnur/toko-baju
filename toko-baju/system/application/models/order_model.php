@@ -11,4 +11,10 @@ class Order_model extends Model {
         $this->db->insert('order', $data);
         return $this->db->insert_id();
     }
+    
+    function insert_pembayaran($data)
+    {
+        return $this->db->insert('pembayaran', $data);
+    }
+
 }
