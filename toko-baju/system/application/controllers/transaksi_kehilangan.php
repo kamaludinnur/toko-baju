@@ -34,13 +34,15 @@ class Transaksi_kehilangan extends Controller {
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
+    
     function bayar(){
         foreach($this->cart->contents() as $item){
-            $this->transaksi_konsumen->tambah_transaksi($item['id'], $item['qty']);
+            $this->kehilangan->insert_kehilangan($item['id'], $item['qty']);
         }
         $this->cart->destroy();
-        redirect('/transaksi_konsumen');
+        redirect('transaksi_kehilangan');
     }
+
     function batal()
     {
         $this->cart->destroy();

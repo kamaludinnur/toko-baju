@@ -121,7 +121,7 @@
 <br/>
 
 <div style="text-align: right">
-    <input type="button" value="Bayar" class="button blue" onclick="location.href = 'index.php/transaksi_konsumen/bayar'"/>
+    <input type="button" value="Proses" class="button blue" onclick="location.href = 'index.php/transaksi_kehilangan/bayar'"/>
     <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/transaksi_konsumen/batal'"/>
 </div>
 
