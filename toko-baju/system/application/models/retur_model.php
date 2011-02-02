@@ -7,7 +7,7 @@ class Retur_model extends Model {
         $this->load->model('Agen_model', 'agen');
     }
 
-    function retur_konsumen($id_produk, $jumlah, $harga)
+    function retur_konsumen($id_produk, $jumlah, $harga, $id_order=0)
     {
         $x = $this->produk->get_produk_by_id($id_produk);
         #produk,tanggal,jumlah,harga,agen,refund
@@ -19,7 +19,8 @@ class Retur_model extends Model {
             "produk" => $id_produk,
             "jumlah" => $jumlah,
             "harga" => $harga,
-            "refund" => $refund
+            "refund" => $refund,
+            "order" => $id_order
         );
         $q = $this->db->insert('transaksi_retur',$data);
         if($q){
@@ -32,7 +33,7 @@ class Retur_model extends Model {
         
     }
 
-    function retur_agen($id_produk, $jumlah, $harga, $agen)
+    function retur_agen($id_produk, $jumlah, $harga, $agen, $id_order=0)
     {
         $x = $this->produk->get_produk_by_id($id_produk);
         #produk,tanggal,jumlah,harga,agen,refund
@@ -44,7 +45,8 @@ class Retur_model extends Model {
             "produk" => $id_produk,
             "jumlah" => $jumlah,
             "harga" => $harga,
-            "refund" => $refund
+            "refund" => $refund,
+            "order" => $id_order
         );
         $q = $this->db->insert('transaksi_retur',$data);
         if($q){

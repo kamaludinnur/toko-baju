@@ -28,17 +28,33 @@ class Reject_konsumen extends Controller {
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
+
     function refund(){
+        $tanggal = date("Y-m-d H:i:s");
+        $this->load->model('Order_model', 'order');
+
+        // ====================Order====================
+        $data = array(
+            "tanggal"   => $tanggal,
+            "total"     => $this->cart->total(),
+            "jenis"     => "agen",
+            "lunas"     => $this->session->userdata('pembayaran')
+        );
+        $id_order = $this->order->insert_order($data);
+
+        //===================Reject=====================
         foreach($this->cart->contents() as $item){
-            $this->reject->reject_konsumen($item['id'], $item['qty'], $item['price']);
+            $this->reject->reject_konsumen($item['id'], $item['qty'], $item['price'], $id_order);
         }
         $this->cart->destroy();
         redirect('/reject_konsumen');
     }
+
     function batal(){
         $this->cart->destroy();
         redirect('/reject_konsumen');
     }
+
     function add($produk, $jumlah, $harga)
     {
         $produk = $this->produk->get_produk_by_id($produk);
