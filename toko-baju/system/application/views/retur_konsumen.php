@@ -3,7 +3,7 @@
 <div class="yellowbox">
     <h3 class="left_drop">Produk</h3>
 
-    <form action="" method="post" style="margin-top: 10px">
+    <form id="form" action="" method="post" style="margin-top: 10px">
     <table>
         <tr>
             <td>Merek:</td>
@@ -69,6 +69,8 @@
 
 <?php if ($info)
                             echo "<div class='error_box'>" . $info . "</div>" ?>
+
+<div class="error_box" style="display: none"></div>
 
                             <br/>
 

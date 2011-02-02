@@ -22,8 +22,11 @@ class Reject_agen extends Controller {
         if(!$this->session->userdata('id_agen')) redirect('/reject_agen/tentukan_agen');
 
         if ($this->input->post('submit')) {
-            $add = $this->add($this->input->post('id'), $this->input->post('jumlah'), $this->input->post('harga'));
-            if (!$add) $info = "Gagal";
+            if(!$this->input->post('id')) $info = "Input produk tidak lengkap";
+            else{
+                $add = $this->add($this->input->post('id'), $this->input->post('jumlah'), $this->input->post('harga'));
+                if (!$add) $info = "Gagal";
+            }
         }
         $data = new stdClass();
         $id_agen = $this->session->userdata('id_agen');

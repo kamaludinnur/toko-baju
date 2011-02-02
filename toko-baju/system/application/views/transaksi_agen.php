@@ -69,7 +69,7 @@
             </td>
             <td>
                 <div class="trx">
-                    <input type="text" name="jumlah" value="" size="10" />
+                    <input type="text" id="jumlah" name="jumlah" value="" size="10" />
                 </div>
             </td>
             <td>
@@ -84,6 +84,8 @@
 
 <?php if ($info)
                             echo "<div class='error_box'>" . $info . "</div>" ?>
+
+<div class="error_box" style="display: none"></div>
 
                             <br/>
 

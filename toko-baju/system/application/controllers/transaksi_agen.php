@@ -21,8 +21,11 @@ class Transaksi_agen extends Controller {
         if(!$this->session->userdata('id_agen')) redirect('/transaksi_agen/tentukan_agen');
         $info = "";
         if ($this->input->post('submit')) {
-            $add = $this->add($this->input->post('id'), $this->input->post('jumlah'));
-            if (!$add) $info = "Stok Tidak mencukupi";
+            if(!$this->input->post('id')) $info = "Input produk tidak lengkap";
+            else{
+                $add = $this->add($this->input->post('id'), $this->input->post('jumlah'));
+                if (!$add) $info = "Stok Tidak mencukupi";
+            }
         }
         $data = new stdClass();
         $data->info = $info;

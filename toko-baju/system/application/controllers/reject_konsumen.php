@@ -18,8 +18,11 @@ class Reject_konsumen extends Controller {
         }
         $info = "";
         if ($this->input->post('submit')) {
-            $add = $this->add($this->input->post('id'), $this->input->post('jumlah'), $this->input->post('harga'));
-            if (!$add) $info = "Stok Tidak mencukupi";
+            if(!$this->input->post('id')) $info = "Input produk tidak lengkap";
+            else{
+                $add = $this->add($this->input->post('id'), $this->input->post('jumlah'), $this->input->post('harga'));
+                if (!$add) $info = "Stok Tidak mencukupi";
+            }
         }
         $data = new stdClass();
         $data->info = $info;

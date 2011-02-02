@@ -1,5 +1,3 @@
-<!-- TODO: cek stok cukup atau nggak pake AJAX aja, belum ada validasi juga, kalo input kosong error  -->
-
 <h2>Transaksi Konsumen</h2>
 
 <div class="yellowbox">

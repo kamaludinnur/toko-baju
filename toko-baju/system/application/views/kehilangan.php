@@ -148,7 +148,7 @@
         var jumlahDipesen = parseInt($('#jumlah').val());
         var stokTersedia = parseInt($('#stok input[type=text]').val());
         if (jumlahDipesen > stokTersedia) {
-            $('.error_box').slideDown('slow').html("Stok tidak mencukupi. Stok tersedia hanya " + stokTersedia + " sedangkan jumlah yang dipesan " + jumlahDipesen);
+            $('.error_box').slideDown('slow').html("Data tidak valid. Stok tersedia hanya " + stokTersedia + " sedangkan jumlah yang hilang " + jumlahDipesen);
             return false;
         }
     }
