@@ -32,8 +32,21 @@ class Retur_konsumen extends Controller {
         $this->load->view('base', $data);
     }
     function refund(){
+        $tanggal = date("Y-m-d H:i:s");
+        $this->load->model('Order_model', 'order');
+
+        // ====================Order====================
+        $data = array(
+            "tanggal"   => $tanggal,
+            "total"     => $this->cart->total(),
+            "jenis"     => "agen",
+            "lunas"     => $this->session->userdata('pembayaran')
+        );
+        $id_order = $this->order->insert_order($data);
+
+        //=========================Retur==========================
         foreach($this->cart->contents() as $item){
-            $this->retur->retur_konsumen($item['id'], $item['qty'], $item['price']);
+            $this->retur->retur_konsumen($item['id'], $item['qty'], $item['price'], $id_order);
         }
         $this->cart->destroy();
         redirect('/retur_konsumen');

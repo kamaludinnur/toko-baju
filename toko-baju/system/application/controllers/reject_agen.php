@@ -59,8 +59,21 @@ class Reject_agen extends Controller {
     }
 
     function refund(){
+                $tanggal = date("Y-m-d H:i:s");
+        $this->load->model('Order_model', 'order');
+
+        // ====================Order====================
+        $data = array(
+            "tanggal"   => $tanggal,
+            "total"     => $this->cart->total(),
+            "jenis"     => "agen",
+            "lunas"     => $this->session->userdata('pembayaran')
+        );
+        $id_order = $this->order->insert_order($data);
+
+        //==========================reject======================
         foreach($this->cart->contents() as $item){
-            $this->reject->reject_agen($item['id'], $item['qty'], $item['price'], $this->session->userdata('id_agen'));
+            $this->reject->reject_agen($item['id'], $item['qty'], $item['price'], $this->session->userdata('id_agen'), $id_order);
         }
         $this->cart->destroy();
         $this->session->unset_userdata('id_agen');
