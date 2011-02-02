@@ -79,10 +79,47 @@ class Transaksi_agen extends Controller {
         $this->load->view('base', $data);
     }
     
-    function bayar(){
+    function bayar($pembayaran, $poin){
+        $tanggal = date("Y-m-d H:i:s");
+        $this->load->model('Order_model', 'order');
+        
+        // ====================Order====================
+        $data = array(
+            "tanggal"   => $tanggal,
+            "total"     => $this->cart->total(),
+            "jenis"     => "agen",
+            "lunas"     => $this->session->userdata('pembayaran')
+        );
+        $id_order = $this->order->insert_order($data);
+
+        // ====================Transaksi_agen========================
         foreach($this->cart->contents() as $item){
-            $this->transaksi_agen->tambah_transaksi($item['id'], $item['qty'], $this->session->userdata('id_agen'));
+            $this->transaksi_agen->tambah_transaksi($item['id'], $item['qty'], $this->session->userdata('id_agen'), $id_order);
         }
+
+        //=======================Pembayaran=============================
+        $data = array(
+            "tanggal"   => $tanggal,
+            "order"     => $id_order,
+            "jumlah"    => $pembayaran,
+            "metode"    => $this->session->userdata('metode')
+        );
+        
+        $this->order->insert_pembayaran($data);
+
+
+        //=========================Poin==========================
+        $data = array(
+            "tanggal"   => $tanggal,
+            "agen"      => $this->session->userdata('id_agen'),
+            "order"     => $id_order,
+            "poin"    => $poin
+        );
+
+        $this->order->insert_poin($data);
+
+        $this->session->set_userdata('metode', 1);
+
         $this->cart->destroy();
         $this->session->unset_userdata('id_agen');
         redirect('/transaksi_agen');

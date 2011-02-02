@@ -138,18 +138,23 @@
 <div style="text-align: right">
     Pembayaran:
     <select>
-        <option value="1" onclick="location.href='index.php/transaksi_agen/pembayaran/1'">Lunas</option>
-        <option value="2" onclick="location.href='index.php/transaksi_agen/pembayaran/2'">Tidak Lunas</option>
+        <option value="1" <?php if($pembayaran==1) echo "selected "?>onclick="location.href='index.php/transaksi_agen/pembayaran/1'">Lunas</option>
+        <option value="2" <?php if($pembayaran==2) echo "selected "?> onclick="location.href='index.php/transaksi_agen/pembayaran/2'">Tidak Lunas</option>
     </select>
     Metode Pembayaran:
     <select name="metode">
-        <option value="1" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/1'" <?php if($metode_pembayaran==1) echo "selected"?>>Cash</option>
-        <option value="2" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/2'" <?php if($metode_pembayaran==2) echo "selected"?>>EDC</option>
-        <option value="3" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/3'" <?php if($metode_pembayaran==3) echo "selected"?>>Transfer</option>
+        <option value="1" onclick="location.href = 'index.php/transaksi_agen/metode_pembayaran/1'" <?php if($metode_pembayaran==1) echo "selected"?>>Cash</option>
+        <option value="2" onclick="location.href = 'index.php/transaksi_agen/metode_pembayaran/2'" <?php if($metode_pembayaran==2) echo "selected"?>>EDC</option>
+        <option value="3" onclick="location.href = 'index.php/transaksi_agen/metode_pembayaran/3'" <?php if($metode_pembayaran==3) echo "selected"?>>Transfer</option>
     </select>
-    Total Pembayaran:
-    <input type="text" id="dibayar" onblur="location.href='dfd'" <?php if($pembayaran==1) echo 'disabled value="' . number_format($this->cart->total(), 0, ',', '') . '"'?>/>
-    <input type="button" value="Bayar" class="button blue" onclick="window.location = 'index.php/transaksi_agen/bayar/' + $('#dibayar').val()" />
+    Total Pembayaran<?php if($pembayaran==2) echo ' Pertama'?>:
+    
+    <input type="text" id="dibayar" size="10" <?php if($pembayaran==1) echo 'disabled value="' . number_format($this->cart->total(), 0, ',', '') . '"'; else echo 'value="0"'?>/>
+    Poin:
+
+    <input type="text" id="poin" size="4" value="0" />
+    <br />
+    <input type="button" value="Bayar" class="button blue" onclick="window.location = 'index.php/transaksi_agen/bayar/' + $('#dibayar').val() + '/' + $('#poin').val()" />
     <input type="button" value="Batal" class="button red"  onclick="location.href = 'index.php/transaksi_agen/batal'"/>
 </div>
 

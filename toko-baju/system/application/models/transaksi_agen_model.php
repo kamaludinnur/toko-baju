@@ -9,7 +9,7 @@ class Transaksi_agen_model extends Model {
         $this->load->model('Agen_model', 'agen');
     }
 
-    function tambah_transaksi($id_produk, $jumlah, $id_agen)
+    function tambah_transaksi($id_produk, $jumlah, $id_agen, $id_order)
     {
         $x = $this->produk->get_produk_by_id($id_produk);
         $a = $this->agen->get_agen($id_agen);
@@ -25,7 +25,8 @@ class Transaksi_agen_model extends Model {
             "jumlah" => $jumlah,
             "harga" => $harga_jual,
             "keuntungan" => $keuntungan,
-            "agen" => $id_agen
+            "agen" => $id_agen,
+            "order" => $id_order
         );
         
         $q = $this->db->insert('transaksi_agen', $data);

@@ -17,4 +17,9 @@ class Order_model extends Model {
         return $this->db->insert('pembayaran', $data);
     }
 
+    function insert_poin($data)
+    {
+        if($data['poin']!=0) return $this->db->insert('poin_agen', $data);
+    }
+
 }
