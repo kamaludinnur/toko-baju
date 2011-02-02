@@ -110,6 +110,7 @@ class Transaksi_agen extends Controller {
         
         $this->order->insert_pembayaran($data);
 
+        $this->session->set_userdata('print_metode_bayar', $data['metode']);
 
         //=========================Poin==========================
         $data = array(
@@ -123,9 +124,9 @@ class Transaksi_agen extends Controller {
 
         $this->session->set_userdata('metode', 1);
 
-        $this->cart->destroy();
-        $this->session->unset_userdata('id_agen');
-        redirect('/transaksi_agen');
+        $this->session->set_userdata('print_order_id', $id_order);
+
+        redirect('/transaksi_agen/print_confirm');
     }
 
     function batal(){
@@ -181,6 +182,29 @@ class Transaksi_agen extends Controller {
         $data->model = $model;
         $data->warna = $warna;
         $this->load->view('ajax_ukuran', $data);
+    }
+
+    function print_confirm()
+    {
+        $data = new stdClass();
+
+        $data->view_konten = 'print_transaksi_agen_confirm';
+        $data->title = "Transaksi Agen &raquo; Print";
+        $data->return_page = "transaksi_agen";
+
+        // transfer dulu datanya
+        $data->nomer_transaksi = $this->session->userdata('print_order_id');
+        $data->metode_bayar = $this->session->userdata('print_metode_bayar');
+        $data->isi_transaksi = $this->cart->contents();
+        $data->agen = $this->agen->get_agen($this->session->userdata('id_agen'));
+
+        // baru dihancurin
+        $this->cart->destroy();
+        $this->session->unset_userdata('print_order_id');
+        $this->session->unset_userdata('print_metode_bayar');
+        $this->session->unset_userdata('id_agen');
+
+        $this->load->view('base', $data);
     }
 
 }

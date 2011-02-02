@@ -4,7 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <base href="<?php echo base_url(); ?>"/>
         <title><?php echo $title; ?></title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+        <link rel="stylesheet" type="text/css" href="style-print.css" media="print"/>
         <link rel="stylesheet" type="text/css" href="colorbox.css" />
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/ddaccordion.js"></script>

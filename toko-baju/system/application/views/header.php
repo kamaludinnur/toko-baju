@@ -6,7 +6,7 @@
     <h2><span style="color: #CCC">Kasir &raquo; </span><?php echo $title; ?></h2>
 </div>
 
-<!--
-<div class="right_header">Welcome Admin, <a href="#" class="messages">(3) Messages</a> | <a href="index.php/master/home/logout" class="logout">Logout</a></div>
--->
+
+<div class="right_header"><a href="index.php/master">Ke Master &raquo;</a></div>
+
 <div class="jclock"></div>

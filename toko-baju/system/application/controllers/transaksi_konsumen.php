@@ -64,8 +64,11 @@ class Transaksi_konsumen extends Controller {
         );
         $this->order->insert_pembayaran($data);
         $this->session->set_userdata('metode', 1);
-        $this->cart->destroy();
-        redirect('/transaksi_konsumen');
+
+        $this->session->set_userdata('print_metode_bayar', $data['metode']);
+        $this->session->set_userdata('print_order_id', $id_order);
+
+        redirect('/transaksi_konsumen/print_confirm');
     }
     function batal()
     {
@@ -130,6 +133,27 @@ class Transaksi_konsumen extends Controller {
         $data->model = $model;
         $data->warna = $warna;
         $this->load->view('ajax_ukuran', $data);
+    }
+
+    function print_confirm()
+    {
+        $data = new stdClass();
+
+        $data->view_konten = 'print_transaksi_confirm';
+        $data->title = "Transaksi Retail &raquo; Print";
+        $data->return_page = "transaksi_konsumen";
+
+        // transfer dulu datanya
+        $data->nomer_transaksi = $this->session->userdata('print_order_id');
+        $data->metode_bayar = $this->session->userdata('print_metode_bayar');
+        $data->isi_transaksi = $this->cart->contents();
+
+        // baru dihancurin
+        $this->cart->destroy();
+        $this->session->unset_userdata('print_order_id');
+        $this->session->unset_userdata('print_metode_bayar');
+
+        $this->load->view('base', $data);
     }
 
 }
