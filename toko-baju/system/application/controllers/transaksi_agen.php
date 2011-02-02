@@ -26,6 +26,18 @@ class Transaksi_agen extends Controller {
         }
         $data = new stdClass();
         $data->info = $info;
+        if (!$this->session->userdata('metode'))
+        {
+            $this->session->set_userdata('metode', 1);
+        }
+        $metode = $this->session->userdata('metode');
+        if (!$this->session->userdata('pembayaran'))
+        {
+            $this->session->set_userdata('pembayaran', 1);
+        }
+        $pembayaran = $this->session->userdata('pembayaran');
+        $data->pembayaran = $pembayaran;
+        $data->metode_pembayaran = $metode;
         $data->view_konten = 'transaksi_agen';
         $data->title = "Transaksi Agen";
         $id_agen = $this->session->userdata('id_agen');
@@ -34,6 +46,18 @@ class Transaksi_agen extends Controller {
         $data->daftar_agen = $this->agen->get_semua_agen();
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
+    }
+
+    function pembayaran($id)
+    {
+        $this->session->set_userdata('pembayaran', $id);
+        redirect('/transaksi_agen');
+    }
+
+    function metode_pembayaran($id=1)
+    {
+        $this->session->set_userdata('metode', $id);
+        redirect('/transaksi_agen');
     }
 
     function pilih_agen($id)
@@ -73,12 +97,15 @@ class Transaksi_agen extends Controller {
     function add($produk, $jumlah)
     {
         $produk = $this->produk->get_produk_by_id($produk);
+        $agen = $this->agen->get_agen($this->session->userdata('id_agen'));
         if($produk->stok<$jumlah){ return false;}
         else {
         $data = array(
             'id'    => $produk->id,
             'qty'   => $jumlah,
-            'price' => $produk->harga_jual,
+            'harga_satuan' => $produk->harga_jual,
+            'diskon'=> $agen->diskon,
+            'price' => $produk->harga_jual*(100-$agen->diskon)/100,
             'name'  => $produk->model,
             'merek' => $produk->merek,
             'warna' => $produk->warna,

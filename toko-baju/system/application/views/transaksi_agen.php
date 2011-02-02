@@ -18,13 +18,14 @@
 <div class="yellowbox">
     <h3 class="left_drop">Produk</h3>
 
-    <form action="" method="post" style="margin-top: 10px">
+    <form action="" method="post" style="margin-top: 10px" onsubmit="return tambah();">
     <table>
         <tr>
             <td>Merek:</td>
             <td>Model:</td>
             <td>Warna:</td>
             <td>Ukuran:</td>
+            <td width="50px">Stok:</td>
             <td>Jumlah:</td>
             <td></td>
         </tr>
@@ -62,6 +63,11 @@
                 </div>
             </td>
             <td>
+                <div id="stok">
+                    <input type="text" id="isi_stok" value="" disabled style="width: 40px; font-weight: bolder" />
+                </div>
+            </td>
+            <td>
                 <div class="trx">
                     <input type="text" name="jumlah" value="" size="10" />
                 </div>
@@ -91,6 +97,8 @@
                                         <th>Ukuran</th>
                                         <th>Jumlah</th>
                                         <th>Harga Satuan</th>
+                                        <th>Diskon</th>
+                                        <th>Harga Diskon</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
@@ -98,7 +106,7 @@
         <?php
                             if (count($this->cart->contents()) == 0) { ?>
                                 <tr>
-                                    <td colspan="8" style="text-align: center"><h1>Belum ada data</h1></td>
+                                    <td colspan="10" style="text-align: center"><h1>Belum ada data</h1></td>
                                 </tr>
         <?php               } else { $i = 1;
                             foreach ($this->cart->contents() as $item) {
@@ -110,6 +118,8 @@
                                     <td><?php echo $item['warna'] ?></td>
                                     <td><?php echo $item['ukuran'] ?></td>
                                     <td style="text-align: right"><?php echo $item['qty'] ?></td>
+                                    <td style="text-align: right"><?php echo number_format($item['harga_satuan'], 0, ',', '.'); ?></td>
+                                    <td style="text-align: right"><?php echo number_format($item['diskon'], 0, ',', '.');?>%</td>
                                     <td style="text-align: right"><?php echo number_format($item['price'], 0, ',', '.'); ?></td>
                                     <td style="text-align: right"><?php echo number_format($item['subtotal'], 0, ',', '.'); ?></td>
                                 </tr>
@@ -117,7 +127,7 @@
                         </tbody>
                         <tfoot>
                             <tr style="font-size: 15px;">
-                                <td colspan="7" style="text-align: right"><strong>Total</strong></td>
+                                <td colspan="9" style="text-align: right"><strong>Total</strong></td>
                                 <td style="text-align: right"><?php echo number_format($this->cart->total(), 0, ',', '.'); ?></td>
         </tr>
     </tfoot>
@@ -126,7 +136,20 @@
 <br/>
 
 <div style="text-align: right">
-    <input type="button" value="Bayar" class="button blue" onclick="location.href = 'index.php/transaksi_agen/bayar'"/>
+    Pembayaran:
+    <select>
+        <option value="1" onclick="location.href='index.php/transaksi_agen/pembayaran/1'">Lunas</option>
+        <option value="2" onclick="location.href='index.php/transaksi_agen/pembayaran/2'">Tidak Lunas</option>
+    </select>
+    Metode Pembayaran:
+    <select name="metode">
+        <option value="1" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/1'" <?php if($metode_pembayaran==1) echo "selected"?>>Cash</option>
+        <option value="2" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/2'" <?php if($metode_pembayaran==2) echo "selected"?>>EDC</option>
+        <option value="3" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/3'" <?php if($metode_pembayaran==3) echo "selected"?>>Transfer</option>
+    </select>
+    Total Pembayaran:
+    <input type="text" id="dibayar" onblur="location.href='dfd'" <?php if($pembayaran==1) echo 'disabled value="' . number_format($this->cart->total(), 0, ',', '') . '"'?>/>
+    <input type="button" value="Bayar" class="button blue" onclick="window.location = 'index.php/transaksi_agen/bayar/' + $('#dibayar').val()" />
     <input type="button" value="Batal" class="button red"  onclick="location.href = 'index.php/transaksi_agen/batal'"/>
 </div>
 
@@ -143,6 +166,20 @@ function load_warna(model){
 
 function load_ukuran(model,warna){
     $('#ukuran').load('index.php/transaksi_agen/ukuran/' + model + '/' + warna);
+}
+
+function load_stok(id){
+    $('#stok').load('index.php/transaksi_konsumen/stok/' + id);
+}
+
+function tambah(){
+
+    var jumlahDipesen = parseInt($('#jumlah').val());
+    var stokTersedia = parseInt($('#stok input[type=text]').val());
+    if (jumlahDipesen > stokTersedia) {
+        $('.error_box').slideDown('slow').html("Stok tidak mencukupi. Stok tersedia hanya " + stokTersedia + " sedangkan jumlah yang dipesan " + jumlahDipesen);
+        return false;
+    }
 }
 
 </script>
