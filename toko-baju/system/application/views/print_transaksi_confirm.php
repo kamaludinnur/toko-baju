@@ -15,6 +15,12 @@
     <br/>
 </div>
 
+<?php if(isset($jenis)) : ?>
+<div style="float: right">
+    <h1 style="display: inline-block"><?php echo $jenis; ?></h1>
+</div>
+<?php endif; ?>
+
 <h1>Transaksi No. <?php echo $nomer_transaksi ?></h1>
 
 <h2>Tanggal <?php echo date("d/m/Y"); ?> (pukul <?php echo date("H:i"); ?>)</h2>
@@ -58,10 +64,14 @@
 
 <?php
 
-$q = $this->db->get_where('metode_pembayaran', array('id' => $metode_bayar))->result();
+if(isset($metode_bayar)) :
+
+    $q = $this->db->get_where('metode_pembayaran', array('id' => $metode_bayar))->result();
 
 ?>
 
 <p align="right">
     Pembayaran : <?php echo $q[0]->nama; ?>
 </p>
+
+<?php endif; ?>

@@ -157,7 +157,7 @@
     <input type="text" id="poin" size="4" value="0" />
     <br />
     <input type="button" value="Bayar" class="button blue" onclick="window.location = 'index.php/transaksi_agen/bayar/' + $('#dibayar').val() + '/' + $('#poin').val()" />
-    <input type="button" value="Batal" class="button red"  onclick="location.href = 'index.php/transaksi_agen/batal'"/>
+    <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/transaksi_agen/batal'"/>
 </div>
 
 

@@ -90,7 +90,7 @@ class Transaksi_agen extends Controller {
         $data = array(
             "tanggal"   => $tanggal,
             "total"     => $this->cart->total(),
-            "jenis"     => "agen",
+            "jenis"     => "transaksi_agen",
             "lunas"     => $this->session->userdata('pembayaran')
         );
         $id_order = $this->order->insert_order($data);

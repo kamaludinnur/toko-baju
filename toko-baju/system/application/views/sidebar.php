@@ -12,8 +12,8 @@
                             <a class="menuitem submenuheader" href="#">Transaksi</a>
                             <div class="submenu">
                                 <ul>
-                                    <li><a href="index.php/transaksi_agen">Transaksi Agen</a></li>
                                     <li><a href="index.php/transaksi_konsumen">Transaksi Retail</a></li>
+                                    <li><a href="index.php/transaksi_agen">Transaksi Agen</a></li>
                                     <li><a href="index.php/transaksi_kehilangan">Kehilangan</a></li>
                                 </ul>
                             </div>

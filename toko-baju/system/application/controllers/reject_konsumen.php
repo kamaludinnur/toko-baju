@@ -27,7 +27,7 @@ class Reject_konsumen extends Controller {
         $data = new stdClass();
         $data->info = $info;
         $data->view_konten = 'reject_konsumen';
-        $data->title = "Reject Konsumen";
+        $data->title = "Reject Retail";
         $data->daftar_merek = $this->merek->get_semua_merek();
         $this->load->view('base', $data);
     }
@@ -40,7 +40,7 @@ class Reject_konsumen extends Controller {
         $data = array(
             "tanggal"   => $tanggal,
             "total"     => $this->cart->total(),
-            "jenis"     => "agen",
+            "jenis"     => "reject_konsumen",
             "lunas"     => $this->session->userdata('pembayaran')
         );
         $id_order = $this->order->insert_order($data);
@@ -49,8 +49,11 @@ class Reject_konsumen extends Controller {
         foreach($this->cart->contents() as $item){
             $this->reject->reject_konsumen($item['id'], $item['qty'], $item['price'], $id_order);
         }
-        $this->cart->destroy();
-        redirect('/reject_konsumen');
+        //$this->cart->destroy();
+
+        $this->session->set_userdata('print_order_id', $id_order);
+
+        redirect('/reject_konsumen/print_confirm');
     }
 
     function batal(){
@@ -102,6 +105,26 @@ class Reject_konsumen extends Controller {
         $data->model = $model;
         $data->warna = $warna;
         $this->load->view('ajax_ukuran', $data);
+    }
+
+    function print_confirm()
+    {
+        $data = new stdClass();
+
+        $data->view_konten = 'print_transaksi_confirm';
+        $data->title = "Reject Retail &raquo; Print";
+        $data->return_page = "reject_konsumen";
+        $data->jenis = "REJECT";
+
+        // transfer dulu datanya
+        $data->nomer_transaksi = $this->session->userdata('print_order_id');
+        $data->isi_transaksi = $this->cart->contents();
+
+        // baru dihancurin
+        $this->cart->destroy();
+        $this->session->unset_userdata('print_order_id');
+
+        $this->load->view('base', $data);
     }
 
 }

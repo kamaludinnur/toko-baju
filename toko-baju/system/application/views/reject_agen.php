@@ -133,7 +133,7 @@
 
 <div style="text-align: right">
     <input type="button" value="Refund" class="button blue" onclick="location.href = 'index.php/reject_agen/refund'"/>
-    <input type="button" value="Batal" class="button red"  onclick="location.href = 'index.php/reject_agen/batal'"/>
+    <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/reject_agen/batal'"/>
 </div>
 
 <script type="text/javascript">

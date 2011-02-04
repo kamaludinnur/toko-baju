@@ -48,7 +48,7 @@ class Transaksi_konsumen extends Controller {
         $data = array(
             "tanggal"   => $tanggal,
             "total"     => $this->cart->total(),
-            "jenis"     => "konsumen",
+            "jenis"     => "transaksi_konsumen",
             "lunas"     => 1
         );
         $id_order = $this->order->insert_order($data);

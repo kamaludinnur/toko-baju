@@ -66,7 +66,7 @@ class Retur_agen extends Controller {
         $data = array(
             "tanggal"   => $tanggal,
             "total"     => $this->cart->total(),
-            "jenis"     => "agen",
+            "jenis"     => "retur_agen",
             "lunas"     => $this->session->userdata('pembayaran')
         );
         $id_order = $this->order->insert_order($data);
@@ -75,9 +75,12 @@ class Retur_agen extends Controller {
         foreach($this->cart->contents() as $item){
             $this->retur->retur_agen($item['id'], $item['qty'], $item['price'], $this->session->userdata('id_agen'), $id_order);
         }
-        $this->cart->destroy();
-        $this->session->unset_userdata('id_agen');
-        redirect('/retur_agen');
+        //$this->cart->destroy();
+        //$this->session->unset_userdata('id_agen');
+
+        $this->session->set_userdata('print_order_id', $id_order);
+
+        redirect('/retur_agen/print_confirm');
     }
     function batal(){
         $this->cart->destroy();
@@ -125,5 +128,28 @@ class Retur_agen extends Controller {
         $data->warna = $warna;
         $this->load->view('ajax_ukuran', $data);
     }
+
+    function print_confirm()
+    {
+        $data = new stdClass();
+
+        $data->view_konten = 'print_transaksi_agen_confirm';
+        $data->title = "Retur Agen &raquo; Print";
+        $data->return_page = "retur_agen";
+        $data->jenis = "RETUR";
+
+        // transfer dulu datanya
+        $data->nomer_transaksi = $this->session->userdata('print_order_id');
+        $data->isi_transaksi = $this->cart->contents();
+        $data->agen = $this->agen->get_agen($this->session->userdata('id_agen'));
+
+        // baru dihancurin
+        $this->cart->destroy();
+        $this->session->unset_userdata('print_order_id');
+        $this->session->unset_userdata('id_agen');
+
+        $this->load->view('base', $data);
+    }
+
 
 }
