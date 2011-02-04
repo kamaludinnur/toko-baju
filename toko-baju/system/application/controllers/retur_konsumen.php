@@ -60,8 +60,7 @@ class Retur_konsumen extends Controller {
     function add($produk, $jumlah, $harga)
     {
         $produk = $this->produk->get_produk_by_id($produk);
-        if($produk->stok<$jumlah){ return false;}
-        else {
+        // kita gak perlu cek stok gan
         $data = array(
             'id'    => $produk->id,
             'qty'   => $jumlah,
@@ -73,7 +72,6 @@ class Retur_konsumen extends Controller {
         );
         $this->cart->insert($data);
         return true;
-        }
     }
 
     function model($merek)

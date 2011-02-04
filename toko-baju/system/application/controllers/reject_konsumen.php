@@ -64,8 +64,7 @@ class Reject_konsumen extends Controller {
     function add($produk, $jumlah, $harga)
     {
         $produk = $this->produk->get_produk_by_id($produk);
-        if($produk->stok<$jumlah){ return false;}
-        else {
+        // gak perlu cek stok
         $data = array(
             'id'    => $produk->id,
             'qty'   => $jumlah,
@@ -77,7 +76,6 @@ class Reject_konsumen extends Controller {
         );
         $this->cart->insert($data);
         return true;
-        }
     }
 
     function model($merek)
