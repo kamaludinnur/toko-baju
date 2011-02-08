@@ -11,6 +11,9 @@
             <option value="<?php echo $agen['id']?>" <?php if ($this->session->userdata('id_agen') == $agen['id']) echo 'selected="selected"'; ?> onclick="window.location='index.php/transaksi_agen/pilih_agen/<?php echo $agen['id']?>'"><?php echo $agen['kode']?>, <?php echo $agen['nama']?></option>
             <?php }?>
         </select>
+
+        Diskon: <?php echo round($this->agen->get_agen($this->session->userdata('id_agen'))->diskon); ?>%
+
     </div>
     </form>
 </div>
@@ -156,7 +159,7 @@
 
     <input type="text" id="poin" size="4" value="0" />
     <br />
-    <input type="button" value="Bayar" class="button blue" onclick="window.location = 'index.php/transaksi_agen/bayar/' + $('#dibayar').val() + '/' + $('#poin').val()" />
+    <input type="button" value="Bayar" class="button blue" onclick="window.location = 'index.php/transaksi_agen/bayar/' + $('#dibayar').val() + '/' + $('#poin').val()" <?php if (count($this->cart->contents()) == 0) echo 'disabled="disabled"'; ?>/>
     <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/transaksi_agen/batal'"/>
 </div>
 

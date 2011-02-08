@@ -49,7 +49,7 @@
             </td>
             <td>
                 <div class="trx">
-                    <input type="text" name="harga" value="" size="10" />
+                    <input type="text" id="harga" name="harga" value="" size="10" />
                 </div>
             </td>
             <td>
@@ -117,7 +117,7 @@
 <br/>
 
 <div style="text-align: right">
-    <input type="button" value="Refund" class="button blue" onclick="location.href = 'index.php/reject_konsumen/refund'"/>
+    <input type="button" value="Refund" class="button blue" onclick="location.href = 'index.php/reject_konsumen/refund'" <?php if (count($this->cart->contents()) == 0) echo 'disabled="disabled"'; ?>/>
     <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/reject_konsumen/batal'"/>
 </div>
 
@@ -125,15 +125,24 @@
 <script type="text/javascript">
 
 function load_model(id){
-    $('#model').load('index.php/transaksi_konsumen/model/' + id);
+    $('#model').load('index.php/reject_konsumen/model/' + id);
+    $('#harga').val("");
 }
 
 function load_warna(model){
-    $('#warna').load('index.php/transaksi_konsumen/warna/' + model);
+    $('#warna').load('index.php/reject_konsumen/warna/' + model);
+    $('#harga').val("");
 }
 
 function load_ukuran(model,warna){
-    $('#ukuran').load('index.php/transaksi_konsumen/ukuran/' + model + '/' + warna);
+    $('#ukuran').load('index.php/reject_konsumen/ukuran/' + model + '/' + warna);
+    $('#harga').val("");
+}
+
+function load_harga(id_produk){
+    $.get('index.php/reject_konsumen/harga/' + parseInt(id_produk), function(harga){
+        $('#harga').val(harga);
+    });
 }
 
 </script>

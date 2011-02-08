@@ -102,7 +102,14 @@ class Reject_konsumen extends Controller {
         $data->daftar_ukuran = $x;
         $data->model = $model;
         $data->warna = $warna;
-        $this->load->view('ajax_ukuran', $data);
+        $this->load->view('ajax_ukuran_2', $data);
+    }
+
+    function harga($id_produk)
+    {
+        $produk = $this->produk->get_produk_by_id($id_produk);
+        echo round($produk->harga_jual);
+        exit;
     }
 
     function print_confirm()

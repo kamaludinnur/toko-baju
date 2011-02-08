@@ -125,7 +125,7 @@
         <option value="2" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/2'" <?php if($metode_pembayaran==2) echo "selected"?>>EDC</option>
         <option value="3" onclick="location.href = 'index.php/transaksi_konsumen/metode_pembayaran/3'" <?php if($metode_pembayaran==3) echo "selected"?>>Transfer</option>
     </select>
-    <input type="button" value="Bayar" class="button blue" onclick="location.href = 'index.php/transaksi_konsumen/bayar'"/>
+    <input type="button" value="Bayar" class="button blue" onclick="location.href = 'index.php/transaksi_konsumen/bayar'" <?php if (count($this->cart->contents()) == 0) echo 'disabled="disabled"'; ?>/>
     <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/transaksi_konsumen/batal'"/>
 </div>
 

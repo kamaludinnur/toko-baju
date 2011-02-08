@@ -5,6 +5,7 @@
     <form action="" method="post">
         <div id="agen">
             <select name="agen">
+                <option value="">Pilih agen:</option>
                 <?php
                 foreach ($daftar_agen as $agen){
                 ?>

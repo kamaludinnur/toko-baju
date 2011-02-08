@@ -9,7 +9,7 @@ class Agen_model extends Model {
     function get_semua_agen($order = 'nama')
     {
         $data = array();
-        $q = $this->db->query("SELECT * FROM agen ORDER BY $order");
+        $q = $this->db->query("SELECT agen.*, SUM(poin_agen.poin) AS total_poin FROM agen LEFT JOIN poin_agen ON agen.id = poin_agen.agen GROUP BY poin_agen.agen ORDER BY agen.{$order}");
 
         if($q->num_rows() > 0)
         {

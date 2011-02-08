@@ -11,6 +11,9 @@
             <option value="<?php echo $agen['id']?>" <?php if ($this->session->userdata('id_agen') == $agen['id']) echo 'selected="selected"'; ?> onclick="window.location='index.php/retur_agen/pilih_agen/<?php echo $agen['id']?>'"><?php echo $agen['kode']?>, <?php echo $agen['nama']?></option>
             <?php }?>
         </select>
+
+        Diskon: <?php echo round($this->agen->get_agen($this->session->userdata('id_agen'))->diskon); ?>%
+
     </div>
     </form>
 </div>
@@ -25,7 +28,7 @@
             <td>Model:</td>
             <td>Warna:</td>
             <td>Ukuran:</td>
-            <td>Harga:</td>
+            <td>Harga (+ diskon):</td>
             <td>Jumlah dikembalikan:</td>
             <td></td>
         </tr>
@@ -64,7 +67,7 @@
             </td>
             <td>
                 <div class="trx">
-                    <input type="text" name="harga" value="" size="10" />
+                    <input type="text" id="harga" name="harga" value="" size="10" />
                 </div>
             </td>
             <td>
@@ -133,7 +136,7 @@
 <br/>
 
 <div style="text-align: right">
-    <input type="button" value="Refund" class="button blue" onclick="location.href = 'index.php/retur_agen/refund'"/>
+    <input type="button" value="Refund" class="button blue" onclick="location.href = 'index.php/retur_agen/refund'" <?php if (count($this->cart->contents()) == 0) echo 'disabled="disabled"'; ?>/>
     <input type="button" value="Batal" class="button red"  onclick="if(confirm('Yakin akan membatalkan? Transaksi yang belum dibayar akan terhapus.')) location.href = 'index.php/retur_agen/batal'"/>
 </div>
 
@@ -142,15 +145,24 @@
 <script type="text/javascript">
 
 function load_model(id){
-    $('#model').load('index.php/transaksi_agen/model/' + id);
+    $('#model').load('index.php/retur_agen/model/' + id);
+    $('#harga').val("");
 }
 
 function load_warna(model){
-    $('#warna').load('index.php/transaksi_agen/warna/' + model);
+    $('#warna').load('index.php/retur_agen/warna/' + model);
+    $('#harga').val("");
 }
 
 function load_ukuran(model,warna){
-    $('#ukuran').load('index.php/transaksi_agen/ukuran/' + model + '/' + warna);
+    $('#ukuran').load('index.php/retur_agen/ukuran/' + model + '/' + warna);
+    $('#harga').val("");
+}
+
+function load_harga(id_produk){
+    $.get('index.php/retur_agen/harga/' + parseInt(id_produk), function(harga){
+        $('#harga').val(harga);
+    });
 }
 
 </script>

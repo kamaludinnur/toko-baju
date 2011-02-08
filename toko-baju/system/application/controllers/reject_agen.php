@@ -126,7 +126,16 @@ class Reject_agen extends Controller {
         $data->daftar_ukuran = $x;
         $data->model = $model;
         $data->warna = $warna;
-        $this->load->view('ajax_ukuran', $data);
+        $this->load->view('ajax_ukuran_2', $data);
+    }
+
+    function harga($id_produk)
+    {
+        $harga_jual = $this->produk->get_produk_by_id($id_produk)->harga_jual;
+        $diskon = $this->agen->get_agen($this->session->userdata('id_agen'))->diskon;
+
+        echo round($harga_jual * (100 - $diskon) / 100);
+        exit;
     }
 
     function print_confirm()

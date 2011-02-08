@@ -6,5 +6,5 @@
     <h2><span style="color: #CCC">Master &raquo; </span><?php echo $title; ?></h2>
 </div>
 
-<div class="right_header"><a href="index.php/master/home/logout" class="logout">Logout</a></div>
+<div class="right_header"><a href="index.php">&laquo; Ke kasir</a> | <a href="index.php/master/home/logout" class="logout">Logout</a></div>
 <div class="jclock"></div>
