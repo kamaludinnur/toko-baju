@@ -26,6 +26,12 @@
                                     <li><a href="index.php/master/produk">Manajemen Produk</a></li>
                                 </ul>
                             </div>
+                            <a class="menuitem submenuheader" href="#" >Transaksi</a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="index.php/master/order/cari">Cari Transaksi</a></li>
+                                </ul>
+                            </div>
                             <a class="menuitem submenuheader" href="#">Rekap Transaksi</a>
                             <div class="submenu">
                                 <ul>
@@ -33,6 +39,7 @@
                                     <li><a href="index.php/master/rekap/transaksi_agen">Transaksi Agen</a></li>
                                     <li><a href="index.php/master/rekap/record_stok">Record Stok Produk</a></li>
                                     <li><a href="index.php/master/rekap/kehilangan">Rekap Kehilangan</a></li>
+                                    <li><a href="index.php/master/rekap/poin_agen">Rekap Poin Agen</a></li>
                                 </ul>
                             </div>
                             <a class="menuitem submenuheader" href="#">Rekap Retur</a>

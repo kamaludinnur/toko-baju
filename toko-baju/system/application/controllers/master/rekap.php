@@ -619,5 +619,45 @@ class Rekap extends Controller {
 
     }
 
+    // poin
 
+    function poin_agen($id_agen = 0)
+    {
+        $data = new stdClass();
+
+        $data->daftar_agen = $this->agen->get_semua_agen('kode');
+        $data->id_agen = $id_agen;
+
+        if($id_agen != 0) $data->langsung_tampilin = true;
+
+        // view yang memuat isi halamannya
+        $data->view_konten = "rekap/rekap_poin_agen";
+        $data->title = "Rekap Poin Agen";
+
+        // ambil view "master_base.php" (templet dasar)
+        $this->load->view('master/master_base', $data);
+    }
+
+    function poin_agen_get()
+    {
+        $data = new stdClass();
+
+        $agen       = $this->input->post('agen');
+        $start_date = $this->input->post('start');
+        $end_date   = $this->input->post('end');
+        $range      = $this->input->post('range');
+
+        $data->start_date = $this->format_date($start_date);
+        $data->end_date = $this->format_date($end_date);
+
+        if ($range == 'all')
+            $data->data_rekapan = $this->rekap->get_poin_agen($agen);
+        elseif ($range == 'range')
+        {
+            $data->data_rekapan = $this->rekap->get_poin_agen($agen, $this->format_date($start_date), $this->format_date($end_date));
+            $data->is_range = true;
+        }
+
+        $this->load->view('master/rekap/rekap_poin_agen_table', $data);
+    }
 }

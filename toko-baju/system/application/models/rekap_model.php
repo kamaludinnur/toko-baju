@@ -466,4 +466,52 @@ class Rekap_model extends Model {
 
     }
 
+    function get_poin_agen($agen, $start_date = '', $end_date = '', $order_by = 'tanggal ASC')
+    {
+        $data = array();
+        $ambil_semua = true;
+
+        // formatting
+        // from mm/dd/yyyy to yyyy-mm-dd
+
+        if ($start_date != '' && $end_date != '')
+        {
+            $start_date = date('Y-m-d', strtotime($start_date));
+            $end_date = date('Y-m-d', strtotime($end_date));
+
+            $ambil_semua = false;
+        }
+
+        $id_agen = intval($agen);
+
+        $query_string = "   SELECT
+                                poin_agen.tanggal AS tanggal,
+                                poin_agen.order AS no_transaksi,
+                                order.total AS total,
+                                poin_agen.poin AS poin
+                            FROM poin_agen, `order`
+                            WHERE
+                                poin_agen.order = order.id
+                                AND poin_agen.agen = {$id_agen} ";
+        if (!$ambil_semua) $query_string .= " AND DATE_FORMAT(poin_agen.tanggal, '%Y-%m-%d') >= '{$start_date}' AND DATE_FORMAT(poin_agen.tanggal, '%Y-%m-%d') <= '{$end_date}'";
+        $query_string .=  " ORDER BY {$order_by}";
+
+        $q = $this->db->query($query_string);
+
+        if($q->num_rows() > 0)
+        {
+            foreach ($q->result_array() as $row)
+            {
+                $data[] = $row;
+            }
+        }
+
+        $q->free_result();
+        return $data;
+
+    }
+
+
+
+
 }

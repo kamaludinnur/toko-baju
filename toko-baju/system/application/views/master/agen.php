@@ -51,7 +51,7 @@
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['hp']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['alamat']; ?></td>
             <td onclick="showEditForm(<?php echo $agen['id']; ?>)"><?php echo $agen['keterangan']; ?></td>
-            <td><?php echo $agen['total_poin']; ?></td>
+            <td style="text-align: center"><a href="index.php/master/rekap/poin_agen/<?php echo $agen['id']; ?>" style="font-weight: bold" title="Lihat rekap poin agen ini"><?php echo $agen['total_poin']; ?></a></td>
             <td>
                 <input type="button" value="Edit" class="edit-in-place-btn" onclick="showEditForm(<?php echo $agen['id']; ?>)"/><input type="button" value="Hapus" class="edit-in-place-btn delete" <?php if (!$this->agen->aman_dihapus($agen['id'])) echo 'disabled' ?> onclick="hapus(<?php echo $agen['id']; ?>)"/>
             </td>
