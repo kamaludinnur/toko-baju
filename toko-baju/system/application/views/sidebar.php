@@ -14,7 +14,9 @@
                                 <ul>
                                     <li><a href="index.php/transaksi_konsumen">Transaksi Retail</a></li>
                                     <li><a href="index.php/transaksi_agen">Transaksi Agen</a></li>
+                                    <li><a href="index.php/transaksi_pelunasan">Transaksi Pelunasan</a></li>
                                     <li><a href="index.php/transaksi_kehilangan">Kehilangan</a></li>
+
                                 </ul>
                             </div>
                             <a class="menuitem submenuheader" href="#">Retur</a>
