@@ -25,7 +25,7 @@ Berikut ini daftar Agen yang memiliki transaksi yang belum lunas.
     <tbody>
         <?php if (count($daftar_hutang) == 0) : ?>
         <tr>
-            <td colspan="6">Belum ada data</td>
+            <td colspan="9"><h1 style="text-align: center">Belum ada data</h1></td>
         </tr>
         <?php else : $i = $this->uri->segment(4, 0) + 1; foreach($daftar_hutang as $produk) : ?>
         <tr <?php if($i%2 == 0) echo "class='alt'" ; ?> id="baris_" >

@@ -137,7 +137,7 @@ class Produk_model extends Model {
     function get_semua_ukuran($model, $warna)
     {
         $data = array();
-        $q = $this->db->query("SELECT produk.id as id, ukuran.nama as nama FROM produk join ukuran WHERE produk.model = $model And produk.ukuran = ukuran.id AND produk.warna=$warna  ORDER BY produk.id");
+        $q = $this->db->query("SELECT produk.id as id, ukuran.nama as nama FROM produk join ukuran WHERE produk.model = $model And produk.ukuran = ukuran.id AND produk.warna=$warna  ORDER BY ukuran.id");
 
         if($q->num_rows() > 0)
         {

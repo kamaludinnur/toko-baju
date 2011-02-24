@@ -219,7 +219,7 @@
 
 </script>
 
-<div style="width: 195px; position: absolute; top: 0px; right: 260px;">
+<div style="width: 195px; position: absolute; top: 0px; right: 20px;">
 
     <div id="produk_hint_sidebar">
 
