@@ -157,6 +157,8 @@ class Retur_agen extends Controller {
         $this->session->unset_userdata('print_order_id');
         $this->session->unset_userdata('id_agen');
 
+        $data->is_print = true;
+
         $this->load->view('base', $data);
     }
 

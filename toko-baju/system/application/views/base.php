@@ -57,7 +57,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="jquery.fastconfirm.css" />
 
     </head>
-    <body style="overflow: hidden;">
+    <body <?php if (!isset($is_print)) echo ' style="overflow: hidden;"' ?>>
 
         <script type="text/javascript">
 
@@ -81,6 +81,8 @@
         }
 
 
+<?php if (!isset($is_print)) : ?>
+
         $(document).ready(function(){
             $('.right_content, .left_content').css({height: $(window).height() - $('.header').height() - 50 + 'px'});
             $('.right_content h2').first().remove();
@@ -95,6 +97,8 @@
         $(window).resize(function(){
             $('.right_content, .left_content').css({height: $(window).height() - $('.header').height() - 50 + 'px'});
         });
+
+<?php endif; ?>
 
         </script>
 

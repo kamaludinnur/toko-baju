@@ -107,4 +107,11 @@ class Home extends Controller {
         $this->load->view('master/master_base', $data);
     }
 
+    function db_dump()
+    {
+        header("Content-type: text/x-sql");
+        header('Content-Disposition: attachment; filename="backup_database_' . date('d-M-Y_H-i-s')  . '.sql"');
+        echo `mysqldump --opt --host=localhost --user=root --password=1234 tokobaju`;
+    }
+
 }

@@ -129,6 +129,8 @@ class Reject_konsumen extends Controller {
         $this->cart->destroy();
         $this->session->unset_userdata('print_order_id');
 
+        $data->is_print = true;
+
         $this->load->view('base', $data);
     }
 

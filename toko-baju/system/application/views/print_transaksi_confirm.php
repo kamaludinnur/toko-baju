@@ -13,7 +13,36 @@
     <input type="button" class="button orange" value="     Print     " onclick="window.print()"/>
     <input type="button" class="button blue" value="     Selesai     " onclick="location.href = 'index.php/<?php echo $return_page ?>'"/>
     <br/>
+    <br/>
 </div>
+
+<table width="100%" border="0" cellspacing="7">
+    <tr>
+        <td width="60%" style="vertical-align: top">
+            <img src="images/logo-outlet.jpg" alt=""/>
+            <h2>Sabilla Distributor</h2>
+            <strong>Distributor Outlet</strong>
+            <br/>
+            <br/>
+            <small>
+                Ruko Cibinong Mansion<br/>
+                Jl. Raya Jakarta - Bogor KM. 46 Blok Tulip No. 22 Cibinong<br/>
+                HP. 0819 3261 5666 / 0818 0495 1066
+                Telp/Fax 021-8761066<br/>
+                Cibinong - Bogor
+            </small>
+        </td>
+        <td width="40%" style="vertical-align: top">
+            <div style="text-align: right">
+                <h2>Transaksi No. <?php echo $nomer_transaksi ?></h2>
+            </div>
+            Cibinong, <?php echo date("d/m/Y"); ?>
+            <br/>
+            <br/>
+            Kepada Yth, ___________________________
+        </td>
+    </tr>
+</table>
 
 <?php if(isset($jenis)) : ?>
 <div style="float: right">
@@ -21,9 +50,7 @@
 </div>
 <?php endif; ?>
 
-<h1>Transaksi No. <?php echo $nomer_transaksi ?></h1>
-
-<h2>Tanggal <?php echo date("d/m/Y"); ?> (pukul <?php echo date("H:i"); ?>)</h2>
+<br/>
 
                             <table class="rounded-corner" id="main_table">
                                 <thead>
@@ -71,7 +98,22 @@ if(isset($metode_bayar)) :
 ?>
 
 <p align="right">
-    Pembayaran : <?php echo $q[0]->nama; ?>
+    <small>Pembayaran : <?php echo $q[0]->nama; ?></small>
 </p>
 
 <?php endif; ?>
+
+<br/>
+
+<div style="text-align: right">
+
+    <strong>Hormat kami,</strong>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    .........................
+
+</div>

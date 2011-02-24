@@ -153,6 +153,8 @@ class Transaksi_konsumen extends Controller {
         $this->session->unset_userdata('print_order_id');
         $this->session->unset_userdata('print_metode_bayar');
 
+        $data->is_print = true;
+
         $this->load->view('base', $data);
     }
 

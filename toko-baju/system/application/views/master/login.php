@@ -153,7 +153,10 @@
 
                                         <dl style="width: auto">
                                             <dt style="width: 80px;"><label for="password">&nbsp;</label></dt>
-                                            <dd style="width: auto"><input type="submit" name="submit" id="submit" value="   Login   " class="button blue" /></dd>
+                                            <dd style="width: auto">
+                                                <input type="submit" name="submit" id="submit" value="   Login   " class="button blue" />
+                                                <input type="button" value="   &laquo; Ke kasir   " class="button blue" onclick="window.location = 'index.php';" />
+                                            </dd>
                                         </dl>
 
                                     </fieldset>
